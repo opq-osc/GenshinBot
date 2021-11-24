@@ -32,8 +32,6 @@ namespace YukinoshitaBot.Services
         /// </summary>
         /// <param name="serviceProvider">服务容器</param>
         /// <param name="controllerCollection">控制器容器</param>
-        /// <param name="logger">日志</param>
-        /// <param name="cache">缓存</param>
         public YukinoshitaController(
             IServiceProvider serviceProvider,
             ControllerCollection controllerCollection)
@@ -43,7 +41,7 @@ namespace YukinoshitaBot.Services
         }
 
         /// <inheritdoc/>
-        public async void OnFriendPictureMsgRecieved(PictureMessage msg)
+        public async Task OnFriendPictureMsgRecievedAsync(PictureMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
@@ -52,7 +50,7 @@ namespace YukinoshitaBot.Services
                     using (var scope = this.serviceProvider.CreateScope())
                     {
                         IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.FriendPicMsgHandler(msg);
+                        await controllerObj.FriendPicMsgHandlerAsync(msg);
                     }
 
                     if (controller.ControllerAttribute.Mode is HandleMode.Break)
@@ -64,7 +62,7 @@ namespace YukinoshitaBot.Services
         }
 
         /// <inheritdoc/>
-        public async void OnFriendTextMsgRecieved(TextMessage msg)
+        public async Task OnFriendTextMsgRecievedAsync(TextMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
@@ -73,7 +71,7 @@ namespace YukinoshitaBot.Services
                     using (var scope = this.serviceProvider.CreateScope())
                     {
                         IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.FriendTextMsgHandler(msg);
+                        await controllerObj.FriendTextMsgHandlerAsync(msg);
                     }
 
                     if (controller.ControllerAttribute.Mode is HandleMode.Break)
@@ -85,7 +83,7 @@ namespace YukinoshitaBot.Services
         }
 
         /// <inheritdoc/>
-        public async void OnGroupPictureMsgRecieved(PictureMessage msg)
+        public async Task OnGroupPictureMsgRecievedAsync(PictureMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
@@ -94,7 +92,7 @@ namespace YukinoshitaBot.Services
                     using (var scope = this.serviceProvider.CreateScope())
                     {
                         IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.GroupPicMsgHandler(msg);
+                        await controllerObj.GroupPicMsgHandlerAsync(msg);
                     }
 
                     if (controller.ControllerAttribute.Mode is HandleMode.Break)
@@ -106,7 +104,7 @@ namespace YukinoshitaBot.Services
         }
 
         /// <inheritdoc/>
-        public async void OnGroupTextMsgRecieved(TextMessage msg)
+        public async Task OnGroupTextMsgRecievedAsync(TextMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
@@ -115,7 +113,7 @@ namespace YukinoshitaBot.Services
                     using (var scope = this.serviceProvider.CreateScope())
                     {
                         IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.GroupTextMsgHandler(msg);
+                        await controllerObj.GroupTextMsgHandlerAsync(msg);
                     }
 
                     if (controller.ControllerAttribute.Mode is HandleMode.Break)

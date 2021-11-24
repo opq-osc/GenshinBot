@@ -16,24 +16,24 @@ namespace YukinoshitaBot.Data.Controller
         /// 处理好友文字消息
         /// </summary>
         /// <param name="message"><see cref="TextMessage"/></param>
-        public Task FriendTextMsgHandler(TextMessage message);
+        public Task FriendTextMsgHandlerAsync(TextMessage message);
 
         /// <summary>
         /// 处理群组文字消息
         /// </summary>
         /// <param name="message"><see cref="TextMessage"/></param>
-        public Task GroupTextMsgHandler(TextMessage message);
+        public Task GroupTextMsgHandlerAsync(TextMessage message);
 
         /// <summary>
         /// 处理好友图片消息
         /// </summary>
         /// <param name="message"><see cref="TextMessage"/></param>
-        public Task FriendPicMsgHandler(PictureMessage message);
+        public Task FriendPicMsgHandlerAsync(PictureMessage message);
 
         /// <summary>
         /// 处理群组图片消息
         /// </summary>
         /// <param name="message"><see cref="PictureMessage"/></param>
-        public Task GroupPicMsgHandler(PictureMessage message);
+        public Task GroupPicMsgHandlerAsync(PictureMessage message);
     }
 }

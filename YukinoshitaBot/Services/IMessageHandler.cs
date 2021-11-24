@@ -20,24 +20,24 @@ namespace YukinoshitaBot.Services
         /// 群文本消息处理
         /// </summary>
         /// <param name="msg">消息</param>
-        void OnGroupTextMsgRecieved(TextMessage msg);
+        Task OnGroupTextMsgRecievedAsync(TextMessage msg);
 
         /// <summary>
         /// 群图片消息处理
         /// </summary>
         /// <param name="msg">消息</param>
-        void OnGroupPictureMsgRecieved(PictureMessage msg);
+        Task OnGroupPictureMsgRecievedAsync(PictureMessage msg);
 
         /// <summary>
         /// 好友文本消息处理
         /// </summary>
         /// <param name="msg">消息</param>
-        void OnFriendTextMsgRecieved(TextMessage msg);
+        Task OnFriendTextMsgRecievedAsync(TextMessage msg);
 
         /// <summary>
         /// 好友图片消息处理
         /// </summary>
         /// <param name="msg">消息</param>
-        void OnFriendPictureMsgRecieved(PictureMessage msg);
+        Task OnFriendPictureMsgRecievedAsync(PictureMessage msg);
     }
 }

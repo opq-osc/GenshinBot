@@ -28,8 +28,8 @@ namespace YukinoshitaBot
         private readonly IConfiguration configuration;
         private readonly OpqApi opqApi;
         private readonly IMessageHandler msgHandler;
-        private SocketIO client;
-        private string wsApi;
+        private SocketIO client = null!;
+        private string wsApi = null!;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YukinoshitaWorker"/> class.
@@ -90,10 +90,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        this.msgHandler.OnGroupTextMsgRecieved(textMsg);
+                        _ = this.msgHandler.OnGroupTextMsgRecievedAsync(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        this.msgHandler.OnGroupPictureMsgRecieved(picMsg);
+                        _ = this.msgHandler.OnGroupPictureMsgRecievedAsync(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());
@@ -126,10 +126,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        this.msgHandler.OnFriendTextMsgRecieved(textMsg);
+                        _ = this.msgHandler.OnFriendTextMsgRecievedAsync(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        this.msgHandler.OnFriendPictureMsgRecieved(picMsg);
+                        _ = this.msgHandler.OnFriendPictureMsgRecievedAsync(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());
@@ -139,7 +139,7 @@ namespace YukinoshitaBot
             this.client.OnDisconnected += this.WhenDisconnect;
             this.client.OnConnected += this.WhenConnect;
 
-            await this.client.ConnectAsync();
+            await this.client.ConnectAsync().ConfigureAwait(false);
         }
 
         private void WhenConnect(object? sender, EventArgs e)
@@ -147,10 +147,10 @@ namespace YukinoshitaBot
             this.logger.LogInformation("YukinoshitaBot is now connected.");
         }
 
-        private async void WhenDisconnect(object? sender, string e)
+        private void WhenDisconnect(object? sender, string e)
         {
             this.logger.LogInformation("YukinoshitaBot just disconnect.");
-            await this.NewClientAsync(this.wsApi);
+            _ = this.NewClientAsync(this.wsApi);
         }
 
         /// <inheritdoc/>
