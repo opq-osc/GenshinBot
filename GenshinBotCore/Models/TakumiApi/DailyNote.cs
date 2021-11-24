@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+namespace GenshinBotCore.Models.TakumiApi
+{
+    /// <summary>
+    /// 每日便签
+    /// </summary>
+    public class DailyNote
+    {       
+        /// <summary>
+        /// 当前树脂数量
+        /// </summary>
+        [JsonPropertyName("current_resin")]
+        public int CurrentResin { get; set; }
+
+        /// <summary>
+        /// 最大树脂数量
+        /// </summary>
+        [JsonPropertyName("max_resin")]
+        public int MaxResin { get; set; }
+
+        /// <summary>
+        /// 树脂回满所需时间
+        /// </summary>
+        [JsonPropertyName("resin_recovery_time")]
+        public int ResinRecoveryTime { get; set; }
+
+        /// <summary>
+        /// 已完成每日任务数量
+        /// </summary>
+        [JsonPropertyName("finished_task_num")]
+        public int FinishedTaskNum { get; set; }
+
+        /// <summary>
+        /// 总的每日任务数量
+        /// </summary>
+        [JsonPropertyName("total_task_num")]
+        public int TotalTaskNum { get; set; }
+
+        /// <summary>
+        /// 是否领取每日任务额外奖励
+        /// </summary>
+        [JsonPropertyName("is_extra_task_reward_received")]
+        public bool IsExtraTaskRewardReceived { get; set; } = false;
+
+        /// <summary>
+        /// 剩余周本次数
+        /// </summary>
+        [JsonPropertyName("remain_resin_discount_num")]
+        public int RemainResinDiscountNum { get; set; }
+
+        /// <summary>
+        /// 周本总次数
+        /// </summary>
+        [JsonPropertyName("resin_discount_num_limit")]
+        public int ResinDiscountNumLimit { get; set; }
+
+        /// <summary>
+        /// 当前探索派遣数量
+        /// </summary>
+        [JsonPropertyName("current_expedition_num")]
+        public int CurrentExpeditionNum { get; set; }
+
+        /// <summary>
+        /// 最大探索派遣数量
+        /// </summary>
+        [JsonPropertyName("max_expedition_num")]
+        public int MaxExpeditionNum { get; set; }
+
+        // expeditions
+    }
+
+    /// <summary>
+    /// 探索派遣信息
+    /// </summary>
+    public class ExpeditionInfo
+    {
+        /// <summary>
+        /// 角色头像
+        /// </summary>
+        [JsonPropertyName("avatar_side_icon")]
+        public Uri CharacterAvatar { get; set; } = null!;
+
+        /// <summary>
+        /// 剩余时间
+        /// </summary>
+        [JsonPropertyName("remained_time")]
+        public int RemainedTime { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; } = string.Empty;
+    }
+}
