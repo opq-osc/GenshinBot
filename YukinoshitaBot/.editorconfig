@@ -1,7 +1,0 @@
-﻿[*.{cs,vb}]
-
-# IDE0003: 删除限定
-dotnet_diagnostic.IDE0003.severity = none
-
-# SA1629: Documentation text should end with a period
-dotnet_diagnostic.SA1629.severity = none
