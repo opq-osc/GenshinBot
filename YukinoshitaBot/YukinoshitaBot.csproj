@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<Company>Token Team</Company>
+		<Authors>Zhuoqiang.Li</Authors>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>基于OPQ的QQ机器人开发框架，支持依赖注入，快速搭建业务</Description>
+		<PackageId>YukinoshitaBot.OPQ</PackageId>
+		<PackageProjectUrl>https://github.com/AZ0133/YukinoshitaBot.OPQ</PackageProjectUrl>
+		<Version>0.1.1</Version>
+		<RepositoryUrl>https://github.com/AZ0133/YukinoshitaBot.OPQ</RepositoryUrl>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+		<NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<CodeAnalysisRuleSet>.rulesets\RoslynAnalyzers.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRuleSet>.rulesets\RoslynSharedOverrides.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRuleSet>.rulesets\RoslynStyleCopStrict.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRuleSet>.rulesets\StyleCopStrict.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.10.56">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.14" />
+		<PackageReference Include="SocketIOClient" Version="2.0.0" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
