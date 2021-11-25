@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenshinBotCore.Models.TakumiApi
+namespace GenshinBotCore.Models
 {
     public interface IApiResponse<T>
     {

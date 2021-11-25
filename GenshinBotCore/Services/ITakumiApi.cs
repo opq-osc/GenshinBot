@@ -1,18 +1,19 @@
-﻿using GenshinBotCore.Models.TakumiApi;
+﻿using GenshinBotCore.Models;
+using GenshinBotCore.Models.TakumiApi;
 using Index = GenshinBotCore.Models.TakumiApi.Index;
 
 namespace GenshinBotCore.Services
 {
-    internal interface ITakumiApi
+    public interface ITakumiApi
     {
-        public IApiResponse<UserToken> GetMultiTokenByLoginTicket(string loginTicket, string uid, int tokenType);
+        public Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType);
 
-        public IApiResponse<GameRoles> GetGameRolesBySToken(string stoken, string uid);
+        public Task<IApiResponse<GameRoles>> GetGameRolesBySTokenAsync(string stoken, string uid);
 
-        public IApiResponse<SpiralAbyss> GetSpiralAbyss(string roleId, string serverId, int scheduleType);
+        public Task<IApiResponse<SpiralAbyss>> GetSpiralAbyssAsync(string roleId, string serverId, int scheduleType);
 
-        public IApiResponse<DailyNote> GetDailyNote(string roleId, string serverId);
+        public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId);
 
-        public IApiResponse<Index> GetIndex(string roleId, string serverId);
+        public Task<IApiResponse<Index>> GetIndexAsync(string roleId, string serverId);
     }
 }

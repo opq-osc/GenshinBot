@@ -18,7 +18,7 @@ namespace GenshinBotCore.Services.Tests
             {
                 config.Salt = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
             });
-            var header = takumiSecretHeaderGenerator.GenerateSecretHeader();
+            var header = takumiSecretHeaderGenerator.GenerateSecretHeader("querry");
             Assert.IsTrue(header.Any());
         }
     }
