@@ -14,4 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\YukinoshitaBot\YukinoshitaBot.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 </Project>
