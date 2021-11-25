@@ -13,5 +13,8 @@ namespace GenshinBotCore.Extensions
             var queryString = string.Join('&', query.Select(x => $"{x.Key}={x.Value}"));
             return baseUrl + '?' + queryString;
         }
+
+        public static string ToQueryString(this IDictionary<string, string> queryDictionary)
+            => string.Join('&', queryDictionary.Select(x => $"{x.Key}={x.Value}"));
     }
 }
