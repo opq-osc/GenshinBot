@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace GenshinBotCore.Models.MihoyoAccount
 {
+    public class AccountData
+    {
+        [JsonPropertyName("account_info")]
+        public Account Account { get; set; } = null!;
+    }
+
     public class Account
     {
         [JsonPropertyName("account_id")]
-        public string Id { get; set; } = null!;
+        public long Id { get; set; }
 
         [JsonPropertyName("weblogin_token")]
         public string Token { get; set; } = null!;
