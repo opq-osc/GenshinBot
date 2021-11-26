@@ -11,15 +11,20 @@ namespace GenshinBotCore.Services
 {
     public class TakumiSecretHeaderGenerator : ISecretHeaderGenerator
     {
-        public TakumiSecretHeaderGenerator(Action<TakumiSecretHeaderGeneratorConfiguration> config)
+        public TakumiSecretHeaderGenerator(IUserManager userManager, ISecretManager secretManager, 
+            Action<TakumiSecretHeaderGeneratorConfiguration> config)
         {
             this.config = new();
             config.Invoke(this.config);
+            this.secretManager = secretManager;
+            this.userManager = userManager;
         }
 
         private readonly TakumiSecretHeaderGeneratorConfiguration config;
+        private readonly ISecretManager secretManager;
+        private readonly IUserManager userManager;
 
-        public IDictionary<string, string> GenerateSecretHeader(string query)
+        public IDictionary<string, string> GenerateSecretHeader(Guid userId, string query)
         {
             var result = new Dictionary<string, string>();
 
@@ -35,6 +40,21 @@ namespace GenshinBotCore.Services
             var headerValue = $"{time},{rand},{hashStr}";
 
             result.Add("DS", headerValue);
+
+            secretManager.Bind(userId.ToString());
+            var token = secretManager.GetSymmetricSecret("ltoken");
+            var ticket = secretManager.GetSymmetricSecret("ticket");
+            var mihoyoId = userManager.GetUserById(userId)?.GenshinUid ?? throw new InvalidOperationException("用户不存在");
+
+            var cookieDict = new Dictionary<string, string>()
+            {
+                { "ltoken", token }, { "ltuid", mihoyoId }, { "login_ticket", ticket }
+            };
+
+            var cookie = string.Join(string.Empty, cookieDict.Select(c => $"{c.Key}={c.Value};"));
+            result.Add("Cookie", cookie);
+            result.Add("x-rpc-app_version", config.AppVersion);
+            result.Add("x-rpc-client_type", config.ClientType.ToString());
 
             return result;
         }

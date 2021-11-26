@@ -8,6 +8,6 @@ namespace GenshinBotCore.Services
 {
     public interface ISecretHeaderGenerator
     {
-        IDictionary<string, string> GenerateSecretHeader(string query);
+        IDictionary<string, string> GenerateSecretHeader(Guid userId, string query);
     }
 }
