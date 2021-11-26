@@ -9,6 +9,7 @@ namespace GenshinBotCore.Services
     {
         private static readonly string _loginUrl = "https://webapi.account.mihoyo.com/Api/login_by_mobilecaptcha";
 
+        ///<inheritdoc/>
         public async Task<IApiResponse<Account>> Login(string phone, string captcha)
         {
             var response = await _loginUrl.HasQuery(new Dictionary<string, string>()

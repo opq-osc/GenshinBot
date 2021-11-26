@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace GenshinBotCore.Services
 {
+    /// <summary>
+    /// 用户管理器
+    /// </summary>
     public interface IUserManager
     {
         User? GetUserById(Guid id);

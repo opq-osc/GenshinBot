@@ -26,11 +26,13 @@ namespace GenshinBotCore.Services
         private readonly ISecretHeaderGenerator secretHeaderGenerator;
         private readonly IUserManager userManager;
 
+        ///<inheritdoc/>
         public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
         {
             throw new NotImplementedException();
         }
 
+        ///<inheritdoc/>
         public async Task<IApiResponse<GameAccounts>> GetGameAccounts(string uid)
         {
             var requsetParams = new Dictionary<string, string>
@@ -54,6 +56,7 @@ namespace GenshinBotCore.Services
             return await response.CastTo<TakumiApiResponse<GameAccounts>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
+        ///<inheritdoc/>
         public async Task<IApiResponse<Index>> GetIndexAsync(string roleId, string serverId)
         {
             var requestParams = new Dictionary<string, string>
@@ -78,6 +81,7 @@ namespace GenshinBotCore.Services
             return await response.CastTo<TakumiApiResponse<Index>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
+        ///<inheritdoc/>
         public async Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType)
         {
             var requestParams = new Dictionary<string, string>
@@ -94,6 +98,7 @@ namespace GenshinBotCore.Services
             return await response.CastTo<TakumiApiResponse<UserToken>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
+        ///<inheritdoc/>
         public Task<IApiResponse<SpiralAbyss>> GetSpiralAbyssAsync(string roleId, string serverId, int scheduleType)
         {
             throw new NotImplementedException();
