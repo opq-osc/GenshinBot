@@ -8,7 +8,7 @@ namespace GenshinBotCore.Services
     {
         public Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType);
 
-        public Task<IApiResponse<GameRoles>> GetGameRolesBySTokenAsync(string stoken, string uid);
+        public Task<IApiResponse<GameAccounts>> GetGameAccounts(string uid);
 
         public Task<IApiResponse<SpiralAbyss>> GetSpiralAbyssAsync(string roleId, string serverId, int scheduleType);
 
