@@ -31,5 +31,9 @@ namespace GenshinBotCore.Models.TakumiApi
         public string RegionName { get; set; } = string.Empty;
     }
 
-    public record GameAccounts(IEnumerable<GameAccount> List);
+    public class GameAccounts
+    {
+        [JsonPropertyName("list")]
+        public IEnumerable<GameAccount> List { get; set; } = null!;
+    }
 }

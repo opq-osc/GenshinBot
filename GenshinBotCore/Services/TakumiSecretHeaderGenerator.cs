@@ -45,7 +45,7 @@ namespace GenshinBotCore.Services
             secretManager.Bind(userId.ToString());
             var token = secretManager.GetSymmetricSecret("ltoken");
             var ticket = secretManager.GetSymmetricSecret("ticket");
-            var mihoyoId = userManager.GetUserById(userId)?.GenshinUid ?? throw new InvalidOperationException("用户不存在");
+            var mihoyoId = userManager.GetUserById(userId)?.MihoyoId ?? throw new InvalidOperationException("用户不存在");
 
             var cookieDict = new Dictionary<string, string>()
             {
