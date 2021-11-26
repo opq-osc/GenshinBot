@@ -16,7 +16,7 @@ namespace GenshinBotCore.Extensions
             return await JsonSerializer.DeserializeAsync<T>(await response.GetStreamAsync()).ConfigureAwait(false);
         }
 
-        public static IFlurlRequest WithHeaders(this string url, IDictionary<string, string?> extraHeaders)
+        public static IFlurlRequest WithHeaders(this string url, IDictionary<string, string> extraHeaders)
         {
             var dynamicObj = new ExpandoObject();
             var propertyDict = (ICollection<KeyValuePair<string, object?>>)dynamicObj;

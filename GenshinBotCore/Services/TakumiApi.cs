@@ -13,22 +13,38 @@ namespace GenshinBotCore.Services
 {
     public class TakumiApi : ITakumiApi
     {
-        public TakumiApi(Action<TakumiApiConfiguration> configuration)
+        public TakumiApi(ISecreatHeaderGenerator secreatHeaderGenerator, Action<TakumiApiConfiguration> configuration)
         {
             this.configuration = new();
             configuration.Invoke(this.configuration);
+            this.secreatHeaderGenerator = secreatHeaderGenerator;
         }
 
         private readonly TakumiApiConfiguration configuration;
+        private readonly ISecreatHeaderGenerator secreatHeaderGenerator;
 
         public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IApiResponse<GameAccounts>> GetGameAccounts(string uid)
+        public async Task<IApiResponse<GameAccounts>> GetGameAccounts(string uid)
         {
-            throw new NotImplementedException();
+            var requsetParams = new Dictionary<string, string>
+            {
+                { "uid", uid }
+            };
+            var queryString = requsetParams.ToQueryString();
+            var secretHeader = secreatHeaderGenerator.GenerateSecretHeader(queryString);
+
+            var response = await (configuration.BaseUrl + configuration.GameAccountsUrl)
+                                 .HasQuery(requsetParams)
+                                 .WithHeaders(secretHeader)
+                                 .GetAsync()
+                                 .ConfigureAwait(false);
+            if (response.StatusCode != 200) throw new HttpRequestException();
+
+            return await response.CastTo<TakumiApiResponse<GameAccounts>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
         public Task<IApiResponse<Models.TakumiApi.Index>> GetIndexAsync(string roleId, string serverId)
