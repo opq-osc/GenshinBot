@@ -17,7 +17,7 @@ namespace GenshinBotCore.Extensions
         /// <returns></returns>
         public static long ToShortTimeStamp(this DateTime dateTime)
         {
-            return (long)(dateTime - _unixBase).TotalSeconds;
+            return (long)(dateTime.ToUniversalTime() - _unixBase).TotalSeconds;
         }
     }
 }
