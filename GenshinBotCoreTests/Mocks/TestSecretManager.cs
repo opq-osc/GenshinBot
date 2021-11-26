@@ -18,8 +18,8 @@ namespace GenshinBotCoreTests.Mocks
         {
             return secretName switch
             {
-                "ltoken" => "test_token",
-                "ticket" => "test_ticket",
+                "ltoken" => "cu3g96ud7QlZO42ZksKXf4nAgFO9PfUcLC3NhJct",
+                "ticket" => "wwb8Rz0NCjAoTtYrDdk5P0inMS30JdnisfbPFzg1",
                 _ => throw new NotImplementedException()
             };
         }
