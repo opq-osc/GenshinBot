@@ -14,15 +14,15 @@ namespace GenshinBotCore.Services
 {
     public class TakumiApi : ITakumiApi
     {
-        public TakumiApi(ISecreatHeaderGenerator secreatHeaderGenerator, Action<TakumiApiConfiguration> configuration)
+        public TakumiApi(ISecretHeaderGenerator secretHeaderGenerator, Action<TakumiApiConfiguration> configuration)
         {
             this.configuration = new();
             configuration.Invoke(this.configuration);
-            this.secretHeaderGenerator = secreatHeaderGenerator;
+            this.secretHeaderGenerator = secretHeaderGenerator;
         }
 
         private readonly TakumiApiConfiguration configuration;
-        private readonly ISecreatHeaderGenerator secretHeaderGenerator;
+        private readonly ISecretHeaderGenerator secretHeaderGenerator;
 
         public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
         {

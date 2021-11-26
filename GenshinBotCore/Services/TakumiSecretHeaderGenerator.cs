@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GenshinBotCore.Services
 {
-    public class TakumiSecretHeaderGenerator : ISecreatHeaderGenerator
+    public class TakumiSecretHeaderGenerator : ISecretHeaderGenerator
     {
         public TakumiSecretHeaderGenerator(Action<TakumiSecretHeaderGeneratorConfiguration> config)
         {

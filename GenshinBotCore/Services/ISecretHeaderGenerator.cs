@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenshinBotCore.Services
 {
-    public interface ISecreatHeaderGenerator
+    public interface ISecretHeaderGenerator
     {
         IDictionary<string, string> GenerateSecretHeader(string query);
     }
