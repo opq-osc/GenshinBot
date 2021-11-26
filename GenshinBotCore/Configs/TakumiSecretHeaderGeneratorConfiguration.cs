@@ -8,6 +8,10 @@ namespace GenshinBotCore.Configs
 {
     public class TakumiSecretHeaderGeneratorConfiguration
     {
+        public string AppVersion { get; set; } = string.Empty;
+
+        public int ClientType { get; set; }
+
         public string Salt { get; set; } = string.Empty;
     }
 }
