@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Index = GenshinBotCore.Models.TakumiApi.Index;
 
 namespace GenshinBotCore.Services
 {
@@ -17,11 +18,11 @@ namespace GenshinBotCore.Services
         {
             this.configuration = new();
             configuration.Invoke(this.configuration);
-            this.secreatHeaderGenerator = secreatHeaderGenerator;
+            this.secretHeaderGenerator = secreatHeaderGenerator;
         }
 
         private readonly TakumiApiConfiguration configuration;
-        private readonly ISecreatHeaderGenerator secreatHeaderGenerator;
+        private readonly ISecreatHeaderGenerator secretHeaderGenerator;
 
         public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
         {
@@ -35,7 +36,7 @@ namespace GenshinBotCore.Services
                 { "uid", uid }
             };
             var queryString = requsetParams.ToQueryString();
-            var secretHeader = secreatHeaderGenerator.GenerateSecretHeader(queryString);
+            var secretHeader = secretHeaderGenerator.GenerateSecretHeader(queryString);
 
             var response = await (configuration.BaseUrl + configuration.GameAccountsUrl)
                                  .HasQuery(requsetParams)
@@ -47,9 +48,24 @@ namespace GenshinBotCore.Services
             return await response.CastTo<TakumiApiResponse<GameAccounts>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
-        public Task<IApiResponse<Models.TakumiApi.Index>> GetIndexAsync(string roleId, string serverId)
+        public async Task<IApiResponse<Index>> GetIndexAsync(string roleId, string serverId)
         {
-            throw new NotImplementedException();
+            var requestParams = new Dictionary<string, string>
+            {
+                { "role_id", roleId },
+                { "server", serverId },
+            };
+            var queryString = requestParams.ToQueryString();
+            var secretHeader = secretHeaderGenerator.GenerateSecretHeader(queryString);
+
+            var response = await (configuration.BaseUrl + configuration.IndexUrl)
+                                 .HasQuery(requestParams)
+                                 .WithHeaders(secretHeader)
+                                 .GetAsync()
+                                 .ConfigureAwait(false);
+            if (response.StatusCode != 200) throw new HttpRequestException();
+
+            return await response.CastTo<TakumiApiResponse<Index>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
         public async Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType)
