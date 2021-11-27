@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Developer settings
+appsettings.Development.json
+
 # Mono auto generated files
 mono_crash.*
 
