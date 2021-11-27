@@ -39,7 +39,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="SocketIOClient" Version="3.0.3" />
+		<PackageReference Include="SocketIOClient" Version="2.2.4" />
 	</ItemGroup>
 
 </Project>
