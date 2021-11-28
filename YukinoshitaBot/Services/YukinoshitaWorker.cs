@@ -150,7 +150,6 @@ namespace YukinoshitaBot
         private void WhenDisconnect(object? sender, string e)
         {
             this.logger.LogInformation("YukinoshitaBot just disconnect.");
-            _ = this.NewClientAsync(this.wsApi);
         }
 
         /// <inheritdoc/>
