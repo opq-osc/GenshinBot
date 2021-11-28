@@ -28,5 +28,27 @@ namespace GenshinBotCore.Services
 
         public User? GetUserByQQ(long qqId) => 
             dbContext.Users.Where(u => u.QQ == qqId).AsNoTracking().SingleOrDefault();
+
+        public async Task<User?> UpdateUserAsync(User user)
+        {
+            try
+            {
+                var exsistUser = GetUserByQQ(user.QQ);
+                if (exsistUser is null)
+                {
+                    exsistUser = dbContext.Users.Add(user).Entity;
+                }
+                exsistUser.GenshinUid = user.GenshinUid;
+                exsistUser.MihoyoId = user.MihoyoId;
+
+                user = exsistUser;
+            }
+            catch
+            {
+                return null;
+            }
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
+            return user;
+        }
     }
 }

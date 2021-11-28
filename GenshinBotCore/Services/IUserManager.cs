@@ -16,5 +16,6 @@ namespace GenshinBotCore.Services
         User? GetUserByQQ(long qqId);
         User? GetUserByMihoyoId(string mihoyoId);
         User? GetUserByGenshinUid(string genshinUid);
+        Task<User?> UpdateUserAsync(User user);
     }
 }
