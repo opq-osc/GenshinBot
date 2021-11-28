@@ -27,9 +27,28 @@ namespace GenshinBotCore.Services
         private readonly IUserManager userManager;
 
         ///<inheritdoc/>
-        public Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
+        public async Task<IApiResponse<DailyNote>> GetDailyNoteAsync(string roleId, string serverId)
         {
-            throw new NotImplementedException();
+            var requestParams = new Dictionary<string, string>
+            {
+                { "role_id", roleId },
+                { "server", serverId },
+            };
+            var queryString = requestParams.ToQueryString();
+            var user = userManager.GetUserByGenshinUid(roleId);
+
+            if (user is null) throw new InvalidOperationException("找不到指定用户");
+
+            var secretHeader = secretHeaderGenerator.GenerateSecretHeader(user.Id, queryString);
+
+            var response = await(configuration.BaseUrl + configuration.IndexUrl)
+                                 .HasQuery(requestParams)
+                                 .WithHeaders(secretHeader)
+                                 .GetAsync()
+                                 .ConfigureAwait(false);
+            if (response.StatusCode != 200) throw new HttpRequestException();
+
+            return await response.CastTo<TakumiApiResponse<DailyNote>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
         ///<inheritdoc/>

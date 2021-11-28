@@ -72,7 +72,11 @@ namespace GenshinBotCore.Models.TakumiApi
         [JsonPropertyName("max_expedition_num")]
         public int MaxExpeditionNum { get; set; }
 
-        // expeditions
+        /// <summary>
+        /// 探索派遣详情
+        /// </summary>
+        [JsonPropertyName("expeditions")]
+        public IEnumerable<ExpeditionInfo> Expeditions { get; set; } = null!;
     }
 
     /// <summary>
