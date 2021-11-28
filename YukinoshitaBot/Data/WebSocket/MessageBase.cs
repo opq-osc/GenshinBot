@@ -30,7 +30,7 @@ namespace YukinoshitaBot.Data.WebSocket
         {
             if (string.IsNullOrEmpty(this.Content))
             {
-                return new ();
+                return new();
             }
 
             return JsonSerializer.Deserialize<T>(this.Content) ?? new T();

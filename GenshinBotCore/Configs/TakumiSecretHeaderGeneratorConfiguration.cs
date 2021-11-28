@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GenshinBotCore.Configs
+﻿namespace GenshinBotCore.Configs
 {
     /// <summary>
     /// 机密请求头生成配置

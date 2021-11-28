@@ -4,9 +4,7 @@
 
 namespace YukinoshitaBot.Data.Event
 {
-    using System.Text.Json.Serialization;
-
-    public record QQUser 
+    public record QQUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="QQUser"/> class.

@@ -3,11 +3,6 @@ using GenshinBotCore.Configs;
 using GenshinBotCore.Extensions;
 using GenshinBotCore.Models;
 using GenshinBotCore.Models.TakumiApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Index = GenshinBotCore.Models.TakumiApi.Index;
 
 namespace GenshinBotCore.Services
@@ -41,7 +36,7 @@ namespace GenshinBotCore.Services
 
             var secretHeader = secretHeaderGenerator.GenerateSecretHeader(user.Id, queryString);
 
-            var response = await(configuration.BaseUrl + configuration.DailyNoteUrl)
+            var response = await (configuration.BaseUrl + configuration.DailyNoteUrl)
                                  .HasQuery(requestParams)
                                  .WithHeaders(secretHeader)
                                  .GetAsync()

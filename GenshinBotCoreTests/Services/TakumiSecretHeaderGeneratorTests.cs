@@ -1,11 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GenshinBotCore.Services;
-using System;
-using System.Collections.Generic;
+﻿using GenshinBotCoreTests.Mocks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GenshinBotCoreTests.Mocks;
 
 namespace GenshinBotCore.Services.Tests
 {

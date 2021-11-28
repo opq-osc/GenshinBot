@@ -1,10 +1,6 @@
 ﻿using GenshinBotCore.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using YukinoshitaBot.Data.Attributes;
 using YukinoshitaBot.Data.Controller;
 using YukinoshitaBot.Data.Event;
@@ -76,7 +72,7 @@ namespace GenshinBotCore.Controllers
                 sb.AppendLine($"周本折扣次数：{dailyNoteInfo.RemainResinDiscountNum}/{dailyNoteInfo.ResinDiscountNumLimit}");
                 sb.AppendLine($"探索派遣：{dailyNoteInfo.CurrentExpeditionNum}/{dailyNoteInfo.MaxExpeditionNum}");
                 sb.AppendLine($"-----探索派遣详细信息-----");
-                foreach(var role in dailyNoteInfo.Expeditions)
+                foreach (var role in dailyNoteInfo.Expeditions)
                 {
                     var name = Regex.Match(role.CharacterAvatar.ToString(), @"UI_AvatarIcon_Side_(.*?)\.png")
                                     .Groups[1].Value;

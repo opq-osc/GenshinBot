@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace GenshinBotCore.Models.TakumiApi
 {
@@ -106,7 +101,7 @@ namespace GenshinBotCore.Models.TakumiApi
     /// <summary>
     /// 原神信息总览
     /// </summary>
-    public class GenshinCharacterStates 
+    public class GenshinCharacterStates
     {
         /// <summary>
         /// 成就数
@@ -125,7 +120,7 @@ namespace GenshinBotCore.Models.TakumiApi
         /// </summary>
         [JsonPropertyName("anemoculus_number")]
         public int AnemoculusNum { get; set; }
-        
+
         /// <summary>
         /// 已获取角色数
         /// </summary>

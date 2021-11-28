@@ -222,7 +222,7 @@ namespace YukinoshitaBot.Data.Event
                 SenderType.Friend => resp.SendToFriend(this.SenderInfo.FromQQ ?? default),
                 SenderType.Group => resp.SendToGroup(this.SenderInfo.FromGroupId ?? default),
                 SenderType.TempSession => resp.SendToGroupMember(this.SenderInfo.FromQQ ?? default, this.SenderInfo.FromGroupId ?? default),
-                 _ => throw new System.NotImplementedException()
+                _ => throw new System.NotImplementedException()
             };
 
             this.OpqApi?.AddRequest(request);

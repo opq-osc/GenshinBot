@@ -1,17 +1,13 @@
 ﻿using GenshinBotCore.Configs;
 using GenshinBotCore.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GenshinBotCore.Services
 {
     public class TakumiSecretHeaderGenerator : ISecretHeaderGenerator
     {
-        public TakumiSecretHeaderGenerator(IUserManager userManager, ISecretManager secretManager, 
+        public TakumiSecretHeaderGenerator(IUserManager userManager, ISecretManager secretManager,
             Action<TakumiSecretHeaderGeneratorConfiguration> config)
         {
             this.config = new();

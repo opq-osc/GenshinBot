@@ -4,19 +4,15 @@
 
 namespace YukinoshitaBot
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using SocketIOClient;
-    using YukinoshitaBot.Data;
-    using YukinoshitaBot.Data.Content;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using YukinoshitaBot.Data.Event;
-    using YukinoshitaBot.Data.OpqApi;
     using YukinoshitaBot.Data.WebSocket;
-    using YukinoshitaBot.Extensions;
     using YukinoshitaBot.Services;
 
     /// <summary>

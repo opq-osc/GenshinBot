@@ -1,8 +1,7 @@
 using GenshinBotCore.Entities;
 using GenshinBotCore.Services;
-using YukinoshitaBot.Extensions;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore;
+using YukinoshitaBot.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

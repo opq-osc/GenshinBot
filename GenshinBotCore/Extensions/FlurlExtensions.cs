@@ -1,11 +1,6 @@
 ﻿using Flurl.Http;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace GenshinBotCore.Extensions
 {

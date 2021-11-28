@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace GenshinBotCore.Models.TakumiApi
 {
@@ -11,7 +6,7 @@ namespace GenshinBotCore.Models.TakumiApi
     /// 每日便签
     /// </summary>
     public class DailyNote
-    {       
+    {
         /// <summary>
         /// 当前树脂数量
         /// </summary>

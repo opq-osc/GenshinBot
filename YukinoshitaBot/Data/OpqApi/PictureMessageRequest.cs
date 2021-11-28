@@ -5,14 +5,11 @@
 namespace YukinoshitaBot.Data.OpqApi
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Net.Http;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// 图片消息
@@ -83,7 +80,7 @@ namespace YukinoshitaBot.Data.OpqApi
         {
             var request = base.SendToFriend(friendQQ);
             request.Content = new StringContent(JsonSerializer.Serialize(this, typeof(PictureMessageRequest)), Encoding.UTF8, "application/json");
-            
+
             return request;
         }
 

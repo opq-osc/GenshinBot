@@ -1,9 +1,5 @@
 ﻿using GenshinBotCore.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenshinBotCoreTests.Mocks
 {
@@ -11,7 +7,7 @@ namespace GenshinBotCoreTests.Mocks
     {
         public void Bind(string key)
         {
-            
+
         }
 
         public string GetSymmetricSecret(string secretName)

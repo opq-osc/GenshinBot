@@ -4,10 +4,10 @@
 
 namespace YukinoshitaBot.Extensions
 {
+    using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Microsoft.Extensions.DependencyInjection;
     using YukinoshitaBot.Data.Attributes;
     using YukinoshitaBot.Services;
 

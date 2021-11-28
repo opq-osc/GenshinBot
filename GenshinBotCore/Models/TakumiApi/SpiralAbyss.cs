@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 // TODO 补充数据
 namespace GenshinBotCore.Models.TakumiApi
@@ -14,7 +9,7 @@ namespace GenshinBotCore.Models.TakumiApi
     public class SpiralAbyss
     {
         [JsonPropertyName("schedule_id")]
-        public int ScheduleId { get; set; } 
+        public int ScheduleId { get; set; }
 
         //  TODO 添加转换器
         [JsonPropertyName("start_time")]

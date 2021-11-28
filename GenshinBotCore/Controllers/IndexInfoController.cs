@@ -1,9 +1,5 @@
 ﻿using GenshinBotCore.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using YukinoshitaBot.Data.Attributes;
 using YukinoshitaBot.Data.Controller;
 using YukinoshitaBot.Data.Event;

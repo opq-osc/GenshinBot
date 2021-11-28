@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GenshinBotCore.Configs
+﻿namespace GenshinBotCore.Configs
 {
     /// <summary>
     /// 米游社API配置
@@ -30,7 +24,7 @@ namespace GenshinBotCore.Configs
         /// 深渊战绩URL
         /// </summary>
         public string SpiralAbyssUrl { get; set; } = string.Empty;
-        
+
         /// <summary>
         /// 每日任务卡片URL
         /// </summary>

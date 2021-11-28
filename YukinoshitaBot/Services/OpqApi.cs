@@ -4,11 +4,11 @@
 
 namespace YukinoshitaBot.Services
 {
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Concurrent;
     using System.Net.Http;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// OPQ机器人Http队列

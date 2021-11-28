@@ -4,17 +4,10 @@
 
 namespace YukinoshitaBot.Services
 {
+    using Microsoft.Extensions.DependencyInjection;
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Caching.Memory;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
     using YukinoshitaBot.Data.Attributes;
     using YukinoshitaBot.Data.Controller;
     using YukinoshitaBot.Data.Event;
