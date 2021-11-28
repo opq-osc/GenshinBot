@@ -63,7 +63,7 @@ namespace GenshinBotCore.Controllers
                 var dailyNoteResponse = await takumiApi.GetDailyNoteAsync(user.GenshinUid, "cn_gf01");
                 if (!dailyNoteResponse.IsSuccess || dailyNoteResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("获取信息失败，请尝试重新登陆！");
+                    message.ReplyTextMsg("获取信息失败，请打开米游社中每日便签功能！");
                     return;
                 }
                 var dailyNoteInfo = dailyNoteResponse.Payload;
