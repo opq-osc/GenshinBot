@@ -41,6 +41,21 @@ namespace GenshinBotCore.Controllers
 
         public async Task FriendTextMsgHandlerAsync(TextMessage message)
         {
+            await Login(message);
+        }
+
+        public Task GroupPicMsgHandlerAsync(PictureMessage message)
+        {
+            return Task.CompletedTask;
+        }
+
+        public async Task GroupTextMsgHandlerAsync(TextMessage message)
+        {
+            await Login(message);
+        }
+
+        private async Task Login(TextMessage message)
+        {
             #region 指令验证
             logger.LogInformation("qq{qq}: {content}", message.SenderInfo.FromQQ, message.Content);
             var cmd = message.Content.Split(' ');
@@ -118,16 +133,6 @@ namespace GenshinBotCore.Controllers
                 message.ReplyTextMsg($"登陆失败: {ex.Message}");
                 return;
             }
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task GroupTextMsgHandlerAsync(TextMessage message)
-        {
-            return Task.CompletedTask;
         }
     }
 }
