@@ -12,8 +12,10 @@ namespace GenshinBotCore.Models.TakumiApi
     /// </summary>
     public class Index
     {
+        [JsonPropertyName("avatars")]
         public IEnumerable<GenshinAvatar> Avatars { get; set; } = null!;
 
+        [JsonPropertyName("homes")]
         public IEnumerable<GenshinHome> Homes { get; set; } = null!;
 
         [JsonPropertyName("stats")]
