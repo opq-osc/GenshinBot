@@ -124,7 +124,7 @@ namespace GenshinBotCore.Controllers
                 sb.Append("昵称：").AppendLine(genshinAccount.Nickname);
                 sb.Append("服务器：").AppendLine(genshinAccount.RegionName);
                 sb.Append("Uid：").AppendLine(genshinAccount.GameUid);
-                sb.Append("等级：").AppendLine(genshinAccount.Level.ToString());
+                sb.Append("等级：").Append(genshinAccount.Level);
 
                 message.ReplyTextMsg(sb.ToString());
             }

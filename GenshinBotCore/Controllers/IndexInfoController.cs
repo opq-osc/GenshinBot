@@ -92,7 +92,7 @@ namespace GenshinBotCore.Controllers
                     sb.AppendLine($"{character.Name}：等级{character.Level}，命座{character.Constellation}，好感{character.Fetter}");
                 }
 
-                message.ReplyTextMsg(sb.ToString());
+                message.ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
 
             }
             catch (Exception ex)
