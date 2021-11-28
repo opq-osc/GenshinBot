@@ -18,4 +18,10 @@ namespace GenshinBotCore.Models.TakumiApi
         [JsonPropertyName("token")]
         public string Token { get; set; } = null!;
     }
+
+    public class MultiToken
+    {
+        [JsonPropertyName("list")]
+        public IEnumerable<UserToken> Tokens { get; set; } = null!;
+    }
 }
