@@ -34,9 +34,9 @@ namespace GenshinBotCore.Controllers
             return Task.CompletedTask;
         }
 
-        public Task FriendTextMsgHandlerAsync(TextMessage message)
+        public async Task FriendTextMsgHandlerAsync(TextMessage message)
         {
-            return Task.CompletedTask;
+            await DailyNoteHandler(message);
         }
 
         public Task GroupPicMsgHandlerAsync(PictureMessage message)
@@ -44,9 +44,9 @@ namespace GenshinBotCore.Controllers
             return Task.CompletedTask;
         }
 
-        public Task GroupTextMsgHandlerAsync(TextMessage message)
+        public async Task GroupTextMsgHandlerAsync(TextMessage message)
         {
-            return Task.CompletedTask;
+            await DailyNoteHandler(message);
         }
 
         private async Task DailyNoteHandler(TextMessage message)
@@ -70,10 +70,10 @@ namespace GenshinBotCore.Controllers
 
                 var sb = new StringBuilder();
                 sb.AppendLine("每日便签：");
-                sb.AppendLine($"树脂：{dailyNoteInfo.CurrentResin}/{dailyNoteInfo.MaxResin}，{dailyNoteInfo.ResinRecoveryTime}后回满");
+                sb.AppendLine($"树脂：{dailyNoteInfo.CurrentResin}/{dailyNoteInfo.MaxResin}，{TimeSpan.FromSeconds(int.Parse(dailyNoteInfo.ResinRecoveryTime))}后回满");
                 sb.Append($"每日任务：{dailyNoteInfo.FinishedTaskNum}/{dailyNoteInfo.TotalTaskNum}，额外奖励");
                 sb.AppendLine(dailyNoteInfo.IsExtraTaskRewardReceived ? "已领取" : "未领取");
-                sb.AppendLine($"周本折扣次数：{dailyNoteInfo.RemainResinDiscountNum}/{dailyNoteInfo.RemainResinDiscountNum}");
+                sb.AppendLine($"周本折扣次数：{dailyNoteInfo.RemainResinDiscountNum}/{dailyNoteInfo.ResinDiscountNumLimit}");
                 sb.AppendLine($"探索派遣：{dailyNoteInfo.CurrentExpeditionNum}/{dailyNoteInfo.MaxExpeditionNum}");
                 sb.AppendLine($"-----探索派遣详细信息-----");
                 foreach(var role in dailyNoteInfo.Expeditions)
@@ -81,7 +81,7 @@ namespace GenshinBotCore.Controllers
                     var name = Regex.Match(role.CharacterAvatar.ToString(), @"UI_AvatarIcon_Side_(.*?)\.png")
                                     .Groups[1].Value;
                     sb.Append($"角色：{name}，");
-                    sb.AppendLine(role.RemainedTime == 0 ? "已完成" : $"剩余时间：{ TimeSpan.FromMinutes(role.RemainedTime):hh: mm}");
+                    sb.AppendLine(role.Status == "Finished" ? "已完成" : $"剩余时间：{TimeSpan.FromSeconds(int.Parse(role.RemainedTime))}");
                 }
 
                 message.ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));

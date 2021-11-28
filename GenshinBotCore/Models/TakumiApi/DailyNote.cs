@@ -28,7 +28,7 @@ namespace GenshinBotCore.Models.TakumiApi
         /// 树脂回满所需时间
         /// </summary>
         [JsonPropertyName("resin_recovery_time")]
-        public int ResinRecoveryTime { get; set; }
+        public string ResinRecoveryTime { get; set; } = null!;
 
         /// <summary>
         /// 已完成每日任务数量
@@ -94,7 +94,7 @@ namespace GenshinBotCore.Models.TakumiApi
         /// 剩余时间
         /// </summary>
         [JsonPropertyName("remained_time")]
-        public int RemainedTime { get; set; }
+        public string RemainedTime { get; set; } = null!;
 
         /// <summary>
         /// 状态

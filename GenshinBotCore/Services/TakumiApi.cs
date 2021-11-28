@@ -41,7 +41,7 @@ namespace GenshinBotCore.Services
 
             var secretHeader = secretHeaderGenerator.GenerateSecretHeader(user.Id, queryString);
 
-            var response = await(configuration.BaseUrl + configuration.IndexUrl)
+            var response = await(configuration.BaseUrl + configuration.DailyNoteUrl)
                                  .HasQuery(requestParams)
                                  .WithHeaders(secretHeader)
                                  .GetAsync()

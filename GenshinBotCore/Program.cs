@@ -42,6 +42,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                 configuration.GameAccountsUrl = "/game_record/app/card/wapi/getGameRecordCard";
                 configuration.IndexUrl = "/game_record/app/genshin/api/index";
                 configuration.LoginTicketUrl = "/auth/api/getMultiTokenByLoginTicket";
+                configuration.DailyNoteUrl = "/game_record/app/genshin/api/dailyNote";
             });
         });
         services.AddScoped<IUserManager, UserManager>();
