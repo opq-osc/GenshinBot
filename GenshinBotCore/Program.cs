@@ -8,7 +8,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddYukinoshitaBot();
-        services.AddDbContext<ApplicationDbContext>(builder => builder.UseInMemoryDatabase("genshinBot"));
+        services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GenshinBot;Trusted_Connection=True;"));
         services.AddScoped<IMihoyoApi, MihoyoAccountApi>();
         services.AddScoped<ISecretHeaderGenerator, TakumiSecretHeaderGenerator>(services =>
         {
