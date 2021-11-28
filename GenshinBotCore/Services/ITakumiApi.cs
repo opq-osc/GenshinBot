@@ -13,7 +13,7 @@ namespace GenshinBotCore.Services
         /// <param name="uid">米游社Uid</param>
         /// <param name="tokenType">Token类型</param>
         /// <returns></returns>
-        public Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType);
+        public Task<IApiResponse<MultiToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType);
 
         /// <summary>
         /// 获取游戏账号信息
