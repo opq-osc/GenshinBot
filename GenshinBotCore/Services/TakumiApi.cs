@@ -82,7 +82,7 @@ namespace GenshinBotCore.Services
         }
 
         ///<inheritdoc/>
-        public async Task<IApiResponse<UserToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType)
+        public async Task<IApiResponse<MultiToken>> GetMultiTokenByLoginTicketAsync(string loginTicket, string uid, int tokenType)
         {
             var requestParams = new Dictionary<string, string>
             {
@@ -95,7 +95,7 @@ namespace GenshinBotCore.Services
                 .ConfigureAwait(false);
             if (response.StatusCode != 200) throw new HttpRequestException();
 
-            return await response.CastTo<TakumiApiResponse<UserToken>>().ConfigureAwait(false) ?? throw new InvalidCastException();
+            return await response.CastTo<TakumiApiResponse<MultiToken>>().ConfigureAwait(false) ?? throw new InvalidCastException();
         }
 
         ///<inheritdoc/>

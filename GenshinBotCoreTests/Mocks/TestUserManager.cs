@@ -1,6 +1,7 @@
 ﻿using GenshinBotCore.Entities;
 using GenshinBotCore.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace GenshinBotCoreTests.Mocks
 {
@@ -31,6 +32,11 @@ namespace GenshinBotCoreTests.Mocks
         public User? GetUserByQQ(long qqId)
         {
             return user;
+        }
+
+        public Task<User?> UpdateUserAsync(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
