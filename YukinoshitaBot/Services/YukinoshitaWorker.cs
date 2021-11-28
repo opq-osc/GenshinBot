@@ -67,6 +67,7 @@ namespace YukinoshitaBot
             this.client.On("OnGroupMsgs", resp =>
             {
                 this.logger.LogDebug(resp.ToString());
+                // TODO 收到红包的话这个解析好像会寄
                 var respData = resp.GetValue<SocketResponse<GroupMessage>>();
 
                 // 过滤自身消息

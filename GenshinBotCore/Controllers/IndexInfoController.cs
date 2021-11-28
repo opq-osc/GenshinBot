@@ -91,6 +91,11 @@ namespace GenshinBotCore.Controllers
                 {
                     sb.AppendLine($"{character.Name}：等级{character.Level}，命座{character.Constellation}，好感{character.Fetter}");
                 }
+                sb.AppendLine("-----四星角色-----");
+                foreach (var character in indexInfo.Avatars.Where(c => c.Rarity == 4))
+                {
+                    sb.AppendLine($"{character.Name}：等级{character.Level}，命座{character.Constellation}，好感{character.Fetter}");
+                }
 
                 message.ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
 
