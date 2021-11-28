@@ -40,7 +40,7 @@ namespace GenshinBotCore.Services
                 { "uid", uid }
             };
             var queryString = requsetParams.ToQueryString();
-            var user = userManager.GetUserByGenshinUid(uid);
+            var user = userManager.GetUserByMihoyoId(uid);
 
             if (user is null) throw new InvalidOperationException("找不到指定用户");
 
