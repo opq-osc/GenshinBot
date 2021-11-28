@@ -42,7 +42,7 @@
 
 ## 如何贡献
 
-本项目正在活跃开发中，非常欢迎你的加入！[提一个 Issue](https://github.com/RichardLitt/standard-readme/issues/new) 或者提交一个 Pull Request。
+本项目正在活跃开发中，非常欢迎你的加入！[提一个 Issue](https://github.com/opq-osc/GenshinBot/issues/new) 或者提交一个 Pull Request。
 
 ## 维护者
 
