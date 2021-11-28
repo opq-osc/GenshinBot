@@ -45,10 +45,6 @@ namespace GenshinBotCore.Services
         /// <exception cref="InvalidOperationException"></exception>
         public void SetUser(string userId)
         {
-            if (user is not null)
-            {
-                throw new InvalidOperationException("不可重复绑定用户");
-            }
             var userQuery = users.Where(u => u.Id.ToString() == userId);
 
             if (!userQuery.Any())
