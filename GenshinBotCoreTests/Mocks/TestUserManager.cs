@@ -9,10 +9,10 @@ namespace GenshinBotCoreTests.Mocks
     {
         private static readonly User user = new User
         {
-            GenshinUid = "200277243",
+            GenshinUid = "",
             Id = Guid.NewGuid(),
-            MihoyoId = "296714852",
-            QQ = 1137361788
+            MihoyoId = "",
+            QQ = 0
         };
         public User? GetUserByGenshinUid(string genshinUid)
         {
