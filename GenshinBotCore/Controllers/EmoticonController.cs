@@ -29,7 +29,7 @@ namespace GenshinBotCore.Controllers
         public async Task FriendTextMsgHandlerAsync(TextMessage message)
         {
             var cmd = message.Content.Split(' ');
-            if (cmd.Length > 0)
+            if (cmd.Length > 1)
             {
                 message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync(cmd[1])));
             }
