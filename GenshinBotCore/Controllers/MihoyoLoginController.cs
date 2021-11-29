@@ -113,6 +113,7 @@ namespace GenshinBotCore.Controllers
                 // 第六步，更新用户信息
                 var genshinAccount = accountResponse.Payload.List.Where(n => n.GameId == 2).Single();
                 user.GenshinUid = genshinAccount.GameUid;
+                user.ServerId = genshinAccount.Region;
                 user = await userManager.UpdateUserAsync(user);
                 // 返回用户信息
                 var sb = new StringBuilder();

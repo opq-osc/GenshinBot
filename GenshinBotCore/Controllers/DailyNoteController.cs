@@ -55,8 +55,7 @@ namespace GenshinBotCore.Controllers
             }
             try
             {
-                // TODO 服务器ID加入用户表
-                var dailyNoteResponse = await takumiApi.GetDailyNoteAsync(user.GenshinUid, "cn_gf01");
+                var dailyNoteResponse = await takumiApi.GetDailyNoteAsync(user.GenshinUid, user.ServerId);
                 if (!dailyNoteResponse.IsSuccess || dailyNoteResponse.Payload is null)
                 {
                     message.ReplyTextMsg("获取信息失败，请打开米游社中每日便签功能！");

@@ -30,5 +30,10 @@ namespace GenshinBotCore.Entities
         /// 原神Uid
         /// </summary>
         public string GenshinUid { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 服务器Id
+        /// </summary>
+        public string ServerId { get; set; } = string.Empty;
     }
 }

@@ -63,8 +63,7 @@ namespace GenshinBotCore.Controllers
                 }
                 var genshinAccountInfo = accountResponse.Payload.List.Where(n => n.GameId == 2).Single();
                 // 获取首页信息
-                // TODO 服务器ID加入用户表
-                var indexResponse = await takumiApi.GetIndexAsync(user.GenshinUid, "cn_gf01");
+                var indexResponse = await takumiApi.GetIndexAsync(user.GenshinUid, user.ServerId);
                 if (!indexResponse.IsSuccess || indexResponse.Payload is null)
                 {
                     message.ReplyTextMsg("获取信息失败，请尝试重新登陆！");
