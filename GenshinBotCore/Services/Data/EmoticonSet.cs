@@ -13,10 +13,10 @@ namespace GenshinBotCore.Services.Data
         {
             Emoticons = new List<Emoticon>(512);
             using var scope = serviceProvider.CreateScope();
-            this.pictureStorage = scope.ServiceProvider.GetRequiredService<IPictureStorage>();
+            this.serviceProvider = serviceProvider;
         }
 
-        private readonly IPictureStorage pictureStorage;
+        private readonly IServiceProvider serviceProvider;
 
         public IEnumerable<Emoticon> Emoticons { get; set; }
 
@@ -31,7 +31,12 @@ namespace GenshinBotCore.Services.Data
             if (!success) count = Emoticons.Count();
             var rand = Random.Shared.Next(count);
 
-            return await pictureStorage.GetPicture(Emoticons.Skip(rand).First().Url);
+            var url = Emoticons.Skip(rand).First().Url;
+
+            using var scope = serviceProvider.CreateScope();
+            var pictureStorage = scope.ServiceProvider.GetRequiredService<IPictureStorage>();
+
+            return await pictureStorage.GetPicture(url);
         }
 
         public async Task<string> GetRandomEmoticonAsync(string keyword)
@@ -41,7 +46,10 @@ namespace GenshinBotCore.Services.Data
             if (!success) count = fillterd.Count();
             var rand = Random.Shared.Next(count);
 
-            return await pictureStorage.GetPicture(Emoticons.Skip(rand).First().Url);
+            using var scope = serviceProvider.CreateScope();
+            var pictureStorage = scope.ServiceProvider.GetRequiredService<IPictureStorage>();
+
+            return await pictureStorage.GetPicture(fillterd.Skip(rand).First().Url);
         }
     }
 }
