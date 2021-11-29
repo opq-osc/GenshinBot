@@ -66,7 +66,7 @@ namespace GenshinBotCore.Controllers
                 var indexResponse = await takumiApi.GetIndexAsync(user.GenshinUid, user.ServerId);
                 if (!indexResponse.IsSuccess || indexResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("获取信息失败，请尝试重新登陆！");
+                    message.ReplyTextMsg("获取信息失败，你可能还没有注册米游社！");
                     return;
                 }
                 var indexInfo = indexResponse.Payload;
