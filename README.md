@@ -14,13 +14,15 @@
 - **方便快捷**：本项目使用手机号与短信验证码登录米游社，无需提供Cookie，方便用户使用
 - **加强安全**：短信验证码用后即销毁，明文传输无风险；精心设计的加密算法，用户敏感数据全部加密存储于数据库，无需担心Cookie泄露
 - **依赖注入**：模块间松耦合，全部以服务形式注入.Net服务主机，可测试，可复用，易拓展
-- **轻松拓展**：基于[YukinoshitaBot](https://github.com/opq-osc/YukinoshitaBot)框架搭建业务，你可以用类似MVC的架构轻松拓展自己的功能
+- **轻松拓展**：基于[YukinoshitaBot](https://github.com/opq-osc/YukinoshitaBot.OPQ)框架搭建业务，你可以用类似MVC的架构轻松拓展自己的功能
 
 ## 如何使用
 
-本项目正在开发中，尚未发布。
+- [下载](https://github.com/opq-osc/GenshinBot/releases)符合您操作系统的二进制文件并解压
+- 编辑`appsettings.json`文件当中的配置，将OPQ的API链接和机器人QQ号改成自己的
+- 运行并享受
 
-如果您是开发者，可自行克隆代码调试运行
+如果您是开发者，您也可以克隆源代码，使用.NET SDK编译并运行于任何支持.NET的平台
 
 如果您希望参与本项目的测试，可以[点击这里](https://qm.qq.com/cgi-bin/qm/qr?k=KeDGCjJwVtd02hwcE95yEsEVHFjNkQk7)加入我们的测试用QQ群
 
@@ -34,6 +36,7 @@
 | 每日便签查询(文字) | 完成，可用 |
 | 角色信息查询(文字) | API未完成 |
 | 深渊战绩查询(文字) | API未完成 |
+| 随机表情 | 完成，可用 |
 | 账号信息渲染(图片) | 未开始 |
 | 基本信息渲染(图片) | 未开始 |
 | 角色信息渲染(图片) | 未开始 |
@@ -48,6 +51,7 @@
 
 [@opq-osc](https://github.com/opq-osc)
 [@AZhrZho](https://github.com/AZhrZho)
+[@Saicem](https://github.com/Saicem)
 
 ## 致谢
 
