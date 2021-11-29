@@ -21,5 +21,10 @@ namespace GenshinBotCore.Entities
         /// 用户密钥表
         /// </summary>
         public DbSet<UserSecret> UsersSecret { get; set; } = null!;
+
+        /// <summary>
+        /// 图片缓存
+        /// </summary>
+        public DbSet<Pictures> Pictures { get; set; } = null!;
     }
 }
