@@ -55,6 +55,9 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<EmoticonSet>();
         services.AddHostedService<EmoticonsInitializer>();
         services.AddHostedService<SqliteDbInitializer>();
+#if RELEASE
+        services.AddHostedService<ControllerWrapper>();
+#endif
     })
     .Build();
 
