@@ -54,6 +54,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddScoped<IPictureStorage, DbCachedPictureStorage>();
         services.AddSingleton<EmoticonSet>();
         services.AddHostedService<EmoticonsInitializer>();
+        services.AddHostedService<SqliteDbInitializer>();
     })
     .Build();
 

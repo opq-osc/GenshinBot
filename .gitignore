@@ -16,6 +16,11 @@
 # Developer settings
 appsettings.Development.json
 
+# Sqlite Database
+*.db
+*.db-shm
+*.db-wal
+
 # Mono auto generated files
 mono_crash.*
 
