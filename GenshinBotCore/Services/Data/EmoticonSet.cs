@@ -9,10 +9,11 @@ namespace GenshinBotCore.Services.Data
 {
     public class EmoticonSet
     {
-        public EmoticonSet(IPictureStorage pictureStorage)
+        public EmoticonSet(IServiceProvider serviceProvider)
         {
             Emoticons = new List<Emoticon>(512);
-            this.pictureStorage = pictureStorage;
+            using var scope = serviceProvider.CreateScope();
+            this.pictureStorage = scope.ServiceProvider.GetRequiredService<IPictureStorage>();
         }
 
         private readonly IPictureStorage pictureStorage;

@@ -27,8 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\YukinoshitaBot\YukinoshitaBot.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Workers\" />
-  </ItemGroup>
 </Project>
