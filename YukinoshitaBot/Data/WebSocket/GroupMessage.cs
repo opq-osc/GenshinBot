@@ -47,6 +47,6 @@ namespace YukinoshitaBot.Data.WebSocket
         /// <summary>
         /// 红包信息
         /// </summary>
-        public string? RedBaginfo { get; set; }
+        public object? RedBaginfo { get; set; }
     }
 }
