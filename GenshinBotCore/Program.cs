@@ -1,5 +1,6 @@
 using GenshinBotCore.Entities;
 using GenshinBotCore.Services;
+using GenshinBotCore.Services.Data;
 using Microsoft.EntityFrameworkCore;
 using YukinoshitaBot.Extensions;
 
@@ -45,6 +46,8 @@ IHost host = Host.CreateDefaultBuilder(args)
             });
         });
         services.AddScoped<IUserManager, UserManager>();
+        services.AddScoped<IPictureStorage, DbCachedPictureStorage>();
+        services.AddSingleton<EmoticonSet>();
     })
     .Build();
 
