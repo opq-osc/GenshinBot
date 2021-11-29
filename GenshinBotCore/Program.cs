@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using YukinoshitaBot.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
+    .ConfigureServices((context, services) =>
     {
+        var configuration = context.Configuration;
         services.AddYukinoshitaBot();
-        services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GenshinBot;Trusted_Connection=True;"));
+        services.AddDbContext<ApplicationDbContext>(builder => builder.UseSqlite(configuration.GetConnectionString("DbConn")));
         services.AddScoped<IMihoyoApi, MihoyoAccountApi>();
         services.AddScoped<ISecretHeaderGenerator, TakumiSecretHeaderGenerator>(services =>
         {
