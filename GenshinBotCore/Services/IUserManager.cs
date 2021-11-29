@@ -7,7 +7,7 @@ namespace GenshinBotCore.Services
     /// </summary>
     public interface IUserManager
     {
-        User? GetUserById(Guid id);
+        User? GetUserById(int id);
         User? GetUserByQQ(long qqId);
         User? GetUserByMihoyoId(string mihoyoId);
         User? GetUserByGenshinUid(string genshinUid);

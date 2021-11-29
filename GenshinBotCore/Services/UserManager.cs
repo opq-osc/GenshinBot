@@ -15,7 +15,7 @@ namespace GenshinBotCore.Services
         public User? GetUserByGenshinUid(string genshinUid) =>
             dbContext.Users.Where(u => u.GenshinUid == genshinUid).AsNoTracking().SingleOrDefault();
 
-        public User? GetUserById(Guid id) =>
+        public User? GetUserById(int id) =>
             dbContext.Users.Where(u => u.Id == id).AsNoTracking().SingleOrDefault();
 
         public User? GetUserByMihoyoId(string mihoyoId) =>

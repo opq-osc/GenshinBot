@@ -10,7 +10,7 @@ namespace GenshinBotCoreTests.Mocks
         private static readonly User user = new User
         {
             GenshinUid = "",
-            Id = Guid.NewGuid(),
+            Id = 0,
             MihoyoId = "",
             QQ = 0
         };
@@ -19,7 +19,7 @@ namespace GenshinBotCoreTests.Mocks
             return user;
         }
 
-        public User? GetUserById(Guid id)
+        public User? GetUserById(int id)
         {
             return user;
         }

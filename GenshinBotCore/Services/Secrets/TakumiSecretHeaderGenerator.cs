@@ -21,7 +21,7 @@ namespace GenshinBotCore.Services
         private readonly IUserManager userManager;
 
         ///<inheritdoc/>
-        public IDictionary<string, string> GenerateSecretHeader(Guid userId, string query)
+        public IDictionary<string, string> GenerateSecretHeader(int userId, string query)
         {
             var result = new Dictionary<string, string>();
 

@@ -36,6 +36,6 @@ namespace GenshinBotCore.Entities
         /// <summary>
         /// 从属用户的Id
         /// </summary>
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

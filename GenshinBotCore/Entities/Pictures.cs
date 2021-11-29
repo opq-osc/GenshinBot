@@ -12,7 +12,7 @@ namespace GenshinBotCore.Entities
     public class Pictures
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Url { get; set; } = null!;
