@@ -1,3 +1,4 @@
+using GenshinBotCore.Configs;
 using GenshinBotCore.Entities;
 using GenshinBotCore.Services;
 using GenshinBotCore.Services.Data;
@@ -16,22 +17,24 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             var userManager = services.GetRequiredService<IUserManager>();
             var secretManager = services.GetRequiredService<ISecretManager>();
+            var config = configuration.GetSection("MihoyoClient").Get<TakumiSecretHeaderGeneratorConfiguration>();
             return new TakumiSecretHeaderGenerator(userManager, secretManager, configuration =>
             {
-                configuration.AppVersion = "2.16.1";
-                configuration.ClientType = 5;
-                configuration.Salt = "xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs";
+                configuration.AppVersion = config.AppVersion;
+                configuration.ClientType = config.ClientType;
+                configuration.Salt = config.Salt;
             });
         });
         services.AddTransient<ISecretManager, UserSecretManager>(services =>
         {
             var dbContext = services.GetRequiredService<ApplicationDbContext>();
             var logger = services.GetRequiredService<ILogger<UserSecretManager>>();
+            var config = configuration.GetSection("SecretManager").Get<SecretManagerConfiguration>();
             return new UserSecretManager(dbContext, logger, configuration =>
             {
-                configuration.HashSalt = "iusdLYGDAKGjniayeighzakljGKJHe";
-                configuration.SymmetricKey = "iajehbgbzfsgawbgoytqbzdfbg";
-                configuration.SymmetricSalt = "ajwehgjhzdfgawegrtiSGdfbo";
+                configuration.HashSalt = config.HashSalt;
+                configuration.SymmetricKey = config.SymmetricKey;
+                configuration.SymmetricSalt = config.HashSalt;
             });
         });
         services.AddScoped<ITakumiApi, TakumiApi>(services =>
