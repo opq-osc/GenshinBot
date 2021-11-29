@@ -133,7 +133,6 @@ namespace YukinoshitaBot
                         break;
                 }
             });
-            this.client.OnDisconnected += this.WhenDisconnect;
             this.client.OnConnected += this.WhenConnect;
 
             await this.client.ConnectAsync().ConfigureAwait(false);
@@ -142,12 +141,9 @@ namespace YukinoshitaBot
         private void WhenConnect(object? sender, EventArgs e)
         {
             this.logger.LogInformation("YukinoshitaBot is now connected.");
+            this.client.OnConnected -= this.WhenConnect;
         }
 
-        private void WhenDisconnect(object? sender, string e)
-        {
-            this.logger.LogInformation("YukinoshitaBot just disconnect.");
-        }
 
         /// <inheritdoc/>
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
