@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="2340" d:DesignWidth="1080"
       Title="OverView">
-    <Viewbox Width="2340" Height="1080">
+    <Viewbox Width="1080" Height="2340">
         <Grid Height="2340" Width="1080" x:Name="grid">
             <Grid Background="#FFEEEEEE"/>
             <Border Margin="100 64" Background="#F8F8F8" VerticalAlignment="Top" Height="150" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >

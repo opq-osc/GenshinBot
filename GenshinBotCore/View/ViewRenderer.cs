@@ -18,17 +18,16 @@ namespace GenshinBotCore.View
 
         private readonly SKCanvas canvas;
         private readonly List<(SKRect, Func<SKCanvas, SKCanvas>)> renderers;
-        private readonly List<(SKRect, Type)> subViews;
+        private readonly List<(SKRect, Func<SKCanvas, SKSize, ViewRenderer>)> subViews;
 
         protected void AddPart(SKRect partRange, Func<SKCanvas, SKCanvas> renderer)
         {
             renderers.Add(new(partRange, renderer));
         }
 
-        protected void AddSubView<T>(SKRect subViewRange) where T : ViewRenderer
+        protected void AddSubView(SKRect subViewRange, Func<SKCanvas, SKSize, ViewRenderer> builder)
         {
-            var type = typeof(T);
-            subViews.Add(new(subViewRange, type));
+            subViews.Add(new(subViewRange, builder));
         }
 
         public SKCanvas Render()
@@ -45,10 +44,8 @@ namespace GenshinBotCore.View
                 canvas.Save();
                 canvas.ClipRect(renderer.Item1);
 
-                var type = renderer.Item2;
-                var constructor = type.GetConstructor(new Type[] { typeof(SKCanvas) });
-                var subView = (ViewRenderer?)constructor?.Invoke(new object[] { canvas });
-                if (subView is null) throw new Exception();
+                var subView = renderer.Item2(canvas, new SKSize(renderer.Item1.Width, renderer.Item1.Height));
+                
                 subView.Render();
 
                 canvas.Restore();

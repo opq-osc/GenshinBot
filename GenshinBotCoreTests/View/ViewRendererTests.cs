@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SkiaSharp;
 using GenshinBotCoreTests.Mocks;
 using System.IO;
+using System.Diagnostics;
 
 namespace GenshinBotCore.View.Tests
 {
@@ -64,7 +65,9 @@ namespace GenshinBotCore.View.Tests
             image.Encode(SKEncodedImageFormat.Png, 90).SaveTo(file);
             file.Close();
 
+            var fileInfo = new FileInfo("SingleRendererTest3.png");
             Assert.IsTrue(File.Exists("SingleRendererTest3.png"));
+            Process.Start("explorer.exe", fileInfo.FullName);
         }
     }
 }

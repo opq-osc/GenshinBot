@@ -12,8 +12,8 @@ namespace GenshinBotCoreTests.Mocks
     {
         public TestRender3(SKCanvas canvas) : base(canvas)
         {
-            this.AddSubView<TestRender1>(SKRect.Create(0, 0, 200, 200));
-            this.AddSubView<TestRender2>(SKRect.Create(0, 0, 200, 200));
+            this.AddSubView(SKRect.Create(0, 0, 200, 200), (canvas, _) => new TestRender1(canvas));
+            this.AddSubView(SKRect.Create(0, 0, 200, 200), (canvas, _) => new TestRender2(canvas));
         }
     }
 }
