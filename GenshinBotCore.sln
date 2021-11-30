@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenshinBotCore", "GenshinBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YukinoshitaBot", "YukinoshitaBot\YukinoshitaBot.csproj", "{60B4E3E2-7B7B-4496-920F-8E25C3BD5E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenshinBotCoreTests", "GenshinBotCoreTests\GenshinBotCoreTests.csproj", "{580D9D96-9DD9-4346-936C-32A339BABDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenshinBotCoreTests", "GenshinBotCoreTests\GenshinBotCoreTests.csproj", "{580D9D96-9DD9-4346-936C-32A339BABDFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenshinBot.Design", "GenshinBot.Design\GenshinBot.Design.csproj", "{42B2C2CD-9490-4F3A-8A41-18734B872CA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{580D9D96-9DD9-4346-936C-32A339BABDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{580D9D96-9DD9-4346-936C-32A339BABDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{580D9D96-9DD9-4346-936C-32A339BABDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B2C2CD-9490-4F3A-8A41-18734B872CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B2C2CD-9490-4F3A-8A41-18734B872CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B2C2CD-9490-4F3A-8A41-18734B872CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B2C2CD-9490-4F3A-8A41-18734B872CA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
