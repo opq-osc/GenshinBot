@@ -18,14 +18,84 @@
                     </Border.Background>
                 </Border>
                 <StackPanel Width="350" Margin="158 0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Left" Text="NameName" FontSize="40" Foreground="#1E1F21"/>
-                    <TextBlock HorizontalAlignment="Left" Text="UID 1234567890" Foreground="#808488" FontSize="20"/>
+                    <TextBlock HorizontalAlignment="Left" Text="NameName" FontSize="40" Foreground="#1E1F21" FontFamily="Segoe UI"/>
+                    <TextBlock HorizontalAlignment="Left" Text="UID 1234567890" Foreground="#808488" FontSize="20" FontFamily="Segoe UI"/>
                 </StackPanel>
                 <StackPanel  HorizontalAlignment="Right" Margin="0 0 65 0" VerticalAlignment="Center">
-                    <TextBlock Margin="4" Text="冒险等级：44" FontSize="24" Foreground="#808488"/>
-                    <TextBlock Margin="4" Text="活跃天数：50" FontSize="24" Foreground="#808488"/>
-                    <TextBlock Margin="4" Text="深渊到达：12-2" FontSize="24" Foreground="#808488"/>
+                    <TextBlock Margin="4" Text="冒险等级：44" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    <TextBlock Margin="4" Text="活跃天数：50" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    <TextBlock Margin="4" Text="深渊到达：12-2" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
                 </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Margin="100 230 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="80">
+            <Border Background="#CEBD91" Width="12" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Margin="24 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="数据总览" FontSize="36" FontFamily="Segoe UI"/>
+        </Grid>
+        <Border Margin="100 315" Background="#F8F8F8" VerticalAlignment="Top" Height="250" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
+            <Grid>
+                <Grid Margin="30 10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="208" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="成就达成" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="解锁秘境" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">
+                        <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="获得角色" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
+                        <TextBlock Text="119" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="解锁传送点" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
+                        <TextBlock Text="358" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="普通宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="5" VerticalAlignment="Center">
+                        <TextBlock Text="428" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="精致宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="57" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="风神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="110" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="岩神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+                        <TextBlock Text="43" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="雷神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="3" VerticalAlignment="Center">
+                        <TextBlock Text="0" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="奇馈宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">
+                        <TextBlock Text="123" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="珍贵宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="5" VerticalAlignment="Center">
+                        <TextBlock Text="36" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                        <TextBlock Text="华丽宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Border>
     </Grid>
