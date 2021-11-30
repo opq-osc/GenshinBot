@@ -31,7 +31,8 @@ namespace GenshinBot.Design
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(1080, 2340, 192, 192, PixelFormats.Pbgra32);
+            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(1080, 2340, 192, 192, 
+                PixelFormats.Pbgra32);
             renderTargetBitmap.Render(frame.Content as Visual);
             PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Clear();
