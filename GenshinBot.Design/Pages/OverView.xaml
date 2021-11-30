@@ -7,143 +7,399 @@
       mc:Ignorable="d" 
       d:DesignHeight="2340" d:DesignWidth="1080"
       Title="OverView">
-    <Grid x:Name="grid">
-        <Grid Background="#FFEEEEEE"/>
-        <Border Margin="100 64" Background="#F8F8F8" VerticalAlignment="Top" Height="150" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
-            <Grid Margin="8">
-                <Ellipse Height="128" Width="128" HorizontalAlignment="Left" Fill="#FFE6E6E6"/>
-                <Border BorderThickness="2" BorderBrush="#FFFFFF" CornerRadius="64" Height="128" Width="128" HorizontalAlignment="Left">
-                    <Border.Background>
-                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
-                    </Border.Background>
-                </Border>
-                <StackPanel Width="350" Margin="158 0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Left" Text="NameName" FontSize="40" Foreground="#1E1F21" FontFamily="Segoe UI"/>
-                    <TextBlock HorizontalAlignment="Left" Text="UID 1234567890" Foreground="#808488" FontSize="20" FontFamily="Segoe UI"/>
-                </StackPanel>
-                <StackPanel  HorizontalAlignment="Right" Margin="0 0 65 0" VerticalAlignment="Center">
-                    <TextBlock Margin="4" Text="冒险等级：44" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    <TextBlock Margin="4" Text="活跃天数：50" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    <TextBlock Margin="4" Text="深渊到达：12-2" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                </StackPanel>
+    <Viewbox Width="2340" Height="1080">
+        <Grid Height="2340" Width="1080" x:Name="grid">
+            <Grid Background="#FFEEEEEE"/>
+            <Border Margin="100 64" Background="#F8F8F8" VerticalAlignment="Top" Height="150" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
+                <Grid Margin="8">
+                    <Ellipse Height="128" Width="128" HorizontalAlignment="Left" Fill="#FFE6E6E6"/>
+                    <Border BorderThickness="2" BorderBrush="#FFFFFF" CornerRadius="64" Height="128" Width="128" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                        </Border.Background>
+                    </Border>
+                    <StackPanel Width="350" Margin="158 0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Text="NameName" FontSize="40" Foreground="#1E1F21" FontFamily="Segoe UI"/>
+                        <TextBlock HorizontalAlignment="Left" Text="UID 1234567890" Foreground="#808488" FontSize="20" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                    <StackPanel  HorizontalAlignment="Right" Margin="0 0 65 0" VerticalAlignment="Center">
+                        <TextBlock Margin="4" Text="冒险等级：44" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        <TextBlock Margin="4" Text="活跃天数：50" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        <TextBlock Margin="4" Text="深渊到达：12-2" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid Margin="100 230 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="80">
+                <Border Background="#CEBD91" Width="12" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Margin="24 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="数据总览" FontSize="36" FontFamily="Segoe UI"/>
             </Grid>
-        </Border>
-        <Grid Margin="100 230 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="80">
-            <Border Background="#CEBD91" Width="12" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <TextBlock Margin="24 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="数据总览" FontSize="36" FontFamily="Segoe UI"/>
-        </Grid>
-        <Border Margin="100 315" Background="#F8F8F8" VerticalAlignment="Top" Height="250" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
-            <Grid>
-                <Grid Margin="30 10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+            <Border Margin="100 315" Background="#F8F8F8" VerticalAlignment="Top" Height="250" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
+                <Grid>
+                    <Grid Margin="30 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="208" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="成就达成" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="解锁秘境" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="获得角色" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
+                            <TextBlock Text="119" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="解锁传送点" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
+                            <TextBlock Text="358" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="普通宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="5" VerticalAlignment="Center">
+                            <TextBlock Text="428" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="精致宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="57" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="风神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="110" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="岩神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock Text="43" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="雷神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="3" VerticalAlignment="Center">
+                            <TextBlock Text="0" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="奇馈宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">
+                            <TextBlock Text="123" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="珍贵宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="5" VerticalAlignment="Center">
+                            <TextBlock Text="36" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
+                            <TextBlock Text="华丽宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+            <Grid Margin="100 580 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="80">
+                <Border Background="#CEBD91" Width="12" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Margin="24 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="我的角色" FontSize="36" FontFamily="Segoe UI"/>
+            </Grid>
+            <Border Padding="40 20" Margin="100 665" Background="#F8F8F8" VerticalAlignment="Top" Height="500" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock Text="208" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="成就达成" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="解锁秘境" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center">
-                        <TextBlock Text="22" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="获得角色" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
-                        <TextBlock Text="119" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="解锁传送点" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="4" VerticalAlignment="Center">
-                        <TextBlock Text="358" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="普通宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="5" VerticalAlignment="Center">
-                        <TextBlock Text="428" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="精致宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock Text="57" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="风神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="110" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="岩神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
-                        <TextBlock Text="43" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="雷神瞳" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="3" VerticalAlignment="Center">
-                        <TextBlock Text="0" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="奇馈宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center">
-                        <TextBlock Text="123" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="珍贵宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="5" VerticalAlignment="Center">
-                        <TextBlock Text="36" HorizontalAlignment="Center" FontSize="36" FontFamily="Segoe UI"/>
-                        <TextBlock Text="华丽宝箱" HorizontalAlignment="Center" FontSize="24" Foreground="#808488" FontFamily="Segoe UI"/>
-                    </StackPanel>
-                </Grid>
-            </Grid>
-        </Border>
-        <Grid Margin="100 580 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="256" Height="80">
-            <Border Background="#CEBD91" Width="12" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <TextBlock Margin="24 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="我的角色" FontSize="36" FontFamily="Segoe UI"/>
-        </Grid>
-        <Border Padding="40 20" Margin="100 665" Background="#F8F8F8" VerticalAlignment="Top" Height="500" CornerRadius="8" BorderThickness="3" BorderBrush="#CEBD91" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Grid.Column="0" Width="128" VerticalAlignment="Center">
-                    <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
-                        </Border.Effect>
-                        <Grid>
-                            <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
-                                </Border.Background>
-                            </Border>
-                            <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
-                                </Border.Background>
-                            </Border>
-                            <Grid Width="128" Height="28" Margin="0 128 0 0">
-                                <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
                             </Grid>
-                            <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
-                                <TextBlock.Effect>
-                                    <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
-                                </TextBlock.Effect>
-                            </TextBlock>
-                        </Grid>
-                    </Border>
-                    <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="3" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="4" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="3" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="4" Width="128" VerticalAlignment="Center">
+                        <Border VerticalAlignment="Top" Background="#E8E5DC" CornerRadius="4 4 0 0">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FFDFDFDF" Direction="300" ShadowDepth="6"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/roleStarBg5.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Top" Width="128" Height="128" CornerRadius="4 4 32 0">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Assets/UI_AvatarIcon_Keqing.png"/>
+                                    </Border.Background>
+                                </Border>
+                                <Grid Width="128" Height="28" Margin="0 128 0 0">
+                                    <TextBlock Text="Lv.80" FontSize="20" Foreground="#635856" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Bold"/>
+                                </Grid>
+                                <TextBlock Margin="0 107 0 0" Text="★★★★★" FontSize="24" HorizontalAlignment="Center" FontFamily="Segoe UI" Foreground="#F6CE55" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FFBFB28C" ShadowDepth="3"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                        <TextBlock Margin="0 168 0 0" Text="刻晴" FontSize="20" Foreground="#635856" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="Normal"/>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Border>
-    </Grid>
+            </Border>
+        </Grid>
+    </Viewbox>
+    
 </Page>

@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <None Remove="Assets\roleStarBg5.png" />
+    <None Remove="Assets\UI_AvatarIcon_Keqing.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\roleStarBg5.png" />
+    <Resource Include="Assets\UI_AvatarIcon_Keqing.png" />
   </ItemGroup>
 
 </Project>

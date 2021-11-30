@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GenshinBot.Design"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="800">
     <Grid>
-
+        <Frame x:Name="frame" Width="480" Height="585"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="590,173,0,0" VerticalAlignment="Top" Click="Button_Click"/>
     </Grid>
 </Window>
