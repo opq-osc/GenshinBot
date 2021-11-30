@@ -5,12 +5,14 @@ namespace GenshinBotCore.Services
 {
     public class UserManager : IUserManager
     {
-        public UserManager(ApplicationDbContext dbContext)
+        public UserManager(ApplicationDbContext dbContext, ILogger<UserManager> logger)
         {
             this.dbContext = dbContext;
+            this.logger = logger;
         }
 
         private readonly ApplicationDbContext dbContext;
+        private readonly ILogger logger;
 
         public User? GetUserByGenshinUid(string genshinUid) =>
             dbContext.Users.Where(u => u.GenshinUid == genshinUid).AsNoTracking().SingleOrDefault();
@@ -38,8 +40,9 @@ namespace GenshinBotCore.Services
 
                 user = exsistUser;
             }
-            catch
+            catch(Exception e)
             {
+                logger.LogDebug(e.Message);
                 return null;
             }
             await dbContext.SaveChangesAsync().ConfigureAwait(false);

@@ -58,7 +58,7 @@ namespace YukinoshitaBot.Extensions
             // ControllerCollection维护所有Controller的类型信息
             services.AddSingleton(services =>
             {
-                var controllerCollection = new ControllerCollection();
+                var controllerCollection = new ControllerCollection(services);
 
                 // 将以注入的Controller添加进ControllerCollection
                 foreach (var type in controllerTypes)

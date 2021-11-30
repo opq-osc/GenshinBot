@@ -11,28 +11,13 @@ using YukinoshitaBot.Extensions;
 namespace GenshinBotCore.Controllers
 {
     [YukinoshitaController(Command = "帮助", MatchMethod = CommandMatchMethod.Strict, Priority = 5)]
-    public class HelpController : IBotController
+    public class HelpController : BotControllerBase
     {
-        public Task FriendPicMsgHandlerAsync(PictureMessage message)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task FriendTextMsgHandlerAsync(TextMessage message)
+        [FriendText, GroupText]
+        public void TextMsgHandler(TextMessage message)
         {
             message.ReplyTextMsg(Help());
-            return Task.CompletedTask;
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GroupTextMsgHandlerAsync(TextMessage message)
-        {
-            message.ReplyTextMsg(Help());
-            return Task.CompletedTask;
         }
 
         private string Help()

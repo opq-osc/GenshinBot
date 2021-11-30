@@ -4,13 +4,13 @@
 
 namespace YukinoshitaBot
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using SocketIOClient;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using YukinoshitaBot.Data.Event;
     using YukinoshitaBot.Data.WebSocket;
     using YukinoshitaBot.Services;
@@ -87,10 +87,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        _ = this.msgHandler.OnGroupTextMsgRecievedAsync(textMsg);
+                        this.msgHandler.OnGroupTextMsgRecieved(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        _ = this.msgHandler.OnGroupPictureMsgRecievedAsync(picMsg);
+                        this.msgHandler.OnGroupPictureMsgRecieved(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());
@@ -123,10 +123,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        _ = this.msgHandler.OnFriendTextMsgRecievedAsync(textMsg);
+                        this.msgHandler.OnFriendTextMsgRecieved(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        _ = this.msgHandler.OnFriendPictureMsgRecievedAsync(picMsg);
+                        this.msgHandler.OnFriendPictureMsgRecieved(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());

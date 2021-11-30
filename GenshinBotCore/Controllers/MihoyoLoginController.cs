@@ -8,7 +8,7 @@ using YukinoshitaBot.Extensions;
 namespace GenshinBotCore.Controllers
 {
     [YukinoshitaController(Command = "原神登录", MatchMethod = CommandMatchMethod.StartWith, Priority = 1)]
-    public class MihoyoLoginController : IBotController
+    public class MihoyoLoginController : BotControllerBase
     {
         public MihoyoLoginController(
             ILogger<MihoyoLoginController> logger,
@@ -30,27 +30,8 @@ namespace GenshinBotCore.Controllers
         private readonly IUserManager userManager;
         private readonly ISecretManager secretManager;
 
-        public Task FriendPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task FriendTextMsgHandlerAsync(TextMessage message)
-        {
-            await Login(message);
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task GroupTextMsgHandlerAsync(TextMessage message)
-        {
-            await Login(message);
-        }
-
-        private async Task Login(TextMessage message)
+        [FriendText, GroupText]
+        public async Task Login(TextMessage message)
         {
             #region 指令验证
             logger.LogInformation("qq{qq}: {content}", message.SenderInfo.FromQQ, message.Content);

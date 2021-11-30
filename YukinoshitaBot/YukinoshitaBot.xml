@@ -39,24 +39,14 @@
             本方法处理完毕后继续将请求向之后的处理者传递
             </summary>
         </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.SessionType">
+        <member name="T:YukinoshitaBot.Data.Attributes.GroupImageAttribute">
             <summary>
-            会话类型
+            群组图片消息
             </summary>
         </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.SessionType.None">
+        <member name="T:YukinoshitaBot.Data.Attributes.GroupTextAttribute">
             <summary>
-            无会话状态
-            </summary>
-        </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.SessionType.Person">
-            <summary>
-            总是按照按QQ号进行会话
-            </summary>
-        </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.SessionType.Group">
-            <summary>
-            群消息按照群号进行会话
+            群组文本消息
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute">
@@ -98,6 +88,36 @@
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerType">
             <summary>
             控制器类型
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.FriendTextHandlers">
+            <summary>
+            好友文本消息处理的方法
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.FriendImageHandlers">
+            <summary>
+            好友图片消息的处理方法
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.GroupTextHandlers">
+            <summary>
+            群组文本消息的处理方法
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.GroupImageHandlers">
+            <summary>
+            群组图片消息的处理方法
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.TempSessionTextHandlers">
+            <summary>
+            临时会话文本消息的处理方法
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.TempSessionImageHandlers">
+            <summary>
+            临时会话图片消息的处理方法
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerAttribute">
@@ -233,34 +253,10 @@
             QQ号
             </summary>
         </member>
-        <member name="T:YukinoshitaBot.Data.Controller.IBotController">
+        <member name="T:YukinoshitaBot.Data.Controller.BotControllerBase">
             <summary>
-            机器人消息处理接口
+            机器人消息类
             </summary>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Controller.IBotController.FriendTextMsgHandlerAsync(YukinoshitaBot.Data.Event.TextMessage)">
-            <summary>
-            处理好友文字消息
-            </summary>
-            <param name="message"><see cref="T:YukinoshitaBot.Data.Event.TextMessage"/></param>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Controller.IBotController.GroupTextMsgHandlerAsync(YukinoshitaBot.Data.Event.TextMessage)">
-            <summary>
-            处理群组文字消息
-            </summary>
-            <param name="message"><see cref="T:YukinoshitaBot.Data.Event.TextMessage"/></param>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Controller.IBotController.FriendPicMsgHandlerAsync(YukinoshitaBot.Data.Event.PictureMessage)">
-            <summary>
-            处理好友图片消息
-            </summary>
-            <param name="message"><see cref="T:YukinoshitaBot.Data.Event.TextMessage"/></param>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Controller.IBotController.GroupPicMsgHandlerAsync(YukinoshitaBot.Data.Event.PictureMessage)">
-            <summary>
-            处理群组图片消息
-            </summary>
-            <param name="message"><see cref="T:YukinoshitaBot.Data.Event.PictureMessage"/></param>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.AtInfo">
             <summary>
@@ -893,7 +889,7 @@
             控制器容器
             </summary>
         </member>
-        <member name="M:YukinoshitaBot.Services.ControllerCollection.#ctor">
+        <member name="M:YukinoshitaBot.Services.ControllerCollection.#ctor(System.IServiceProvider)">
             <summary>
             Initializes a new instance of the <see cref="T:YukinoshitaBot.Services.ControllerCollection"/> class.
             </summary>
@@ -914,25 +910,25 @@
             消息处理器
             </summary>
         </member>
-        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnGroupTextMsgRecievedAsync(YukinoshitaBot.Data.Event.TextMessage)">
+        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnGroupTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
             <summary>
             群文本消息处理
             </summary>
             <param name="msg">消息</param>
         </member>
-        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnGroupPictureMsgRecievedAsync(YukinoshitaBot.Data.Event.PictureMessage)">
+        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnGroupPictureMsgRecieved(YukinoshitaBot.Data.Event.PictureMessage)">
             <summary>
             群图片消息处理
             </summary>
             <param name="msg">消息</param>
         </member>
-        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnFriendTextMsgRecievedAsync(YukinoshitaBot.Data.Event.TextMessage)">
+        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnFriendTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
             <summary>
             好友文本消息处理
             </summary>
             <param name="msg">消息</param>
         </member>
-        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnFriendPictureMsgRecievedAsync(YukinoshitaBot.Data.Event.PictureMessage)">
+        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnFriendPictureMsgRecieved(YukinoshitaBot.Data.Event.PictureMessage)">
             <summary>
             好友图片消息处理
             </summary>
@@ -992,16 +988,16 @@
             <param name="serviceProvider">服务容器</param>
             <param name="controllerCollection">控制器容器</param>
         </member>
-        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnFriendPictureMsgRecievedAsync(YukinoshitaBot.Data.Event.PictureMessage)">
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnFriendPictureMsgRecieved(YukinoshitaBot.Data.Event.PictureMessage)">
             <inheritdoc/>
         </member>
-        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnFriendTextMsgRecievedAsync(YukinoshitaBot.Data.Event.TextMessage)">
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnFriendTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
             <inheritdoc/>
         </member>
-        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnGroupPictureMsgRecievedAsync(YukinoshitaBot.Data.Event.PictureMessage)">
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnGroupPictureMsgRecieved(YukinoshitaBot.Data.Event.PictureMessage)">
             <inheritdoc/>
         </member>
-        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnGroupTextMsgRecievedAsync(YukinoshitaBot.Data.Event.TextMessage)">
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnGroupTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
             <inheritdoc/>
         </member>
         <member name="T:YukinoshitaBot.YukinoshitaWorker">

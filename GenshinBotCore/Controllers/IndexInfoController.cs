@@ -8,7 +8,7 @@ using YukinoshitaBot.Extensions;
 namespace GenshinBotCore.Controllers
 {
     [YukinoshitaController(Command = "我的原神", MatchMethod = CommandMatchMethod.Strict, Priority = 2)]
-    public class IndexInfoController : IBotController
+    public class IndexInfoController : BotControllerBase
     {
         public IndexInfoController(
             ILogger<MihoyoLoginController> logger,
@@ -24,27 +24,8 @@ namespace GenshinBotCore.Controllers
         private readonly ITakumiApi takumiApi;
         private readonly IUserManager userManager;
 
-        public async Task FriendTextMsgHandlerAsync(TextMessage message)
-        {
-            await IndexInfoHandler(message);
-        }
-
-        public async Task GroupTextMsgHandlerAsync(TextMessage message)
-        {
-            await IndexInfoHandler(message);
-        }
-
-        public Task FriendPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        private async Task IndexInfoHandler(TextMessage message)
+        [FriendText, GroupText]
+        public async Task IndexInfoHandler(TextMessage message)
         {
             var user = userManager.GetUserByQQ(message.SenderInfo.FromQQ ?? default);
             if (user == null)
