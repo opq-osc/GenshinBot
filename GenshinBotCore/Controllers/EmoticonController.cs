@@ -12,7 +12,7 @@ using YukinoshitaBot.Data.OpqApi;
 namespace GenshinBotCore.Controllers
 {
     [YukinoshitaController(Command = "随机表情", MatchMethod = CommandMatchMethod.StartWith, Priority = 4)]
-    public class EmoticonController : IBotController
+    public class EmoticonController : BotControllerBase
     {
         public EmoticonController(EmoticonSet emoticons)
         {
@@ -21,30 +21,8 @@ namespace GenshinBotCore.Controllers
 
         private readonly EmoticonSet emoticons;
 
-        public Task FriendPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task FriendTextMsgHandlerAsync(TextMessage message)
-        {
-            var cmd = message.Content.Split(' ');
-            if (cmd.Length > 1)
-            {
-                message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync(cmd[1])));
-            }
-            else
-            {
-                message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync()));
-            }
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task GroupTextMsgHandlerAsync(TextMessage message)
+        [FriendText, GroupText]
+        public async Task TextMsgHandlerAsync(TextMessage message)
         {
             var cmd = message.Content.Split(' ');
             if (cmd.Length > 1)

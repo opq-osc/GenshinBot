@@ -9,7 +9,7 @@ using YukinoshitaBot.Extensions;
 namespace GenshinBotCore.Controllers
 {
     [YukinoshitaController(Command = "查询原神状态", MatchMethod = CommandMatchMethod.Strict, Priority = 3)]
-    public class DailyNoteController : IBotController
+    public class DailyNoteController : BotControllerBase
     {
         public DailyNoteController(
             ILogger<MihoyoLoginController> logger,
@@ -25,27 +25,8 @@ namespace GenshinBotCore.Controllers
         private readonly ITakumiApi takumiApi;
         private readonly IUserManager userManager;
 
-        public Task FriendPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task FriendTextMsgHandlerAsync(TextMessage message)
-        {
-            await DailyNoteHandler(message);
-        }
-
-        public Task GroupPicMsgHandlerAsync(PictureMessage message)
-        {
-            return Task.CompletedTask;
-        }
-
-        public async Task GroupTextMsgHandlerAsync(TextMessage message)
-        {
-            await DailyNoteHandler(message);
-        }
-
-        private async Task DailyNoteHandler(TextMessage message)
+        [FriendText, GroupText]
+        public async Task DailyNoteHandler(TextMessage message)
         {
             var user = userManager.GetUserByQQ(message.SenderInfo.FromQQ ?? default);
             if (user == null)

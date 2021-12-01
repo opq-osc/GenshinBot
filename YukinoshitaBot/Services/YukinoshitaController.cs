@@ -4,10 +4,11 @@
 
 namespace YukinoshitaBot.Services
 {
-    using Microsoft.Extensions.DependencyInjection;
     using System;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using Microsoft.Extensions.DependencyInjection;
     using YukinoshitaBot.Data.Attributes;
     using YukinoshitaBot.Data.Controller;
     using YukinoshitaBot.Data.Event;
@@ -34,85 +35,93 @@ namespace YukinoshitaBot.Services
         }
 
         /// <inheritdoc/>
-        public async Task OnFriendPictureMsgRecievedAsync(PictureMessage msg)
+        public void OnFriendPictureMsgRecieved(PictureMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
                 {
-                    using (var scope = this.serviceProvider.CreateScope())
+                    continue;
+                }
+
+                if (controller.FriendImageHandlers.Any())
+                {
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    foreach (var method in controller.FriendImageHandlers)
                     {
-                        IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.FriendPicMsgHandlerAsync(msg);
+                        method.Invoke(controllerObj, new object[] { msg });
                     }
 
-                    if (controller.ControllerAttribute.Mode is HandleMode.Break)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
 
         /// <inheritdoc/>
-        public async Task OnFriendTextMsgRecievedAsync(TextMessage msg)
+        public void OnFriendTextMsgRecieved(TextMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
                 {
-                    using (var scope = this.serviceProvider.CreateScope())
+                    continue;
+                }
+
+                if (controller.FriendTextHandlers.Any())
+                {
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    foreach (var method in controller.FriendTextHandlers)
                     {
-                        IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.FriendTextMsgHandlerAsync(msg);
+                        method.Invoke(controllerObj, new object[] { msg });
                     }
 
-                    if (controller.ControllerAttribute.Mode is HandleMode.Break)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
 
         /// <inheritdoc/>
-        public async Task OnGroupPictureMsgRecievedAsync(PictureMessage msg)
+        public void OnGroupPictureMsgRecieved(PictureMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
                 {
-                    using (var scope = this.serviceProvider.CreateScope())
+                    continue;
+                }
+
+                if (controller.GroupImageHandlers.Any())
+                {
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    foreach (var method in controller.GroupImageHandlers)
                     {
-                        IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.GroupPicMsgHandlerAsync(msg);
+                        method.Invoke(controllerObj, new object[] { msg });
                     }
 
-                    if (controller.ControllerAttribute.Mode is HandleMode.Break)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
 
         /// <inheritdoc/>
-        public async Task OnGroupTextMsgRecievedAsync(TextMessage msg)
+        public void OnGroupTextMsgRecieved(TextMessage msg)
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
                 {
-                    using (var scope = this.serviceProvider.CreateScope())
+                    continue;
+                }
+
+                if (controller.GroupTextHandlers.Any())
+                {
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    foreach (var method in controller.GroupTextHandlers)
                     {
-                        IBotController controllerObj = GetController(controller.ControllerType, scope);
-                        await controllerObj.GroupTextMsgHandlerAsync(msg);
+                        method.Invoke(controllerObj, new object[] { msg });
                     }
 
-                    if (controller.ControllerAttribute.Mode is HandleMode.Break)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
@@ -124,15 +133,5 @@ namespace YukinoshitaBot.Services
             CommandMatchMethod.Regex => Regex.IsMatch(msg, cmd),
             _ => false
         };
-
-        private static IBotController GetController(Type controllerType, IServiceScope scope)
-        {
-            if (scope.ServiceProvider.GetService(controllerType) is not IBotController controllerObj)
-            {
-                throw new InvalidOperationException("controller is not resolved.");
-            }
-
-            return controllerObj;
-        }
     }
 }
