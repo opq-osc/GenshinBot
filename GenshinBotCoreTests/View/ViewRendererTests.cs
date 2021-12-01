@@ -16,57 +16,21 @@ namespace GenshinBotCore.View.Tests
     public class ViewRendererTests
     {
         [TestMethod()]
-        public void SingleRendererTest1()
+        public void TestCardRendererTest()
         {
-            var bitmap = new SKBitmap(200, 200);
+            var bitmap = new SKBitmap(1080, 2340);
             var canvas = new SKCanvas(bitmap);
-            var renderer = new TestRender1(canvas);
-
-            renderer.Render();
-
-           
-            var image = SKImage.FromBitmap(bitmap);
-            var file = File.Open("SingleRendererTest1.png", FileMode.Create);
-            image.Encode(SKEncodedImageFormat.Png, 90).SaveTo(file);
-            file.Close();
-
-            Assert.IsTrue(File.Exists("SingleRendererTest1.png"));
-        }
-
-        [TestMethod()]
-        public void SingleRendererTest2()
-        {
-            var bitmap = new SKBitmap(200, 200);
-            var canvas = new SKCanvas(bitmap);
-            var renderer = new TestRender2(canvas);
-
-            renderer.Render();
-
-
-            var image = SKImage.FromBitmap(bitmap);
-            var file = File.Open("SingleRendererTest2.png", FileMode.Create);
-            image.Encode(SKEncodedImageFormat.Png, 90).SaveTo(file);
-            file.Close();
-
-            Assert.IsTrue(File.Exists("SingleRendererTest2.png"));
-        }
-
-        [TestMethod()]
-        public void CombinedRendererTest()
-        {
-            var bitmap = new SKBitmap(200, 200);
-            var canvas = new SKCanvas(bitmap);
-            var renderer = new TestRender3(canvas);
+            var renderer = new TestCardRender(canvas, new SKPoint(0, 0));
 
             renderer.Render();
 
             var image = SKImage.FromBitmap(bitmap);
-            var file = File.Open("SingleRendererTest3.png", FileMode.Create);
+            var file = File.Open("TestCardRendererTest.png", FileMode.Create);
             image.Encode(SKEncodedImageFormat.Png, 90).SaveTo(file);
             file.Close();
 
-            var fileInfo = new FileInfo("SingleRendererTest3.png");
-            Assert.IsTrue(File.Exists("SingleRendererTest3.png"));
+            var fileInfo = new FileInfo("TestCardRendererTest.png");
+            Assert.IsTrue(fileInfo.Exists);
             Process.Start("explorer.exe", fileInfo.FullName);
         }
     }

@@ -9,10 +9,10 @@ namespace GenshinBotCore.View
 {
     public class CardBackgroundRender : ViewRenderer
     {
-        public CardBackgroundRender(SKCanvas canvas, SKSize size) : base(canvas)
+        public CardBackgroundRender(SKCanvas canvas, SKPoint origin, SKSize size) : base(canvas, origin)
         {
-            var fillRect = new SKRoundRect(SKRect.Create(0, 0, size.Width, size.Height), 8);
-            var strokeRect = new SKRoundRect(SKRect.Create(2, 2, size.Width - 4, size.Height - 4), 8);
+            var fillRect = new SKRoundRect(SKRect.Create(origin.X, origin.Y, size.Width, size.Height), 8);
+            var strokeRect = new SKRoundRect(SKRect.Create(origin.X + 2, origin.Y + 2, size.Width - 4, size.Height - 4), 8);
             using var fillPaint = new SKPaint()
             {
                 Style = SKPaintStyle.Fill,

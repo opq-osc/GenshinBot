@@ -12,6 +12,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\segoeui.ttf" />
+    <None Remove="Assets\segoeuib.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\segoeui.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\segoeuib.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="appsettings.Development.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

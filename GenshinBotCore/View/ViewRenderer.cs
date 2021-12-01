@@ -9,23 +9,34 @@ namespace GenshinBotCore.View
 {
     public abstract class ViewRenderer
     {
-        public ViewRenderer(SKCanvas canvas)
+        public ViewRenderer(SKCanvas canvas, SKPoint origin)
         {
             this.canvas = canvas;
+            this.origin = origin;
             this.renderers = new();
             this.subViews = new();
         }
 
-        private readonly SKCanvas canvas;
-        private readonly List<(SKRect, Func<SKCanvas, SKCanvas>)> renderers;
-        private readonly List<(SKRect, Func<SKCanvas, SKSize, ViewRenderer>)> subViews;
+        static ViewRenderer()
+        {
+            TypefaceNormal = SKTypeface.FromFile("Assets/segoeui.ttf");
+            TypefaceBold = SKTypeface.FromFile("Assets/segoeuib.ttf");
+        }
 
-        protected void AddPart(SKRect partRange, Func<SKCanvas, SKCanvas> renderer)
+        protected static SKTypeface TypefaceNormal { get; private set; }
+        protected static SKTypeface TypefaceBold { get; private set; }
+
+        private readonly SKCanvas canvas;
+        private readonly SKPoint origin;
+        private readonly List<(SKRect, Func<SKCanvas, SKPoint, SKCanvas>)> renderers;
+        private readonly List<(SKRect, Func<SKCanvas, SKPoint, SKSize, ViewRenderer>)> subViews;
+
+        protected void AddPart(SKRect partRange, Func<SKCanvas, SKPoint, SKCanvas> renderer)
         {
             renderers.Add(new(partRange, renderer));
         }
 
-        protected void AddSubView(SKRect subViewRange, Func<SKCanvas, SKSize, ViewRenderer> builder)
+        protected void AddSubView(SKRect subViewRange, Func<SKCanvas, SKPoint, SKSize, ViewRenderer> builder)
         {
             subViews.Add(new(subViewRange, builder));
         }
@@ -36,7 +47,7 @@ namespace GenshinBotCore.View
             {
                 canvas.Save();
                 canvas.ClipRect(renderer.Item1);
-                var clipCanvas = renderer.Item2(canvas);
+                var clipCanvas = renderer.Item2(canvas, origin + renderer.Item1.Location);
                 clipCanvas.Restore();
             }
             foreach (var renderer in subViews)
@@ -44,10 +55,9 @@ namespace GenshinBotCore.View
                 canvas.Save();
                 canvas.ClipRect(renderer.Item1);
 
-                var subView = renderer.Item2(canvas, new SKSize(renderer.Item1.Width, renderer.Item1.Height));
+                var subView = renderer.Item2(canvas, origin + renderer.Item1.Location, new SKSize(renderer.Item1.Width, renderer.Item1.Height));
                 
                 subView.Render();
-
                 canvas.Restore();
             }
 

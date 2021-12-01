@@ -19,7 +19,7 @@ namespace GenshinBotCore.View.Tests
         {
             var bitmap = new SKBitmap(1920, 1080);
             var canvas = new SKCanvas(bitmap);
-            var renderer = new CardBackgroundRender(canvas, new SKSize(1920, 1080));
+            var renderer = new CardBackgroundRender(canvas, new SKPoint(0,0), new SKSize(1920, 1080));
 
             renderer.Render();
 
