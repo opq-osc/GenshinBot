@@ -10,6 +10,7 @@ namespace YukinoshitaBot.Services
     using System.Reflection;
     using System.Text.RegularExpressions;
     using YukinoshitaBot.Data.Attributes;
+    using YukinoshitaBot.Data.Controller;
     using YukinoshitaBot.Data.Event;
 
     /// <summary>
@@ -17,19 +18,15 @@ namespace YukinoshitaBot.Services
     /// </summary>
     internal class YukinoshitaController : IMessageHandler
     {
-        private readonly IServiceProvider serviceProvider;
         private readonly ControllerCollection controllers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YukinoshitaController"/> class.
         /// </summary>
-        /// <param name="serviceProvider">服务容器</param>
         /// <param name="controllerCollection">控制器容器</param>
         public YukinoshitaController(
-            IServiceProvider serviceProvider,
             ControllerCollection controllerCollection)
         {
-            this.serviceProvider = serviceProvider;
             this.controllers = controllerCollection;
         }
 
@@ -38,13 +35,19 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.FriendImageHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
+                if (!controller.FriendImageHandlers.Any()
+                    || msg.Content.Length > controller.YukinoControllerAttribute.MaxLength
+                    || !controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
                 {
                     continue;
                 }
+                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                    ?? throw new NullReferenceException();
+                controllerObj.MatchPairs = matchPairs;
+                controllerObj.Message = msg;
                 List<MethodInfo> methods = controller.FriendImageHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods)
-                    && controller.ControllerAttribute.Mode == HandleMode.Break)
+                if (InvokeMethod(controllerObj, methods)
+                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -56,13 +59,21 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.FriendTextHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
+                if (!controller.FriendTextHandlers.Any() || msg.Content.Length > controller.YukinoControllerAttribute.MaxLength)
                 {
                     continue;
                 }
+                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    continue;
+                }
+                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                    ?? throw new NullReferenceException();
+                controllerObj.MatchPairs = matchPairs;
+                controllerObj.Message = msg;
                 List<MethodInfo> methods = controller.FriendTextHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods)
-                    && controller.ControllerAttribute.Mode == HandleMode.Break)
+                if (InvokeMethod(controllerObj, methods)
+                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -74,13 +85,21 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.GroupImageHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
+                if (!controller.GroupImageHandlers.Any() || msg.Content.Length > controller.YukinoControllerAttribute.MaxLength)
                 {
                     continue;
                 }
+                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    continue;
+                }
+                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                    ?? throw new NullReferenceException();
+                controllerObj.MatchPairs = matchPairs;
+                controllerObj.Message = msg;
                 List<MethodInfo> methods = controller.GroupImageHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods)
-                    && controller.ControllerAttribute.Mode == HandleMode.Break)
+                if (InvokeMethod(controllerObj, methods)
+                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -92,29 +111,29 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.GroupTextHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
+                if (!controller.GroupTextHandlers.Any() || msg.Content.Length > controller.YukinoControllerAttribute.MaxLength)
                 {
                     continue;
                 }
+                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    continue;
+                }
+                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                    ?? throw new NullReferenceException();
+                controllerObj.MatchPairs = matchPairs;
+                controllerObj.Message = msg;
                 List<MethodInfo> methods = controller.GroupTextHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods)
-                    && controller.ControllerAttribute.Mode == HandleMode.Break)
+                if (InvokeMethod(controllerObj, methods)
+                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
             }
         }
 
-        private bool InvokeMethod(Message msg, string content, YukinoshitaControllerInfo controller, List<MethodInfo> methods)
+        private bool InvokeMethod(BotControllerBase controllerObj, List<MethodInfo> methods)
         {
-            var controllerType = controller.ControllerType;
-            if (controllerType.GetCustomAttribute<YukinoControllerAttribute>() is not YukinoControllerAttribute yukinoRoute
-                || !yukinoRoute.TryMatch(content, out var matchPairs))
-            {
-                return false;
-            }
-            var controllerObj = controllers.GetController(controllerType);
-            controllerObj.Message = msg;
             foreach (var method in methods)
             {
                 var @params = method.GetParameters();
@@ -122,7 +141,7 @@ namespace YukinoshitaBot.Services
                 for (int i = 0; i < @params.Length; i++)
                 {
                     var name = @params[i].Name ?? throw new ArgumentNullException("name can't be null");
-                    if (!matchPairs.TryGetValue(name, out var value))
+                    if (!controllerObj.MatchPairs.TryGetValue(name, out var value))
                     {
                         throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
                     }

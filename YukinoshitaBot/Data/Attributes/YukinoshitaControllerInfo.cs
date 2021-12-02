@@ -26,7 +26,7 @@ namespace YukinoshitaBot.Data.Attributes
             {
                 throw new InvalidCastException($"Type '{controllerType.FullName}' is not a YukinoshitaController.");
             }
-            this.ControllerAttribute = attribute;
+            this.YukinoControllerAttribute = attribute;
 
             var methods = controllerType.GetMethods();
 
@@ -64,7 +64,7 @@ namespace YukinoshitaBot.Data.Attributes
         /// <summary>
         /// 控制器属性
         /// </summary>
-        public YukinoControllerAttribute ControllerAttribute { get; set; } = null!;
+        public YukinoControllerAttribute YukinoControllerAttribute { get; set; } = null!;
 
         /// <summary>
         /// 好友文本消息处理的方法
@@ -100,18 +100,18 @@ namespace YukinoshitaBot.Data.Attributes
 
         public static bool operator >(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {
-            return obj1.ControllerAttribute.Priority > obj2.ControllerAttribute.Priority;
+            return obj1.YukinoControllerAttribute.Priority > obj2.YukinoControllerAttribute.Priority;
         }
 
         public static bool operator <(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {
-            return obj1.ControllerAttribute.Priority < obj2.ControllerAttribute.Priority;
+            return obj1.YukinoControllerAttribute.Priority < obj2.YukinoControllerAttribute.Priority;
         }
 
         /// <inheritdoc/>
         public int CompareTo(YukinoshitaControllerInfo other)
         {
-            return this.ControllerAttribute.Priority - other.ControllerAttribute.Priority;
+            return this.YukinoControllerAttribute.Priority - other.YukinoControllerAttribute.Priority;
         }
     }
 }

@@ -12,7 +12,12 @@
     /// </summary>
     public abstract class BotControllerBase
     {
-        /// <inheritdoc/>
+        /// <see cref="Message"/>
         public Message Message { get; set; } = null!;
+
+        /// <summary>
+        /// 匹配得到的参数键值对
+        /// </summary>
+        public Dictionary<string,string> MatchPairs { get; set; } = null!;
     }
 }
