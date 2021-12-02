@@ -7,7 +7,7 @@ using YukinoshitaBot.Extensions;
 
 namespace GenshinBotCore.Controllers
 {
-    [YukinoRouteAttribute(Command = "原神登录", MatchMethod = CommandMatchMethod.StartWith, Priority = 1)]
+    [StartRoute(Command = "原神登录", Priority = 1)]
     public class MihoyoLoginController : BotControllerBase
     {
         public MihoyoLoginController(

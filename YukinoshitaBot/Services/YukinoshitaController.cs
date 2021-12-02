@@ -107,18 +107,13 @@ namespace YukinoshitaBot.Services
 
         private bool InvokeMethod(Message msg, string content, YukinoshitaControllerInfo controller, List<MethodInfo> methods)
         {
-            return TryInvokeRegexRoute(msg, content, controller.ControllerType, methods)
-                || TryInvokeYukinoRoute(msg, content, controller.ControllerType, methods);
-        }
-
-        private bool TryInvokeRegexRoute(Message msg, string content, Type controller, List<MethodInfo> methods)
-        {
-            if (controller.GetCustomAttribute<RegexRouteAttribute>() is not RegexRouteAttribute regexRoute
-                || !regexRoute.TryMatch(content, out var matchPairs))
+            var controllerType = controller.ControllerType;
+            if (controllerType.GetCustomAttribute<YukinoControllerAttribute>() is not YukinoControllerAttribute yukinoRoute
+                || !yukinoRoute.TryMatch(content, out var matchPairs))
             {
                 return false;
             }
-            var controllerObj = controllers.GetController(controller);
+            var controllerObj = controllers.GetController(controllerType);
             controllerObj.Message = msg;
             foreach (var method in methods)
             {
@@ -134,22 +129,6 @@ namespace YukinoshitaBot.Services
                     paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
                 }
                 method.Invoke(controllerObj, paramsIn);
-            }
-            return true;
-        }
-
-        private bool TryInvokeYukinoRoute(Message msg, string content, Type controllerType, List<MethodInfo> methods)
-        {
-            if (controllerType.GetCustomAttribute<YukinoRouteAttribute>() is not YukinoRouteAttribute yukinoRoute
-                     || !yukinoRoute.TryMatch(content))
-            {
-                return false;
-            }
-            var controllerObj = controllers.GetController(controllerType);
-            controllerObj.Message = msg;
-            foreach (var method in methods)
-            {
-                method.Invoke(controllerObj, new object[] { });
             }
             return true;
         }

@@ -9,6 +9,11 @@
             定义为YukinoshitaController
             </summary>
         </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Command">
+            <summary>
+            匹配的指令
+            </summary>
+        </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Priority">
             <summary>
             优先级，越小优先级越高
@@ -19,19 +24,33 @@
             处理模式
             </summary>
         </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute">
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.MaxLength">
             <summary>
-            基本的匹配能力
+            超过则忽略此消息
             </summary>
         </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Command">
+        <member name="M:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.TryMatch(System.String,System.Collections.Generic.Dictionary{System.String,System.String}@)">
             <summary>
-            匹配的指令
+            检验输入指令是否匹配控制器
+            </summary>
+            <param name="msg">输入的指令</param>
+            <param name="matchPairs">得到的匹配键值对</param>
+            <returns></returns>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.StrictRouteAttribute">
+            <summary>
+            当输入的指令与设置指令完全一致时才匹配
+            Command = "Hello"
+            "Hello" 匹配
+            "Hello world" 不匹配
             </summary>
         </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.MatchMethod">
+        <member name="T:YukinoshitaBot.Data.Attributes.StartRouteAttribute">
             <summary>
-            指令识别方式
+            当输入的指令以设置的命令为起始时匹配
+            Command = "Hello"
+            "Hello" 匹配
+            "Hello world" 匹配
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.RegexRouteAttribute">
@@ -79,31 +98,6 @@
         <member name="F:YukinoshitaBot.Data.Attributes.HandleMode.Pass">
             <summary>
             本方法处理完毕后继续将请求向之后的处理者传递
-            </summary>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute">
-            <summary>
-            定义为YukinoshitaController
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute.Command">
-            <summary>
-            匹配的指令
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute.MatchMethod">
-            <summary>
-            指令识别方式
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute.Priority">
-            <summary>
-            优先级，越小优先级越高
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute.Mode">
-            <summary>
-            处理模式
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo">

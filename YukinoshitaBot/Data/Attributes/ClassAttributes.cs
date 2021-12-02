@@ -12,8 +12,13 @@ namespace YukinoshitaBot.Data.Attributes
     /// <summary>
     /// 定义为YukinoshitaController
     /// </summary>
-    public class YukinoControllerAttribute : Attribute
+    public abstract class YukinoControllerAttribute : Attribute
     {
+        /// <summary>
+        /// 匹配的指令
+        /// </summary>
+        public string Command { get; set; } = string.Empty;
+
         /// <summary>
         /// 优先级，越小优先级越高
         /// </summary>
@@ -28,31 +33,46 @@ namespace YukinoshitaBot.Data.Attributes
         /// 超过则忽略此消息
         /// </summary>
         public int MaxLength { get; set; } = 40;
+
+        /// <summary>
+        /// 检验输入指令是否匹配控制器
+        /// </summary>
+        /// <param name="msg">输入的指令</param>
+        /// <param name="matchPairs">得到的匹配键值对</param>
+        /// <returns></returns>
+        public abstract bool TryMatch(string msg, out Dictionary<string, string> matchPairs);
     }
 
     /// <summary>
-    /// 基本的匹配能力
+    /// 当输入的指令与设置指令完全一致时才匹配
+    /// Command = "Hello"
+    /// "Hello" 匹配
+    /// "Hello world" 不匹配
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class YukinoRouteAttribute : YukinoControllerAttribute
+    public class StrictRouteAttribute : YukinoControllerAttribute
     {
-        /// <summary>
-        /// 匹配的指令
-        /// </summary>
-        public string Command { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 指令识别方式
-        /// </summary>
-        public CommandMatchMethod MatchMethod { get; set; } = CommandMatchMethod.Strict;
-
-        public bool TryMatch(string msg) => MatchMethod switch
+        public override bool TryMatch(string msg, out Dictionary<string, string> matchPairs)
         {
-            CommandMatchMethod.Strict => msg == Command,
-            CommandMatchMethod.StartWith => msg.StartsWith(Command),
-            CommandMatchMethod.Regex => Regex.IsMatch(msg, Command),
-            _ => false
-        };
+            matchPairs = new();
+            return msg == Command;
+        }
+    }
+
+    /// <summary>
+    /// 当输入的指令以设置的命令为起始时匹配
+    /// Command = "Hello"
+    /// "Hello" 匹配
+    /// "Hello world" 匹配
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class StartRouteAttribute : YukinoControllerAttribute
+    {
+        public override bool TryMatch(string msg, out Dictionary<string, string> matchPairs)
+        {
+            matchPairs = new();
+            return msg.StartsWith(Command);
+        }
     }
 
     /// <summary>
@@ -62,12 +82,23 @@ namespace YukinoshitaBot.Data.Attributes
     public class RegexRouteAttribute : YukinoControllerAttribute
     {
         protected Regex regex = null!;
-        public string Command { get => regex.ToString(); init { regex = new Regex(value); } }
 
-        public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
+        protected string rawCmd = null!;
+
+        public new string Command
+        {
+            get => rawCmd;
+            init
+            {
+                rawCmd = value;
+                regex = new Regex(value);
+            }
+        }
+
+        public override bool TryMatch(string msg, out Dictionary<string, string> matchPairs)
         {
             matchPairs = new();
-            var match = this.regex.Match(input);
+            var match = this.regex.Match(msg);
             if (match.Success == false)
             {
                 return false;
@@ -100,15 +131,13 @@ namespace YukinoshitaBot.Data.Attributes
             this.Command = cmd;
         }
 
-        private string cmd = null!;
-
         public new string Command
         {
-            get => cmd;
+            get => rawCmd;
             init
             {
-                cmd = value;
-                var matchStr = Regex.Replace(Regex.Replace(cmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s+");
+                rawCmd = value;
+                var matchStr = Regex.Replace(Regex.Replace(rawCmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s+");
                 regex = new Regex(@$"^{matchStr}$");
             }
         }
