@@ -43,7 +43,8 @@ namespace YukinoshitaBot.Services
                     continue;
                 }
                 List<MethodInfo> methods = controller.FriendImageHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods))
+                if (InvokeMethod(msg, msg.Content, controller, methods)
+                    && controller.ControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -60,7 +61,8 @@ namespace YukinoshitaBot.Services
                     continue;
                 }
                 List<MethodInfo> methods = controller.FriendTextHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods))
+                if (InvokeMethod(msg, msg.Content, controller, methods)
+                    && controller.ControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -77,7 +79,8 @@ namespace YukinoshitaBot.Services
                     continue;
                 }
                 List<MethodInfo> methods = controller.GroupImageHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods))
+                if (InvokeMethod(msg, msg.Content, controller, methods)
+                    && controller.ControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -94,7 +97,8 @@ namespace YukinoshitaBot.Services
                     continue;
                 }
                 List<MethodInfo> methods = controller.GroupTextHandlers;
-                if (InvokeMethod(msg, msg.Content, controller, methods))
+                if (InvokeMethod(msg, msg.Content, controller, methods)
+                    && controller.ControllerAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -103,49 +107,56 @@ namespace YukinoshitaBot.Services
 
         private bool InvokeMethod(Message msg, string content, YukinoshitaControllerInfo controller, List<MethodInfo> methods)
         {
-            var isHandled = false;
-            if (controller.ControllerType.GetCustomAttribute<RegexRouteAttribute>() is RegexRouteAttribute regexRoute)
+            return TryInvokeRegexRoute(msg, content, controller.ControllerType, methods)
+                || TryInvokeYukinoRoute(msg, content, controller.ControllerType, methods);
+        }
+
+        private bool TryInvokeRegexRoute(Message msg, string content, Type controller, List<MethodInfo> methods)
+        {
+            if (controller.GetCustomAttribute<RegexRouteAttribute>() is not RegexRouteAttribute regexRoute
+                || !regexRoute.TryMatch(content, out var matchPairs))
             {
-                if (regexRoute.TryMatch(content, out var matchPairs))
-                {
-                    isHandled = true;
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    controllerObj.Message = msg;
-                    foreach (var method in methods)
-                    {
-                        var @params = method.GetParameters();
-                        var paramsIn = new object[@params.Length];
-                        for (int i = 0; i < @params.Length; i++)
-                        {
-                            var name = @params[i].Name;
-                            if (name == null)
-                            {
-                                throw new ArgumentNullException("name can't be null");
-                            }
-                            if (!matchPairs.TryGetValue(name, out var value))
-                            {
-                                throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
-                            }
-                            paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
-                        }
-                        method.Invoke(controllerObj, paramsIn);
-                    }
-                }
+                return false;
             }
-            else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
+            var controllerObj = controllers.GetController(controller);
+            controllerObj.Message = msg;
+            foreach (var method in methods)
             {
-                if (yukinoRoute.TryMatch(content))
+                var @params = method.GetParameters();
+                var paramsIn = new object[@params.Length];
+                for (int i = 0; i < @params.Length; i++)
                 {
-                    isHandled = true;
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    controllerObj.Message = msg;
-                    foreach (var method in methods)
+                    var name = @params[i].Name;
+                    if (name == null)
                     {
-                        method.Invoke(controllerObj, new object[] { msg });
+                        throw new ArgumentNullException("name can't be null");
                     }
+                    if (!matchPairs.TryGetValue(name, out var value))
+                    {
+                        throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
+                    }
+                    paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
                 }
+                method.Invoke(controllerObj, paramsIn);
             }
-            return isHandled;
+            return true;
+        }
+
+        private bool TryInvokeYukinoRoute(Message msg, string content, Type controllerType, List<MethodInfo> methods)
+        {
+            if (controllerType.GetCustomAttribute<YukinoRouteAttribute>() is not YukinoRouteAttribute yukinoRoute
+                     || !yukinoRoute.TryMatch(content))
+            {
+                return false;
+            }
+            var controllerObj = controllers.GetController(controllerType);
+            controllerObj.Message = msg;
+            foreach (var method in methods)
+            {
+                method.Invoke(controllerObj, new object[] { msg
+                });
+            }
+            return true;
         }
     }
 }
