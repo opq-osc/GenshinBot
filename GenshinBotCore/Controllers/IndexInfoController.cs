@@ -7,7 +7,7 @@ using YukinoshitaBot.Extensions;
 
 namespace GenshinBotCore.Controllers
 {
-    [YukinoshitaController(Command = "我的原神", MatchMethod = CommandMatchMethod.Strict, Priority = 2)]
+    [YukinoRouteAttribute(Command = "我的原神", MatchMethod = CommandMatchMethod.Strict, Priority = 2)]
     public class IndexInfoController : BotControllerBase
     {
         public IndexInfoController(

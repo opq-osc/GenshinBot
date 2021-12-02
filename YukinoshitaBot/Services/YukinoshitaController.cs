@@ -5,12 +5,11 @@
 namespace YukinoshitaBot.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.DependencyInjection;
     using YukinoshitaBot.Data.Attributes;
-    using YukinoshitaBot.Data.Controller;
     using YukinoshitaBot.Data.Event;
 
     /// <summary>
@@ -39,19 +38,13 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!controller.FriendImageHandlers.Any())
                 {
                     continue;
                 }
-
-                if (controller.FriendImageHandlers.Any())
+                List<MethodInfo> methods = controller.FriendImageHandlers;
+                if (InvokeMethod(msg, controller, methods))
                 {
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    foreach (var method in controller.FriendImageHandlers)
-                    {
-                        method.Invoke(controllerObj, new object[] { msg });
-                    }
-
                     break;
                 }
             }
@@ -62,19 +55,13 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!controller.FriendTextHandlers.Any())
                 {
                     continue;
                 }
-
-                if (controller.FriendTextHandlers.Any())
+                List<MethodInfo> methods = controller.FriendTextHandlers;
+                if (InvokeMethod(msg, controller, methods))
                 {
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    foreach (var method in controller.FriendTextHandlers)
-                    {
-                        method.Invoke(controllerObj, new object[] { msg });
-                    }
-
                     break;
                 }
             }
@@ -85,19 +72,13 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!controller.GroupImageHandlers.Any())
                 {
                     continue;
                 }
-
-                if (controller.GroupImageHandlers.Any())
+                List<MethodInfo> methods = controller.GroupImageHandlers;
+                if (InvokeMethod(msg, controller, methods))
                 {
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    foreach (var method in controller.GroupImageHandlers)
-                    {
-                        method.Invoke(controllerObj, new object[] { msg });
-                    }
-
                     break;
                 }
             }
@@ -108,22 +89,106 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+                if (!controller.GroupTextHandlers.Any())
                 {
                     continue;
                 }
-
-                if (controller.GroupTextHandlers.Any())
+                List<MethodInfo> methods = controller.GroupTextHandlers;
+                if (InvokeMethod(msg, controller, methods))
                 {
-                    var controllerObj = controllers.GetController(controller.ControllerType);
-                    foreach (var method in controller.GroupTextHandlers)
-                    {
-                        method.Invoke(controllerObj, new object[] { msg });
-                    }
-
                     break;
                 }
             }
+        }
+
+        private bool InvokeMethod(PictureMessage msg, YukinoshitaControllerInfo controller, List<MethodInfo> methods)
+        {
+            var isHandled = false;
+            if (controller.ControllerType.GetCustomAttribute<RegexRouteAttribute>() is RegexRouteAttribute regexRoute)
+            {
+                if (regexRoute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        var @params = method.GetParameters();
+                        var paramsIn = new object[@params.Length];
+                        for (int i = 0; i < @params.Length; i++)
+                        {
+                            var name = @params[i].Name;
+                            if (name == null)
+                            {
+                                throw new ArgumentNullException("name can't be null");
+                            }
+                            if (!matchPairs.TryGetValue(name, out var value))
+                            {
+                                throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
+                            }
+                            paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
+                        }
+                        method.Invoke(controllerObj, paramsIn);
+                    }
+                }
+            }
+            else if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+            {
+                isHandled = true;
+                var controllerObj = controllers.GetController(controller.ControllerType);
+                controllerObj.Message = msg;
+                foreach (var method in methods)
+                {
+                    method.Invoke(controllerObj, new object[] { msg });
+                }
+            }
+
+            return isHandled;
+        }
+
+        private bool InvokeMethod(TextMessage msg, YukinoshitaControllerInfo controller, List<MethodInfo> methods)
+        {
+            var isHandled = false;
+            if (controller.ControllerType.GetCustomAttribute<RegexRouteAttribute>() is RegexRouteAttribute regexRoute)
+            {
+                if (regexRoute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        var @params = method.GetParameters();
+                        var paramsIn = new object[@params.Length];
+                        for (int i = 0; i < @params.Length; i++)
+                        {
+                            var name = @params[i].Name;
+                            if (name == null)
+                            {
+                                throw new ArgumentNullException("name can't be null");
+                            }
+                            if (!matchPairs.TryGetValue(name, out var value))
+                            {
+                                throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
+                            }
+                            paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
+                        }
+                        method.Invoke(controllerObj, paramsIn);
+                    }
+                }
+            }
+            else if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+            {
+                isHandled = true;
+                var controllerObj = controllers.GetController(controller.ControllerType);
+                controllerObj.Message = msg;
+                foreach (var method in methods)
+                {
+                    method.Invoke(controllerObj, new object[] { msg });
+                }
+            }
+
+            return isHandled;
         }
 
         private static bool CheckMatch(string msg, string cmd, CommandMatchMethod method) => method switch
@@ -133,5 +198,6 @@ namespace YukinoshitaBot.Services
             CommandMatchMethod.Regex => Regex.IsMatch(msg, cmd),
             _ => false
         };
+
     }
 }

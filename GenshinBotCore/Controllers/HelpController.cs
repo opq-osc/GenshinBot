@@ -10,7 +10,7 @@ using YukinoshitaBot.Extensions;
 
 namespace GenshinBotCore.Controllers
 {
-    [YukinoshitaController(Command = "帮助", MatchMethod = CommandMatchMethod.Strict, Priority = 5)]
+    [YukinoRouteAttribute(Command = "帮助", MatchMethod = CommandMatchMethod.Strict, Priority = 5)]
     public class HelpController : BotControllerBase
     {
 

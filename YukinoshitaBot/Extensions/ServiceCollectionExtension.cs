@@ -48,7 +48,7 @@ namespace YukinoshitaBot.Extensions
             var controllerTypes = new List<Type>();
             foreach (var type in ass.GetTypes())
             {
-                if (type.GetCustomAttribute<YukinoshitaControllerAttribute>() is YukinoshitaControllerAttribute)
+                if (type.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute)
                 {
                     services.AddTransient(type);
                     controllerTypes.Add(type);

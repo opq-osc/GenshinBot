@@ -8,7 +8,7 @@ using YukinoshitaBot.Extensions;
 
 namespace GenshinBotCore.Controllers
 {
-    [YukinoshitaController(Command = "查询原神状态", MatchMethod = CommandMatchMethod.Strict, Priority = 3)]
+    [YukinoRouteAttribute(Command = "查询原神状态", MatchMethod = CommandMatchMethod.Strict, Priority = 3)]
     public class DailyNoteController : BotControllerBase
     {
         public DailyNoteController(

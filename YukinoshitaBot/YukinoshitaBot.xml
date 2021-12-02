@@ -4,6 +4,31 @@
         <name>YukinoshitaBot</name>
     </assembly>
     <members>
+        <member name="T:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute">
+            <summary>
+            定义为YukinoshitaController
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Command">
+            <summary>
+            匹配的指令
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.MatchMethod">
+            <summary>
+            指令识别方式
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Priority">
+            <summary>
+            优先级，越小优先级越高
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Mode">
+            <summary>
+            处理模式
+            </summary>
+        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.CommandMatchMethod">
             <summary>
             指令识别方式
@@ -37,16 +62,6 @@
         <member name="F:YukinoshitaBot.Data.Attributes.HandleMode.Pass">
             <summary>
             本方法处理完毕后继续将请求向之后的处理者传递
-            </summary>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.GroupImageAttribute">
-            <summary>
-            群组图片消息
-            </summary>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.GroupTextAttribute">
-            <summary>
-            群组文本消息
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoshitaControllerAttribute">
@@ -257,6 +272,9 @@
             <summary>
             机器人消息类
             </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.Message">
+            <inheritdoc/>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.AtInfo">
             <summary>

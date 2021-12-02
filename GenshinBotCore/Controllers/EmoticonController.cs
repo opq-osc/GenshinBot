@@ -11,7 +11,7 @@ using YukinoshitaBot.Data.OpqApi;
 
 namespace GenshinBotCore.Controllers
 {
-    [YukinoshitaController(Command = "随机表情", MatchMethod = CommandMatchMethod.StartWith, Priority = 4)]
+    [YukinoRouteAttribute(Command = "随机表情", MatchMethod = CommandMatchMethod.StartWith, Priority = 4)]
     public class EmoticonController : BotControllerBase
     {
         public EmoticonController(EmoticonSet emoticons)

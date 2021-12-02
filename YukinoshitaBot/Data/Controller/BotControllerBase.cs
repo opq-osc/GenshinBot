@@ -12,5 +12,7 @@
     /// </summary>
     public abstract class BotControllerBase
     {
+        /// <inheritdoc/>
+        public Message Message { get; set; } = null!;
     }
 }

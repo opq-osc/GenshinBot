@@ -21,7 +21,7 @@ namespace YukinoshitaBot.Data.Attributes
         public YukinoshitaControllerInfo(Type controllerType)
         {
             this.ControllerType = controllerType;
-            var attribute = controllerType.GetCustomAttribute<YukinoshitaControllerAttribute>();
+            var attribute = controllerType.GetCustomAttribute<YukinoRouteAttribute>();
             if (attribute is null)
             {
                 throw new InvalidCastException($"Type '{controllerType.FullName}' is not a YukinoshitaController.");
@@ -60,44 +60,44 @@ namespace YukinoshitaBot.Data.Attributes
         /// <summary>
         /// 控制器类型
         /// </summary>
-        public Type ControllerType { get; set; }
+        public Type ControllerType { get; set; } = null!;
 
         /// <summary>
         /// 好友文本消息处理的方法
         /// </summary>
-        public List<MethodInfo> FriendTextHandlers { get; set; }
+        public List<MethodInfo> FriendTextHandlers { get; set; } = null!;
 
         /// <summary>
         /// 好友图片消息的处理方法
         /// </summary>
 
-        public List<MethodInfo> FriendImageHandlers { get; set; }
+        public List<MethodInfo> FriendImageHandlers { get; set; } = null!;
 
         /// <summary>
         /// 群组文本消息的处理方法
         /// </summary>
-        public List<MethodInfo> GroupTextHandlers { get; set; }
+        public List<MethodInfo> GroupTextHandlers { get; set; } = null!;
 
         /// <summary>
         /// 群组图片消息的处理方法
         /// </summary>
-        public List<MethodInfo> GroupImageHandlers { get; set; }
+        public List<MethodInfo> GroupImageHandlers { get; set; } = null!;
 
         /// <summary>
         /// 临时会话文本消息的处理方法
         /// </summary>
-        public List<MethodInfo> TempSessionTextHandlers { get; set; }
+        public List<MethodInfo> TempSessionTextHandlers { get; set; } = null!;
 
         /// <summary>
         /// 临时会话图片消息的处理方法
         /// </summary>
 
-        public List<MethodInfo> TempSessionImageHandlers { get; set; }
+        public List<MethodInfo> TempSessionImageHandlers { get; set; } = null!;
 
         /// <summary>
         /// 控制器属性
         /// </summary>
-        public YukinoshitaControllerAttribute ControllerAttribute { get; set; }
+        public YukinoRouteAttribute ControllerAttribute { get; set; } = null!;
 
         public static bool operator >(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {
