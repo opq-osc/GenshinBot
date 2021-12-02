@@ -21,11 +21,12 @@ namespace YukinoshitaBot.Data.Attributes
         public YukinoshitaControllerInfo(Type controllerType)
         {
             this.ControllerType = controllerType;
-            var attribute = controllerType.GetCustomAttribute<YukinoRouteAttribute>();
+            var attribute = controllerType.GetCustomAttribute<YukinoControllerAttribute>();
             if (attribute is null)
             {
                 throw new InvalidCastException($"Type '{controllerType.FullName}' is not a YukinoshitaController.");
             }
+            this.ControllerAttribute = attribute;
 
             var methods = controllerType.GetMethods();
 
@@ -53,14 +54,17 @@ namespace YukinoshitaBot.Data.Attributes
                                        let attr = method.GetCustomAttribute<TempImageAttribute>()
                                        where attr != null
                                        select method).ToList();
-
-            this.ControllerAttribute = attribute;
         }
 
         /// <summary>
         /// 控制器类型
         /// </summary>
         public Type ControllerType { get; set; } = null!;
+
+        /// <summary>
+        /// 控制器属性
+        /// </summary>
+        public YukinoControllerAttribute ControllerAttribute { get; set; } = null!;
 
         /// <summary>
         /// 好友文本消息处理的方法
@@ -93,11 +97,6 @@ namespace YukinoshitaBot.Data.Attributes
         /// </summary>
 
         public List<MethodInfo> TempSessionImageHandlers { get; set; } = null!;
-
-        /// <summary>
-        /// 控制器属性
-        /// </summary>
-        public YukinoRouteAttribute ControllerAttribute { get; set; } = null!;
 
         public static bool operator >(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {

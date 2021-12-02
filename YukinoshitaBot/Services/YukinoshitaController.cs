@@ -132,17 +132,19 @@ namespace YukinoshitaBot.Services
                     }
                 }
             }
-            else if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+            else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
             {
-                isHandled = true;
-                var controllerObj = controllers.GetController(controller.ControllerType);
-                controllerObj.Message = msg;
-                foreach (var method in methods)
+                if (CheckMatch(msg.Content, yukinoRoute.Command, yukinoRoute.MatchMethod))
                 {
-                    method.Invoke(controllerObj, new object[] { msg });
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        method.Invoke(controllerObj, new object[] { msg });
+                    }
                 }
             }
-
             return isHandled;
         }
 
@@ -177,17 +179,19 @@ namespace YukinoshitaBot.Services
                     }
                 }
             }
-            else if (CheckMatch(msg.Content, controller.ControllerAttribute.Command, controller.ControllerAttribute.MatchMethod))
+            else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
             {
-                isHandled = true;
-                var controllerObj = controllers.GetController(controller.ControllerType);
-                controllerObj.Message = msg;
-                foreach (var method in methods)
+                if (CheckMatch(msg.Content, yukinoRoute.Command, yukinoRoute.MatchMethod))
                 {
-                    method.Invoke(controllerObj, new object[] { msg });
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        method.Invoke(controllerObj, new object[] { msg });
+                    }
                 }
             }
-
             return isHandled;
         }
 

@@ -4,6 +4,16 @@
         <name>YukinoshitaBot</name>
     </assembly>
     <members>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Priority">
+            <summary>
+            优先级，越小优先级越高
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Mode">
+            <summary>
+            处理模式
+            </summary>
+        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute">
             <summary>
             定义为YukinoshitaController
@@ -17,16 +27,6 @@
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.MatchMethod">
             <summary>
             指令识别方式
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Priority">
-            <summary>
-            优先级，越小优先级越高
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Mode">
-            <summary>
-            处理模式
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.CommandMatchMethod">
@@ -105,6 +105,11 @@
             控制器类型
             </summary>
         </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerAttribute">
+            <summary>
+            控制器属性
+            </summary>
+        </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.FriendTextHandlers">
             <summary>
             好友文本消息处理的方法
@@ -133,11 +138,6 @@
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.TempSessionImageHandlers">
             <summary>
             临时会话图片消息的处理方法
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerAttribute">
-            <summary>
-            控制器属性
             </summary>
         </member>
         <member name="M:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.CompareTo(YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo)">

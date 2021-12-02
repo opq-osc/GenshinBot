@@ -9,22 +9,8 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// 定义为YukinoshitaController
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class YukinoRouteAttribute : Attribute
+    public class YukinoControllerAttribute: Attribute
     {
-        /// <summary>
-        /// 匹配的指令
-        /// </summary>
-        public string Command { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 指令识别方式
-        /// </summary>
-        public CommandMatchMethod MatchMethod { get; set; } = CommandMatchMethod.Strict;
-
         /// <summary>
         /// 优先级，越小优先级越高
         /// </summary>
@@ -36,22 +22,34 @@ namespace YukinoshitaBot.Data.Attributes
         public HandleMode Mode { get; set; } = HandleMode.Break;
     }
 
+    /// <summary>
+    /// 定义为YukinoshitaController
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class RegexRouteAttribute : YukinoRouteAttribute
+    public class YukinoRouteAttribute : YukinoControllerAttribute
     {
-        public Regex Regex { get; } = null!;
-        public new CommandMatchMethod MatchMethod { get; } = CommandMatchMethod.Regex;
+        /// <summary>
+        /// 匹配的指令
+        /// </summary>
+        public string Command { get; set; } = string.Empty;
 
-        public RegexRouteAttribute(string command)
-        {
-            this.Command = command;
-            this.Regex = new Regex(this.Command);
-        }
+        /// <summary>
+        /// 指令识别方式
+        /// </summary>
+        public CommandMatchMethod MatchMethod { get; set; } = CommandMatchMethod.Strict;
+    }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class RegexRouteAttribute : YukinoControllerAttribute
+    {
+        private Regex regex = null!;
+        public string Regex {get => regex.ToString(); init { regex = new Regex(value); } }
+
 
         public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
         {
             matchPairs = new();
-            var match = this.Regex.Match(input);
+            var match = this.regex.Match(input);
             if (match.Success == false)
             {
                 return false;
