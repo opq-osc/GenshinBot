@@ -103,7 +103,7 @@ namespace YukinoshitaBot.Data.Attributes
             init
             {
                 cmd = value;
-                var matchStr = Regex.Replace(Regex.Replace(cmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s");
+                var matchStr = Regex.Replace(Regex.Replace(cmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s+");
                 regex = new Regex(@$"^{matchStr}$");
             }
         }
