@@ -29,6 +29,7 @@
             指令识别方式
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute" -->
         <member name="T:YukinoshitaBot.Data.Attributes.CommandMatchMethod">
             <summary>
             指令识别方式

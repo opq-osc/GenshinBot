@@ -9,7 +9,7 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    public class YukinoControllerAttribute: Attribute
+    public class YukinoControllerAttribute : Attribute
     {
         /// <summary>
         /// 优先级，越小优先级越高
@@ -51,8 +51,7 @@ namespace YukinoshitaBot.Data.Attributes
     public class RegexRouteAttribute : YukinoControllerAttribute
     {
         private Regex regex = null!;
-        public string Regex {get => regex.ToString(); init { regex = new Regex(value); } }
-
+        public string Regex { get => regex.ToString(); init { regex = new Regex(value); } }
 
         public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
         {
@@ -65,7 +64,57 @@ namespace YukinoshitaBot.Data.Attributes
             var groups = match.Groups.Values;
             foreach (var group in groups)
             {
-                if(string.IsNullOrEmpty(group.Name) || string.IsNullOrEmpty(group.Value)) {
+                if (string.IsNullOrEmpty(group.Name) || string.IsNullOrEmpty(group.Value))
+                {
+                    continue;
+                }
+                matchPairs.Add(group.Name, group.Value);
+            }
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// [CmdRoute("绑定_{username}_{password}"))
+    /// "_" 将被替换为正则中的 whitespace 即 \s+
+    /// "{key}" 将被替换为 (?&lt;key&gt;.+?)
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class CmdRouteAttribute : YukinoControllerAttribute
+    {
+        public CmdRouteAttribute() { }
+
+        public CmdRouteAttribute(string cmd)
+        {
+            this.Cmd = cmd;
+        }
+
+        private Regex regex = null!;
+        private string cmd = null!;
+        public string Cmd
+        {
+            get => cmd;
+            init
+            {
+                cmd = value;
+                var matchStr = Regex.Replace(Regex.Replace(cmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s");
+                regex = new Regex(@$"^{matchStr}$");
+            }
+        }
+
+        public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
+        {
+            matchPairs = new();
+            var match = this.regex.Match(input);
+            if (match.Success == false)
+            {
+                return false;
+            }
+            var groups = match.Groups.Values;
+            foreach (var group in groups)
+            {
+                if (string.IsNullOrEmpty(group.Name) || string.IsNullOrEmpty(group.Value))
+                {
                     continue;
                 }
                 matchPairs.Add(group.Name, group.Value);

@@ -131,6 +131,34 @@ namespace YukinoshitaBot.Services
                         method.Invoke(controllerObj, paramsIn);
                     }
                 }
+            } 
+            else if (controller.ControllerType.GetCustomAttribute<CmdRouteAttribute>() is CmdRouteAttribute cmdRoute)
+            {
+                if (cmdRoute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        var @params = method.GetParameters();
+                        var paramsIn = new object[@params.Length];
+                        for (int i = 0; i < @params.Length; i++)
+                        {
+                            var name = @params[i].Name;
+                            if (name == null)
+                            {
+                                throw new ArgumentNullException("name can't be null");
+                            }
+                            if (!matchPairs.TryGetValue(name, out var value))
+                            {
+                                throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
+                            }
+                            paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
+                        }
+                        method.Invoke(controllerObj, paramsIn);
+                    }
+                }
             }
             else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
             {
@@ -154,6 +182,34 @@ namespace YukinoshitaBot.Services
             if (controller.ControllerType.GetCustomAttribute<RegexRouteAttribute>() is RegexRouteAttribute regexRoute)
             {
                 if (regexRoute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    isHandled = true;
+                    var controllerObj = controllers.GetController(controller.ControllerType);
+                    controllerObj.Message = msg;
+                    foreach (var method in methods)
+                    {
+                        var @params = method.GetParameters();
+                        var paramsIn = new object[@params.Length];
+                        for (int i = 0; i < @params.Length; i++)
+                        {
+                            var name = @params[i].Name;
+                            if (name == null)
+                            {
+                                throw new ArgumentNullException("name can't be null");
+                            }
+                            if (!matchPairs.TryGetValue(name, out var value))
+                            {
+                                throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
+                            }
+                            paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
+                        }
+                        method.Invoke(controllerObj, paramsIn);
+                    }
+                }
+            }
+            else if (controller.ControllerType.GetCustomAttribute<CmdRouteAttribute>() is CmdRouteAttribute cmdRoute)
+            {
+                if (cmdRoute.TryMatch(msg.Content, out var matchPairs))
                 {
                     isHandled = true;
                     var controllerObj = controllers.GetController(controller.ControllerType);
