@@ -41,6 +41,17 @@ namespace YukinoshitaBot.Data.Attributes
         /// <param name="matchPairs">得到的匹配键值对</param>
         /// <returns></returns>
         public abstract bool TryMatch(string msg, out Dictionary<string, string> matchPairs);
+
+        /// <summary>
+        /// 检验输入指令是否符合
+        /// 排除空字符串和超长字符串
+        /// </summary>
+        /// <param name="content">输入指令</param>
+        /// <returns></returns>
+        public bool CheckLength(string content)
+        {
+            return !string.IsNullOrWhiteSpace(content) && content.Length <= MaxLength;
+        }
     }
 
     /// <summary>

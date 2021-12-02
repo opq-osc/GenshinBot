@@ -45,11 +45,6 @@ namespace YukinoshitaBot.Data.Event
         public IEnumerable<string> PictureUrls { get; set; }
 
         /// <summary>
-        /// 文本消息
-        /// </summary>
-        public string Content { get; set; }
-
-        /// <summary>
         /// 是否闪照
         /// </summary>
         public bool IsFlashPicture { get; set; }

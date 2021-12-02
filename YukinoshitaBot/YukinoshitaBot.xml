@@ -37,6 +37,14 @@
             <param name="matchPairs">得到的匹配键值对</param>
             <returns></returns>
         </member>
+        <member name="M:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.CheckLength(System.String)">
+            <summary>
+            检验输入指令是否符合
+            排除空字符串和超长字符串
+            </summary>
+            <param name="content">输入指令</param>
+            <returns></returns>
+        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.StrictRouteAttribute">
             <summary>
             当输入的指令与设置指令完全一致时才匹配
@@ -65,26 +73,6 @@
             "{key}" 将被替换为 (?&lt;key&gt;.+?)
             </summary>
         </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.CommandMatchMethod">
-            <summary>
-            指令识别方式
-            </summary>
-        </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.CommandMatchMethod.StartWith">
-            <summary>
-            开头识别
-            </summary>
-        </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.CommandMatchMethod.Strict">
-            <summary>
-            严格一致
-            </summary>
-        </member>
-        <member name="F:YukinoshitaBot.Data.Attributes.CommandMatchMethod.Regex">
-            <summary>
-            正则匹配
-            </summary>
-        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.HandleMode">
             <summary>
             处理方式
@@ -111,12 +99,21 @@
             </summary>
             <param name="controllerType">控制器类型</param>
         </member>
+        <member name="M:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.TryGetHandlers(YukinoshitaBot.Data.Event.MessageType,YukinoshitaBot.Data.Event.SenderType,System.Collections.Generic.List{System.Reflection.MethodInfo}@)">
+            <summary>
+            获取处理对应消息类型的方法
+            </summary>
+            <param name="msgType">消息类型</param>
+            <param name="methods">方法</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerType">
             <summary>
             控制器类型
             </summary>
         </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.ControllerAttribute">
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.YukinoControllerAttribute">
             <summary>
             控制器属性
             </summary>
@@ -285,7 +282,12 @@
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.Message">
-            <inheritdoc/>
+            <see cref="P:YukinoshitaBot.Data.Controller.BotControllerBase.Message"/>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.MatchPairs">
+            <summary>
+            匹配得到的参数键值对
+            </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.AtInfo">
             <summary>
@@ -358,6 +360,11 @@
             消息发送者
             </summary>
         </member>
+        <member name="P:YukinoshitaBot.Data.Event.Message.Content">
+            <summary>
+            文本消息内容，部分消息没有内容
+            </summary>
+        </member>
         <member name="P:YukinoshitaBot.Data.Event.Message.OpqApi">
             <summary>
             OpqApi
@@ -410,11 +417,6 @@
         <member name="P:YukinoshitaBot.Data.Event.PictureMessage.PictureUrls">
             <summary>
             图片URL
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Event.PictureMessage.Content">
-            <summary>
-            文本消息
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Event.PictureMessage.IsFlashPicture">
@@ -525,11 +527,6 @@
             </summary>
             <param name="sender">发送者信息</param>
             <param name="content">文本消息</param>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Event.TextMessage.Content">
-            <summary>
-            文本消息
-            </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.VoiceMessage">
             <summary>
@@ -963,6 +960,12 @@
             </summary>
             <param name="msg">消息</param>
         </member>
+        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnMsgRecieved(YukinoshitaBot.Data.Event.Message)">
+            <summary>
+            通用的消息处理
+            </summary>
+            <param name="msg">消息</param>
+        </member>
         <member name="T:YukinoshitaBot.Services.MessageQueueScanner">
             <summary>
             消息队列扫描线程
@@ -1010,11 +1013,10 @@
             实现控制器
             </summary>
         </member>
-        <member name="M:YukinoshitaBot.Services.YukinoshitaController.#ctor(System.IServiceProvider,YukinoshitaBot.Services.ControllerCollection)">
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.#ctor(YukinoshitaBot.Services.ControllerCollection)">
             <summary>
             Initializes a new instance of the <see cref="T:YukinoshitaBot.Services.YukinoshitaController"/> class.
             </summary>
-            <param name="serviceProvider">服务容器</param>
             <param name="controllerCollection">控制器容器</param>
         </member>
         <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnFriendPictureMsgRecieved(YukinoshitaBot.Data.Event.PictureMessage)">

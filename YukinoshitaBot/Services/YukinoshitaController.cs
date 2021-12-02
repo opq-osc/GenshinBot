@@ -132,6 +132,35 @@ namespace YukinoshitaBot.Services
             }
         }
 
+        // TODO 只考虑了文本消息和图片消息 如果未来增加消息类别 需要根据 msgType 做不同操作 msg.Content 可能为 string.Empty
+        public void OnMsgRecieved(Message msg)
+        {
+            foreach (var controller in controllers.ResolvedControllers)
+            {
+                if (!controller.TryGetHandlers(msg.MessageType, msg.SenderInfo.SenderType, out var methods))
+                {
+                    continue;
+                }
+                if (!controller.YukinoControllerAttribute.CheckLength(msg.Content))
+                {
+                    continue;
+                }
+                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                {
+                    continue;
+                }
+                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                    ?? throw new NullReferenceException();
+                controllerObj.MatchPairs = matchPairs;
+                controllerObj.Message = msg;
+                if (InvokeMethod(controllerObj, methods)
+                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
+                {
+                    break;
+                }
+            }
+        }
+
         private bool InvokeMethod(BotControllerBase controllerObj, List<MethodInfo> methods)
         {
             foreach (var method in methods)

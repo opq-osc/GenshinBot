@@ -11,27 +11,6 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Threading.Tasks;
 
     /// <summary>
-    /// 指令识别方式
-    /// </summary>
-    public enum CommandMatchMethod
-    {
-        /// <summary>
-        /// 开头识别
-        /// </summary>
-        StartWith,
-
-        /// <summary>
-        /// 严格一致
-        /// </summary>
-        Strict,
-
-        /// <summary>
-        /// 正则匹配
-        /// </summary>
-        Regex,
-    }
-
-    /// <summary>
     /// 处理方式
     /// </summary>
     public enum HandleMode

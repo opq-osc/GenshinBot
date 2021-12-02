@@ -55,6 +55,13 @@ namespace YukinoshitaBot.Data.Event
         /// </summary>
         public SenderInfo SenderInfo { get; set; }
 
+
+        // TODO 此处修改欠妥 并不是所有消息都有文本内容
+        /// <summary>
+        /// 文本消息内容，部分消息没有内容
+        /// </summary>
+        public string Content { get; set; } = string.Empty;
+
         /// <summary>
         /// OpqApi
         /// </summary>

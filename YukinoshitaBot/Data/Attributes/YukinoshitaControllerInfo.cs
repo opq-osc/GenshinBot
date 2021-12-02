@@ -8,6 +8,7 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using YukinoshitaBot.Data.Event;
 
     /// <summary>
     /// 控制器信息
@@ -54,6 +55,28 @@ namespace YukinoshitaBot.Data.Attributes
                                        let attr = method.GetCustomAttribute<TempImageAttribute>()
                                        where attr != null
                                        select method).ToList();
+        }
+
+        /// <summary>
+        /// 获取处理对应消息类型的方法
+        /// </summary>
+        /// <param name="msgType">消息类型</param>
+        /// <param name="methods">方法</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public bool TryGetHandlers(MessageType msgType, SenderType senderType, out List<MethodInfo> methods)
+        {
+            methods = (msgType, senderType) switch
+            {
+                (MessageType.TextMessage, SenderType.Friend) => FriendTextHandlers,
+                (MessageType.TextMessage, SenderType.Group) => GroupTextHandlers,
+                (MessageType.TextMessage, SenderType.TempSession) => TempSessionTextHandlers,
+                (MessageType.PictureMessage, SenderType.Friend) => FriendImageHandlers,
+                (MessageType.PictureMessage, SenderType.Group) => GroupImageHandlers,
+                (MessageType.PictureMessage, SenderType.TempSession) => TempSessionImageHandlers,
+                _ => throw new ArgumentException(message: "invalid enum value", paramName: nameof(msgType))
+            };
+            return methods.Any();
         }
 
         /// <summary>
