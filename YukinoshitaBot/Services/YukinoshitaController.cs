@@ -38,7 +38,7 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.FriendImageHandlers.Any())
+                if (!controller.FriendImageHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
                 {
                     continue;
                 }
@@ -56,7 +56,7 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.FriendTextHandlers.Any())
+                if (!controller.FriendTextHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
                 {
                     continue;
                 }
@@ -74,7 +74,7 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.GroupImageHandlers.Any())
+                if (!controller.GroupImageHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
                 {
                     continue;
                 }
@@ -92,7 +92,7 @@ namespace YukinoshitaBot.Services
         {
             foreach (var controller in this.controllers.ResolvedControllers)
             {
-                if (!controller.GroupTextHandlers.Any())
+                if (!controller.GroupTextHandlers.Any() || msg.Content.Length > controller.ControllerAttribute.MaxLength)
                 {
                     continue;
                 }
@@ -126,11 +126,7 @@ namespace YukinoshitaBot.Services
                 var paramsIn = new object[@params.Length];
                 for (int i = 0; i < @params.Length; i++)
                 {
-                    var name = @params[i].Name;
-                    if (name == null)
-                    {
-                        throw new ArgumentNullException("name can't be null");
-                    }
+                    var name = @params[i].Name ?? throw new ArgumentNullException("name can't be null");
                     if (!matchPairs.TryGetValue(name, out var value))
                     {
                         throw new ArgumentException($"can't get the value of key:{name} from the regex groups, please check your regex.");
@@ -153,8 +149,7 @@ namespace YukinoshitaBot.Services
             controllerObj.Message = msg;
             foreach (var method in methods)
             {
-                method.Invoke(controllerObj, new object[] { msg
-                });
+                method.Invoke(controllerObj, new object[] { msg });
             }
             return true;
         }

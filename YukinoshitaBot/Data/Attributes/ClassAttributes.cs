@@ -23,6 +23,11 @@ namespace YukinoshitaBot.Data.Attributes
         /// 处理模式
         /// </summary>
         public HandleMode Mode { get; set; } = HandleMode.Break;
+
+        /// <summary>
+        /// 超过则忽略此消息
+        /// </summary>
+        public int MaxLength { get; set; } = 40;
     }
 
     /// <summary>
