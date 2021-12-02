@@ -37,6 +37,14 @@ namespace YukinoshitaBot.Data.Attributes
         /// 指令识别方式
         /// </summary>
         public CommandMatchMethod MatchMethod { get; set; } = CommandMatchMethod.Strict;
+
+        public bool CheckMatch(string msg) => MatchMethod switch
+        {
+            CommandMatchMethod.Strict => msg == Command,
+            CommandMatchMethod.StartWith => msg.StartsWith(Command),
+            CommandMatchMethod.Regex => Regex.IsMatch(msg, Command),
+            _ => false
+        };
     }
 
     [AttributeUsage(AttributeTargets.Class)]

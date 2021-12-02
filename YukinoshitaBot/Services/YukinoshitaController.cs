@@ -134,7 +134,7 @@ namespace YukinoshitaBot.Services
             }
             else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
             {
-                if (CheckMatch(msg.Content, yukinoRoute.Command, yukinoRoute.MatchMethod))
+                if (yukinoRoute.CheckMatch(msg.Content))
                 {
                     isHandled = true;
                     var controllerObj = controllers.GetController(controller.ControllerType);
@@ -181,7 +181,7 @@ namespace YukinoshitaBot.Services
             }
             else if (controller.ControllerType.GetCustomAttribute<YukinoRouteAttribute>() is YukinoRouteAttribute yukinoRoute)
             {
-                if (CheckMatch(msg.Content, yukinoRoute.Command, yukinoRoute.MatchMethod))
+                if (yukinoRoute.CheckMatch(msg.Content))
                 {
                     isHandled = true;
                     var controllerObj = controllers.GetController(controller.ControllerType);
@@ -194,14 +194,5 @@ namespace YukinoshitaBot.Services
             }
             return isHandled;
         }
-
-        private static bool CheckMatch(string msg, string cmd, CommandMatchMethod method) => method switch
-        {
-            CommandMatchMethod.Strict => msg == cmd,
-            CommandMatchMethod.StartWith => msg.StartsWith(cmd),
-            CommandMatchMethod.Regex => Regex.IsMatch(msg, cmd),
-            _ => false
-        };
-
     }
 }
