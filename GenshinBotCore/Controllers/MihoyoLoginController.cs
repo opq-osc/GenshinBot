@@ -31,9 +31,10 @@ namespace GenshinBotCore.Controllers
         private readonly ISecretManager secretManager;
 
         [FriendText, GroupText]
-        public async Task Login(TextMessage message)
+        public async Task Login()
         {
             #region 指令验证
+            var message = Message as TextMessage ?? throw new NullReferenceException();
             logger.LogInformation("qq{qq}: {content}", message.SenderInfo.FromQQ, message.Content);
             var cmd = message.Content.Split(' ');
             if (cmd.Length < 3)

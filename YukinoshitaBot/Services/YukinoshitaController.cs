@@ -149,7 +149,7 @@ namespace YukinoshitaBot.Services
             controllerObj.Message = msg;
             foreach (var method in methods)
             {
-                method.Invoke(controllerObj, new object[] { msg });
+                method.Invoke(controllerObj, new object[] { });
             }
             return true;
         }

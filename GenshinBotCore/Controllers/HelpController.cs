@@ -15,9 +15,9 @@ namespace GenshinBotCore.Controllers
     {
 
         [FriendText, GroupText]
-        public void TextMsgHandler(TextMessage message)
+        public void TextMsgHandler()
         {
-            message.ReplyTextMsg(Help());
+            this.Message.ReplyTextMsg(Help());
         }
 
         private string Help()
@@ -37,7 +37,7 @@ namespace GenshinBotCore.Controllers
               .AppendLine("项目开发中：https://github.com/opq-osc/GenshinBot")
               .AppendLine("求Star，求关注");
 
-            return sb.ToString().TrimEnd('\r','\n');
+            return sb.ToString().TrimEnd('\r', '\n');
         }
     }
 }

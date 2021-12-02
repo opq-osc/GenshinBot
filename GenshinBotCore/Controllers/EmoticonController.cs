@@ -22,16 +22,16 @@ namespace GenshinBotCore.Controllers
         private readonly EmoticonSet emoticons;
 
         [FriendText, GroupText]
-        public async Task TextMsgHandlerAsync(TextMessage message)
+        public async Task TextMsgHandlerAsync()
         {
-            var cmd = message.Content.Split(' ');
+            var cmd = (this.Message as TextMessage)?.Content.Split(' ') ?? throw new NullReferenceException();
             if (cmd.Length > 1)
             {
-                message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync(cmd[1])));
+                this.Message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync(cmd[1])));
             }
             else
             {
-                message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync()));
+                this.Message.Reply(new PictureMessageRequest(await emoticons.GetRandomEmoticonAsync()));
             }
         }
     }

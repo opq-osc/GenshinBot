@@ -25,8 +25,9 @@ namespace GenshinBotCore.Controllers
         private readonly IUserManager userManager;
 
         [FriendText, GroupText]
-        public async Task IndexInfoHandler(TextMessage message)
+        public async Task IndexInfoHandler()
         {
+            var message = Message as TextMessage ?? throw new NullReferenceException(nameof(Message));
             var user = userManager.GetUserByQQ(message.SenderInfo.FromQQ ?? default);
             if (user == null)
             {
