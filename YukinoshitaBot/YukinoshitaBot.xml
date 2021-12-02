@@ -4,6 +4,11 @@
         <name>YukinoshitaBot</name>
     </assembly>
     <members>
+        <member name="T:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute">
+            <summary>
+            定义为YukinoshitaController
+            </summary>
+        </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Priority">
             <summary>
             优先级，越小优先级越高
@@ -16,7 +21,7 @@
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute">
             <summary>
-            定义为YukinoshitaController
+            基本的匹配能力
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Command">
@@ -29,7 +34,18 @@
             指令识别方式
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute" -->
+        <member name="T:YukinoshitaBot.Data.Attributes.RegexRouteAttribute">
+            <summary>
+            使用正则进行匹配
+            </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute">
+            <summary>
+            [CmdRoute("绑定_{username}_{password}"))
+            "_" 将被替换为正则中的 whitespace 即 \s+
+            "{key}" 将被替换为 (?&lt;key&gt;.+?)
+            </summary>
+        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.CommandMatchMethod">
             <summary>
             指令识别方式

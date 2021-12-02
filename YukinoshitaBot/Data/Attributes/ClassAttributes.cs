@@ -9,6 +9,9 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// 定义为YukinoshitaController
+    /// </summary>
     public class YukinoControllerAttribute : Attribute
     {
         /// <summary>
@@ -23,7 +26,7 @@ namespace YukinoshitaBot.Data.Attributes
     }
 
     /// <summary>
-    /// 定义为YukinoshitaController
+    /// 基本的匹配能力
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class YukinoRouteAttribute : YukinoControllerAttribute
@@ -38,7 +41,7 @@ namespace YukinoshitaBot.Data.Attributes
         /// </summary>
         public CommandMatchMethod MatchMethod { get; set; } = CommandMatchMethod.Strict;
 
-        public bool CheckMatch(string msg) => MatchMethod switch
+        public bool TryMatch(string msg) => MatchMethod switch
         {
             CommandMatchMethod.Strict => msg == Command,
             CommandMatchMethod.StartWith => msg.StartsWith(Command),
@@ -47,11 +50,14 @@ namespace YukinoshitaBot.Data.Attributes
         };
     }
 
+    /// <summary>
+    /// 使用正则进行匹配
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class RegexRouteAttribute : YukinoControllerAttribute
     {
-        private Regex regex = null!;
-        public string Regex { get => regex.ToString(); init { regex = new Regex(value); } }
+        protected Regex regex = null!;
+        public string Command { get => regex.ToString(); init { regex = new Regex(value); } }
 
         public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
         {
@@ -80,18 +86,18 @@ namespace YukinoshitaBot.Data.Attributes
     /// "{key}" 将被替换为 (?&lt;key&gt;.+?)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class CmdRouteAttribute : YukinoControllerAttribute
+    public class CmdRouteAttribute : RegexRouteAttribute
     {
         public CmdRouteAttribute() { }
 
         public CmdRouteAttribute(string cmd)
         {
-            this.Cmd = cmd;
+            this.Command = cmd;
         }
 
-        private Regex regex = null!;
         private string cmd = null!;
-        public string Cmd
+
+        public new string Command
         {
             get => cmd;
             init
@@ -100,26 +106,6 @@ namespace YukinoshitaBot.Data.Attributes
                 var matchStr = Regex.Replace(Regex.Replace(cmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s");
                 regex = new Regex(@$"^{matchStr}$");
             }
-        }
-
-        public bool TryMatch(string input, out Dictionary<string, string> matchPairs)
-        {
-            matchPairs = new();
-            var match = this.regex.Match(input);
-            if (match.Success == false)
-            {
-                return false;
-            }
-            var groups = match.Groups.Values;
-            foreach (var group in groups)
-            {
-                if (string.IsNullOrEmpty(group.Name) || string.IsNullOrEmpty(group.Value))
-                {
-                    continue;
-                }
-                matchPairs.Add(group.Name, group.Value);
-            }
-            return true;
         }
     }
 }
