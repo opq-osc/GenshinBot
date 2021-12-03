@@ -289,6 +289,21 @@
             匹配得到的参数键值对
             </summary>
         </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.ParamErrors">
+            <summary>
+            参数验证中的错误信息
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.IsValid">
+            <summary>
+            参数验证是否成功
+            </summary>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.EmitErrorMsg">
+            <summary>
+            当参数验证失败时返回错误消息  
+            </summary>
+        </member>
         <member name="T:YukinoshitaBot.Data.Event.AtInfo">
             <summary>
             At信息

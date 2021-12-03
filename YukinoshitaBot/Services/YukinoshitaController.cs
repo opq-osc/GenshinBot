@@ -6,6 +6,7 @@ namespace YukinoshitaBot.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Reflection;
     using YukinoshitaBot.Data.Attributes;
     using YukinoshitaBot.Data.Controller;
@@ -117,23 +118,64 @@ namespace YukinoshitaBot.Services
         {
             foreach (var method in methods)
             {
-                var @params = method.GetParameters();
-                var paramsIn = new object?[@params.Length];
-                for (int i = 0; i < @params.Length; i++)
+                object?[] paramsIn = ValidMethod(controllerObj, method);
+                if (controllerObj.IsValid)
                 {
-                    var name = @params[i].Name ?? throw new ArgumentNullException("name can't be null");
-                    if (controllerObj.MatchPairs.TryGetValue(name, out var value))
+                    method.Invoke(controllerObj, paramsIn);
+                }
+                else
+                {
+                    controllerObj.EmitErrorMsg();
+                }
+            }
+            return true;
+        }
+
+        private object?[] ValidMethod(BotControllerBase controllerObj, MethodInfo method)
+        {
+            var @params = method.GetParameters();
+            var paramsIn = new object?[@params.Length];
+            for (int i = 0; i < @params.Length; i++)
+            {
+                var name = @params[i].Name ?? throw new ArgumentNullException("name can't be null");
+                if (controllerObj.MatchPairs.TryGetValue(name, out var value))
+                {
+                    if (TryValidParam(value, @params[i], out var errorInfo))
                     {
                         paramsIn[i] = Convert.ChangeType(value, @params[i].ParameterType);
+                        continue;
                     }
                     else
                     {
-                        paramsIn[i] = @params[i].DefaultValue
-                            ?? throw new ArgumentException($"can't get the value of key:{name} from the regex groups, and the parameter doesn't have a default value, please check your regex.");
+                        if (errorInfo != null)
+                        {
+                            controllerObj.ParamErrors.Add(errorInfo);
+                        }
+                        controllerObj.IsValid = false;
                     }
                 }
-                method.Invoke(controllerObj, paramsIn);
+                else
+                {
+                    paramsIn[i] = @params[i].DefaultValue
+                        ?? throw new ArgumentException($"can't get the value of key:{name} from the regex groups, and the parameter doesn't have a default value, please check your regex.");
+                }
             }
+
+            return paramsIn;
+        }
+
+        private bool TryValidParam(string value, ParameterInfo info, out string? errorInfo)
+        {
+            var attrs = info.GetCustomAttributes<ValidationAttribute>();
+            foreach (var attr in attrs)
+            {
+                if (!attr.IsValid(value))
+                {
+                    errorInfo = attr.ErrorMessage;
+                    return false;
+                }
+            }
+            errorInfo = null;
             return true;
         }
     }
