@@ -148,8 +148,9 @@ namespace YukinoshitaBot.Data.Attributes
             init
             {
                 rawCmd = value;
-                var matchStr = Regex.Replace(Regex.Replace(rawCmd, @"{(.+?)}", "(?<$1>.+?)"), @"_", @"\s+");
-                regex = new Regex(@$"^{matchStr}$");
+                var matchStr = Regex.Replace(Regex.Replace(rawCmd, @"{(.+?)}", @"(?<$1>\S+)"), @"_", @"\s+");
+                // TODO 由用户决定是否匹配结尾字符 直接写另一个属性不能确保设置的时候存在
+                regex = new Regex(@$"^{matchStr}");
             }
         }
     }
