@@ -87,12 +87,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        //this.msgHandler.OnGroupTextMsgRecieved(textMsg);
-                        this.msgHandler.OnMsgRecieved(msg);
+                        this.msgHandler.OnGroupTextMsgRecieved(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        //this.msgHandler.OnGroupPictureMsgRecieved(picMsg);
-                        this.msgHandler.OnMsgRecieved(msg);
+                        this.msgHandler.OnGroupPictureMsgRecieved(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());
@@ -125,12 +123,10 @@ namespace YukinoshitaBot
                 switch (msg)
                 {
                     case TextMessage textMsg:
-                        //this.msgHandler.OnFriendTextMsgRecieved(textMsg);
-                        this.msgHandler.OnMsgRecieved(msg);
+                        this.msgHandler.OnFriendTextMsgRecieved(textMsg);
                         break;
                     case PictureMessage picMsg:
-                        //this.msgHandler.OnFriendPictureMsgRecieved(picMsg);
-                        this.msgHandler.OnMsgRecieved(msg);
+                        this.msgHandler.OnFriendPictureMsgRecieved(picMsg);
                         break;
                     default:
                         this.logger.LogWarning("Unresolved message object Type {type}", msg.GetType());

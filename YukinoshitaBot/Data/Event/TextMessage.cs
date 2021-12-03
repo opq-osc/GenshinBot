@@ -19,5 +19,10 @@ namespace YukinoshitaBot.Data.Event
             this.Content = content;
             this.MessageType = MessageType.TextMessage;
         }
+
+        /// <summary>
+        /// 文本消息
+        /// </summary>
+        public string Content { get; set; }
     }
 }

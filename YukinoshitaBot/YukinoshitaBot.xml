@@ -360,11 +360,6 @@
             消息发送者
             </summary>
         </member>
-        <member name="P:YukinoshitaBot.Data.Event.Message.Content">
-            <summary>
-            文本消息内容，部分消息没有内容
-            </summary>
-        </member>
         <member name="P:YukinoshitaBot.Data.Event.Message.OpqApi">
             <summary>
             OpqApi
@@ -417,6 +412,11 @@
         <member name="P:YukinoshitaBot.Data.Event.PictureMessage.PictureUrls">
             <summary>
             图片URL
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Event.PictureMessage.Content">
+            <summary>
+            文本消息
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Event.PictureMessage.IsFlashPicture">
@@ -527,6 +527,11 @@
             </summary>
             <param name="sender">发送者信息</param>
             <param name="content">文本消息</param>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Event.TextMessage.Content">
+            <summary>
+            文本消息
+            </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.VoiceMessage">
             <summary>
@@ -960,12 +965,6 @@
             </summary>
             <param name="msg">消息</param>
         </member>
-        <member name="M:YukinoshitaBot.Services.IMessageHandler.OnMsgRecieved(YukinoshitaBot.Data.Event.Message)">
-            <summary>
-            通用的消息处理
-            </summary>
-            <param name="msg">消息</param>
-        </member>
         <member name="T:YukinoshitaBot.Services.MessageQueueScanner">
             <summary>
             消息队列扫描线程
@@ -1030,6 +1029,13 @@
         </member>
         <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnGroupTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
             <inheritdoc/>
+        </member>
+        <member name="M:YukinoshitaBot.Services.YukinoshitaController.OnTextMsgRecieved(YukinoshitaBot.Data.Event.TextMessage)">
+            <summary>
+            文本消息处理
+            </summary>
+            <param name="msg">文本消息</param>
+            <exception cref="T:System.NullReferenceException"></exception>
         </member>
         <member name="T:YukinoshitaBot.YukinoshitaWorker">
             <summary>

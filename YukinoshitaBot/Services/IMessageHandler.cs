@@ -35,11 +35,5 @@ namespace YukinoshitaBot.Services
         /// </summary>
         /// <param name="msg">消息</param>
         void OnFriendPictureMsgRecieved(PictureMessage msg);
-
-        /// <summary>
-        /// 通用的消息处理
-        /// </summary>
-        /// <param name="msg">消息</param>
-        void OnMsgRecieved(Message msg);
     }
 }
