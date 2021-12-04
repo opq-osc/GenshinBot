@@ -4,73 +4,12 @@
         <name>YukinoshitaBot</name>
     </assembly>
     <members>
-        <member name="T:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute">
-            <summary>
-            定义为YukinoshitaController
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Command">
-            <summary>
-            匹配的指令
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Priority">
-            <summary>
-            优先级，越小优先级越高
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.Mode">
-            <summary>
-            处理模式
-            </summary>
-        </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.MaxLength">
-            <summary>
-            超过则忽略此消息
-            </summary>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.TryMatch(System.String,System.Collections.Generic.Dictionary{System.String,System.String}@)">
-            <summary>
-            检验输入指令是否匹配控制器
-            </summary>
-            <param name="msg">输入的指令</param>
-            <param name="matchPairs">得到的匹配键值对</param>
-            <returns></returns>
-        </member>
-        <member name="M:YukinoshitaBot.Data.Attributes.YukinoControllerAttribute.CheckLength(System.String)">
-            <summary>
-            检验输入指令是否符合
-            排除空字符串和超长字符串
-            </summary>
-            <param name="content">输入指令</param>
-            <returns></returns>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.StrictRouteAttribute">
-            <summary>
-            当输入的指令与设置指令完全一致时才匹配
-            Command = "Hello"
-            "Hello" 匹配
-            "Hello world" 不匹配
-            </summary>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.StartRouteAttribute">
-            <summary>
-            当输入的指令以设置的命令为起始时匹配
-            Command = "Hello"
-            "Hello" 匹配
-            "Hello world" 匹配
-            </summary>
-        </member>
-        <member name="T:YukinoshitaBot.Data.Attributes.RegexRouteAttribute">
-            <summary>
-            使用正则进行匹配
-            </summary>
-        </member>
         <member name="T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute">
             <summary>
-            [CmdRoute("绑定_{username}_{password}"))
-            "_" 将被替换为正则中的 whitespace 即 \s+
-            "{key}" 将被替换为 (?&lt;key&gt;.+?)
+            [CmdRoute("测试_{must}_[option]")] <br/>
+            _      ->  \s* <br/>
+            {key}  ->  (?&lt;key&gt;.+?) <br/>
+            [key]  ->  (?&lt;key&gt;.*?)
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.HandleMode">
@@ -87,6 +26,68 @@
             <summary>
             本方法处理完毕后继续将请求向之后的处理者传递
             </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.RegexRouteAttribute">
+            <summary>
+            使用正则进行匹配
+            </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.StartRouteAttribute">
+            <summary>
+            当输入的指令以设置的命令为起始时匹配
+            Command = "Hello"
+            "Hello" 匹配
+            "Hello world" 匹配
+            </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.StrictRouteAttribute">
+            <summary>
+            当输入的指令与设置指令完全一致时才匹配
+            Command = "Hello"
+            "Hello" 匹配
+            "Hello world" 不匹配
+            </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute">
+            <summary>
+            定义为YukinoshitaController
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Command">
+            <summary>
+            匹配的指令
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Priority">
+            <summary>
+            优先级，越小优先级越高
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.Mode">
+            <summary>
+            处理模式
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.MaxLength">
+            <summary>
+            超过则忽略此消息
+            </summary>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.TryMatch(System.String,System.Collections.Generic.Dictionary{System.String,System.String}@)">
+            <summary>
+            检验输入指令是否匹配控制器
+            </summary>
+            <param name="msg">输入的指令</param>
+            <param name="matchPairs">得到的匹配键值对</param>
+            <returns></returns>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Attributes.YukinoRouteAttribute.CheckLength(System.String)">
+            <summary>
+            检验输入指令是否符合
+            排除空字符串和超长字符串
+            </summary>
+            <param name="content">输入指令</param>
+            <returns></returns>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo">
             <summary>
@@ -113,7 +114,7 @@
             控制器类型
             </summary>
         </member>
-        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.YukinoControllerAttribute">
+        <member name="P:YukinoshitaBot.Data.Attributes.YukinoshitaControllerInfo.YukinoRouteAttribute">
             <summary>
             控制器属性
             </summary>

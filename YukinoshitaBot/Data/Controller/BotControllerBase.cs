@@ -19,7 +19,7 @@
         /// <summary>
         /// 匹配得到的参数键值对
         /// </summary>
-        public Dictionary<string,string> MatchPairs { get; set; } = null!;
+        public Dictionary<string, string> MatchPairs { get; set; } = null!;
 
         /// <summary>
         /// 参数验证中的错误信息
@@ -36,7 +36,10 @@
         /// </summary>
         public void EmitErrorMsg()
         {
-            Message.ReplyTextMsg(string.Join('\n', ParamErrors));
+            if (ParamErrors.Any())
+            {
+                Message.ReplyTextMsg(string.Join('\n', ParamErrors));
+            }
         }
     }
 }

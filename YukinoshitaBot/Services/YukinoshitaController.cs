@@ -66,11 +66,11 @@ namespace YukinoshitaBot.Services
                 {
                     continue;
                 }
-                if (!controller.YukinoControllerAttribute.CheckLength(msg.Content))
+                if (!controller.YukinoRouteAttribute.CheckLength(msg.Content))
                 {
                     continue;
                 }
-                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                if (!controller.YukinoRouteAttribute.TryMatch(msg.Content, out var matchPairs))
                 {
                     continue;
                 }
@@ -79,7 +79,7 @@ namespace YukinoshitaBot.Services
                 controllerObj.MatchPairs = matchPairs;
                 controllerObj.Message = msg;
                 if (InvokeMethod(controllerObj, methods)
-                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
+                    && controller.YukinoRouteAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }
@@ -94,11 +94,11 @@ namespace YukinoshitaBot.Services
                 {
                     continue;
                 }
-                if (!controller.YukinoControllerAttribute.CheckLength(msg.Content))
+                if (!controller.YukinoRouteAttribute.CheckLength(msg.Content))
                 {
                     continue;
                 }
-                if (!controller.YukinoControllerAttribute.TryMatch(msg.Content, out var matchPairs))
+                if (!controller.YukinoRouteAttribute.TryMatch(msg.Content, out var matchPairs))
                 {
                     continue;
                 }
@@ -107,7 +107,7 @@ namespace YukinoshitaBot.Services
                 controllerObj.MatchPairs = matchPairs;
                 controllerObj.Message = msg;
                 if (InvokeMethod(controllerObj, methods)
-                    && controller.YukinoControllerAttribute.Mode == HandleMode.Break)
+                    && controller.YukinoRouteAttribute.Mode == HandleMode.Break)
                 {
                     break;
                 }

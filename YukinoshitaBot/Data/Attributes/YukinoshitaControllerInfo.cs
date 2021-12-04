@@ -22,39 +22,39 @@ namespace YukinoshitaBot.Data.Attributes
         public YukinoshitaControllerInfo(Type controllerType)
         {
             this.ControllerType = controllerType;
-            var attribute = controllerType.GetCustomAttribute<YukinoControllerAttribute>();
+            var attribute = controllerType.GetCustomAttribute<YukinoRouteAttribute>();
             if (attribute is null)
             {
                 throw new InvalidCastException($"Type '{controllerType.FullName}' is not a YukinoshitaController.");
             }
-            this.YukinoControllerAttribute = attribute;
+            this.YukinoRouteAttribute = attribute;
 
             var methods = controllerType.GetMethods();
 
             this.FriendTextHandlers = (from method in methods
-                                  let attr = method.GetCustomAttribute<FriendTextAttribute>()
-                                  where attr != null
-                                  select method).ToList();
+                                       let attr = method.GetCustomAttribute<FriendTextAttribute>()
+                                       where attr != null
+                                       select method).ToList();
             this.FriendImageHandlers = (from method in methods
-                                       let attr = method.GetCustomAttribute<FriendImageAttribute>()
-                                       where attr != null
-                                       select method).ToList();
+                                        let attr = method.GetCustomAttribute<FriendImageAttribute>()
+                                        where attr != null
+                                        select method).ToList();
             this.GroupTextHandlers = (from method in methods
-                                       let attr = method.GetCustomAttribute<GroupTextAttribute>()
-                                       where attr != null
-                                       select method).ToList();
+                                      let attr = method.GetCustomAttribute<GroupTextAttribute>()
+                                      where attr != null
+                                      select method).ToList();
             this.GroupImageHandlers = (from method in methods
                                        let attr = method.GetCustomAttribute<GroupImageAttribute>()
                                        where attr != null
                                        select method).ToList();
             this.TempSessionTextHandlers = (from method in methods
-                                       let attr = method.GetCustomAttribute<TempTextAttribute>()
-                                       where attr != null
-                                       select method).ToList();
+                                            let attr = method.GetCustomAttribute<TempTextAttribute>()
+                                            where attr != null
+                                            select method).ToList();
             this.TempSessionImageHandlers = (from method in methods
-                                       let attr = method.GetCustomAttribute<TempImageAttribute>()
-                                       where attr != null
-                                       select method).ToList();
+                                             let attr = method.GetCustomAttribute<TempImageAttribute>()
+                                             where attr != null
+                                             select method).ToList();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace YukinoshitaBot.Data.Attributes
         /// <summary>
         /// 控制器属性
         /// </summary>
-        public YukinoControllerAttribute YukinoControllerAttribute { get; set; } = null!;
+        public YukinoRouteAttribute YukinoRouteAttribute { get; set; } = null!;
 
         /// <summary>
         /// 好友文本消息处理的方法
@@ -123,18 +123,18 @@ namespace YukinoshitaBot.Data.Attributes
 
         public static bool operator >(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {
-            return obj1.YukinoControllerAttribute.Priority > obj2.YukinoControllerAttribute.Priority;
+            return obj1.YukinoRouteAttribute.Priority > obj2.YukinoRouteAttribute.Priority;
         }
 
         public static bool operator <(YukinoshitaControllerInfo obj1, YukinoshitaControllerInfo obj2)
         {
-            return obj1.YukinoControllerAttribute.Priority < obj2.YukinoControllerAttribute.Priority;
+            return obj1.YukinoRouteAttribute.Priority < obj2.YukinoRouteAttribute.Priority;
         }
 
         /// <inheritdoc/>
         public int CompareTo(YukinoshitaControllerInfo other)
         {
-            return this.YukinoControllerAttribute.Priority - other.YukinoControllerAttribute.Priority;
+            return this.YukinoRouteAttribute.Priority - other.YukinoRouteAttribute.Priority;
         }
     }
 }
