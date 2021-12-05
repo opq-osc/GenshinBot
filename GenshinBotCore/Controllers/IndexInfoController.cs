@@ -27,11 +27,10 @@ namespace GenshinBotCore.Controllers
         [FriendText, GroupText]
         public async Task IndexInfoHandler()
         {
-            var message = Message as TextMessage ?? throw new NullReferenceException(nameof(Message));
-            var user = userManager.GetUserByQQ(message.SenderInfo.FromQQ ?? default);
+            var user = userManager.GetUserByQQ(FromQQ ?? default);
             if (user == null)
             {
-                message.ReplyTextMsg("你还没有登陆过呢");
+                ReplyTextMsg("你还没有登陆过呢");
                 return;
             }
             try
@@ -40,7 +39,7 @@ namespace GenshinBotCore.Controllers
                 var accountResponse = await takumiApi.GetGameAccounts(user.MihoyoId);
                 if (!accountResponse.IsSuccess || accountResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("米游社登陆失败, 账号信息获取失败");
+                    ReplyTextMsg("米游社登陆失败, 账号信息获取失败");
                     return;
                 }
                 var genshinAccountInfo = accountResponse.Payload.List.Where(n => n.GameId == 2).Single();
@@ -48,7 +47,7 @@ namespace GenshinBotCore.Controllers
                 var indexResponse = await takumiApi.GetIndexAsync(user.GenshinUid, user.ServerId);
                 if (!indexResponse.IsSuccess || indexResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("获取信息失败，你可能还没有注册米游社！");
+                    ReplyTextMsg("获取信息失败，你可能还没有注册米游社！");
                     return;
                 }
                 var indexInfo = indexResponse.Payload;
@@ -74,12 +73,12 @@ namespace GenshinBotCore.Controllers
                     sb.AppendLine($"{character.Name}：等级{character.Level}，命座{character.Constellation}，好感{character.Fetter}");
                 }
 
-                message.ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
+                ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
 
             }
             catch (Exception ex)
             {
-                message.ReplyTextMsg($"获取信息失败：{ex.Message}");
+                ReplyTextMsg($"获取信息失败：{ex.Message}");
             }
         }
     }

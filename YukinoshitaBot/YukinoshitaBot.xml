@@ -6,10 +6,25 @@
     <members>
         <member name="T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute">
             <summary>
-            [CmdRoute("测试_{must}_[option]")] <br/>
-            _      ->  \s* <br/>
-            {key}  ->  (?&lt;key&gt;.+?) <br/>
-            [key]  ->  (?&lt;key&gt;.*?)
+            [CmdRoute("测试{requsite}{option?}{key:append}")] <br/>
+            {key}  ->  (?&lt;key&gt;.+?)
+            </summary>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Attributes.CmdRouteAttribute.BuildCmdRegex(System.Collections.Generic.Queue{YukinoshitaBot.Data.Attributes.CmdRouteAttribute.CmdUnit})">
+            <summary>
+            构建用于命令匹配的正则表达式
+            </summary>
+            <param name="queue">命令单元列表</param>
+            <returns></returns>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute.CmdUnit">
+            <summary>
+            命令单元
+            </summary>
+        </member>
+        <member name="T:YukinoshitaBot.Data.Attributes.CmdRouteAttribute.CmdType">
+            <summary>
+            命令单元类型
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Attributes.HandleMode">
@@ -283,7 +298,58 @@
             </summary>
         </member>
         <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.Message">
-            <see cref="P:YukinoshitaBot.Data.Controller.BotControllerBase.Message"/>
+            <summary>
+            接收到的消息
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.SenderInfo">
+            <summary>
+            消息发送者的信息
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.MessageType">
+            <summary>
+            消息类型
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.SenderType">
+            <summary>
+            发送者类型
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.FromQQ">
+            <summary>
+            消息来源用户QQ号
+            </summary>
+        </member>
+        <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.FromGroupId">
+            <summary>
+            消息来源群号
+            </summary>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.ReplyTextMsg(System.String)">
+            <summary>
+            返回文本消息
+            </summary>
+            <param name="msg">需要发送的文本</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.ReplyPictureMsg(System.String)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="base64EncodedImage">base64图片</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.ReplyPictureMsg(System.Uri)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="picUri">图片UR</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.ReplyPictureMsg(System.IO.FileInfo)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="localPicture">本地图片文件</param>
         </member>
         <member name="P:YukinoshitaBot.Data.Controller.BotControllerBase.MatchPairs">
             <summary>
@@ -300,9 +366,9 @@
             参数验证是否成功
             </summary>
         </member>
-        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.EmitErrorMsg">
+        <member name="M:YukinoshitaBot.Data.Controller.BotControllerBase.OnValidationError">
             <summary>
-            当参数验证失败时返回错误消息  
+            当参数验证失败时调用，重写以自定义参数验证失败时的处理逻辑。
             </summary>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.AtInfo">
@@ -404,6 +470,30 @@
             回复消息
             </summary>
             <param name="resp">要回复的消息</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Event.Message.ReplyText(System.String)">
+            <summary>
+            返回文本消息
+            </summary>
+            <param name="msg">需要发送的文本</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Event.Message.ReplyPicture(System.String)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="base64EncodedImage">base64图片</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Event.Message.ReplyPicture(System.Uri)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="picUri">图片UR</param>
+        </member>
+        <member name="M:YukinoshitaBot.Data.Event.Message.ReplyPicture(System.IO.FileInfo)">
+            <summary>
+            返回图片消息
+            </summary>
+            <param name="localPicture">本地图片文件</param>
         </member>
         <member name="T:YukinoshitaBot.Data.Event.PictureMessage">
             <summary>
@@ -897,19 +987,6 @@
             <param name="httpRequest">Http请求</param>
             <param name="httpClient">使用该<see cref="T:System.Net.Http.HttpClient"/>发送</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
-        </member>
-        <member name="T:YukinoshitaBot.Extensions.MessageExtension">
-            <summary>
-            <see cref="T:YukinoshitaBot.Data.Event.Message"/>的扩展
-            </summary>
-        </member>
-        <member name="M:YukinoshitaBot.Extensions.MessageExtension.ReplyTextMsg(YukinoshitaBot.Data.Event.Message,System.String)">
-            <summary>
-            返回文本消息
-            </summary>
-            <param name="message"><see cref="T:YukinoshitaBot.Data.Event.Message"/></param>
-            <param name="msg">需要发送的文本</param>
-            <exception cref="T:System.ArgumentException">不支持其他类型</exception>
         </member>
         <member name="T:YukinoshitaBot.Extensions.ServiceCollectionExtension">
             <summary>

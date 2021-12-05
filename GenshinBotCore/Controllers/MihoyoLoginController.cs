@@ -39,14 +39,14 @@ namespace GenshinBotCore.Controllers
             var cmd = message.Content.Split(' ');
             if (cmd.Length < 3)
             {
-                message.ReplyTextMsg("指令格式错误");
+                ReplyTextMsg("指令格式错误");
                 return;
             }
             var phone = cmd[1];
             var code = cmd[2];
             if (string.IsNullOrWhiteSpace(phone) || string.IsNullOrWhiteSpace(code))
             {
-                message.ReplyTextMsg("不是正确的手机号和验证码");
+                ReplyTextMsg("不是正确的手机号和验证码");
                 return;
             }
             #endregion
@@ -56,7 +56,7 @@ namespace GenshinBotCore.Controllers
                 var loginResponse = await mihoyoApi.Login(phone, code);
                 if (!loginResponse.IsSuccess || loginResponse.Payload is null)
                 {
-                    message.ReplyTextMsg($"米游社登陆失败, 短信验证码登陆失败");
+                    ReplyTextMsg($"米游社登陆失败, 短信验证码登陆失败");
                     return;
                 }
                 // 第二步，LoginTicket换取MultiToken
@@ -64,7 +64,7 @@ namespace GenshinBotCore.Controllers
                     (loginResponse.Payload.Token, loginResponse.Payload.Id.ToString(), 3);
                 if (!tokenResponse.IsSuccess || tokenResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("米游社登陆失败, 获取Token失败");
+                    ReplyTextMsg("米游社登陆失败, 获取Token失败");
                     return;
                 }
                 // 第三步，存储用户信息
@@ -75,7 +75,7 @@ namespace GenshinBotCore.Controllers
                 });
                 if (user is null)
                 {
-                    message.ReplyTextMsg("米游社登陆失败, 用户创建失败");
+                    ReplyTextMsg("米游社登陆失败, 用户创建失败");
                     return;
                 }
                 // 第四步，存储密钥信息
@@ -89,7 +89,7 @@ namespace GenshinBotCore.Controllers
                 var accountResponse = await takumiApi.GetGameAccounts(loginResponse.Payload.Id.ToString());
                 if (!accountResponse.IsSuccess || accountResponse.Payload is null)
                 {
-                    message.ReplyTextMsg("米游社登陆失败, 账号信息获取失败");
+                    ReplyTextMsg("米游社登陆失败, 账号信息获取失败");
                     return;
                 }
                 // 第六步，更新用户信息
@@ -105,11 +105,11 @@ namespace GenshinBotCore.Controllers
                 sb.Append("Uid：").AppendLine(genshinAccount.GameUid);
                 sb.Append("等级：").Append(genshinAccount.Level);
 
-                message.ReplyTextMsg(sb.ToString());
+                ReplyTextMsg(sb.ToString());
             }
             catch (Exception ex)
             {
-                message.ReplyTextMsg($"登陆失败: {ex.Message}");
+                ReplyTextMsg($"登陆失败: {ex.Message}");
                 return;
             }
         }

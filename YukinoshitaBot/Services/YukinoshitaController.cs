@@ -102,7 +102,7 @@ namespace YukinoshitaBot.Services
                 {
                     continue;
                 }
-                BotControllerBase controllerObj = controllers.GetController(controller.ControllerType)
+                var controllerObj = controllers.GetController(controller.ControllerType)
                     ?? throw new NullReferenceException();
                 controllerObj.MatchPairs = matchPairs;
                 controllerObj.Message = msg;
@@ -125,7 +125,7 @@ namespace YukinoshitaBot.Services
                 }
                 else
                 {
-                    controllerObj.EmitErrorMsg();
+                    controllerObj.OnValidationError();
                 }
             }
             return true;

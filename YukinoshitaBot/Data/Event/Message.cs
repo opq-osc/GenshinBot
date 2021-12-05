@@ -4,7 +4,9 @@
 
 namespace YukinoshitaBot.Data.Event
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using YukinoshitaBot.Data.Content;
     using YukinoshitaBot.Data.OpqApi;
@@ -64,14 +66,14 @@ namespace YukinoshitaBot.Data.Event
         /// 从<see cref="GroupMessage"/>创建Message
         /// </summary>
         /// <param name="rawMessage">原始消息</param>
-        /// <exception cref="System.ArgumentException">ArgumentException</exception>
-        /// <exception cref="System.NotImplementedException">NotImplementedException</exception>
+        /// <exception cref="ArgumentException">ArgumentException</exception>
+        /// <exception cref="NotImplementedException">NotImplementedException</exception>
         /// <returns><see cref="Message"/>的子类</returns>
         public static Message Parse(GroupMessage? rawMessage)
         {
             if (rawMessage is null)
             {
-                throw new System.ArgumentException("参数不能为空", nameof(rawMessage));
+                throw new ArgumentException("参数不能为空", nameof(rawMessage));
             }
 
             var sender = new SenderInfo(rawMessage.FromUserId, rawMessage.FromGroupId,
@@ -122,7 +124,7 @@ namespace YukinoshitaBot.Data.Event
                 {
                     true => new PictureMessage(sender, rawContent.Url ?? string.Empty),
                     false => new PictureMessage(sender, from pic in rawContent.GroupPic select pic.Url, rawContent.Content ?? string.Empty),
-                    null => throw new System.ArgumentException("cannot determine content type.")
+                    null => throw new ArgumentException("cannot determine content type.")
                 };
 
                 picMessage.ReplayInfo = replayInfo;
@@ -161,14 +163,14 @@ namespace YukinoshitaBot.Data.Event
         /// 从<see cref="FriendMessage"/>创建Message
         /// </summary>
         /// <param name="rawMessage">原始消息</param>
-        /// <exception cref="System.ArgumentException">ArgumentException</exception>
-        /// <exception cref="System.NotImplementedException">NotImplementedException</exception>
+        /// <exception cref="ArgumentException">ArgumentException</exception>
+        /// <exception cref="NotImplementedException">NotImplementedException</exception>
         /// <returns><see cref="Message"/>的子类</returns>
         public static Message Parse(FriendMessage? rawMessage)
         {
             if (rawMessage is null)
             {
-                throw new System.ArgumentException("参数不能为空", nameof(rawMessage));
+                throw new ArgumentException("参数不能为空", nameof(rawMessage));
             }
 
             if (rawMessage.MsgType == "TextMsg")
@@ -184,7 +186,7 @@ namespace YukinoshitaBot.Data.Event
                 {
                     true => new PictureMessage(sender, rawContent.Url ?? string.Empty),
                     false => new PictureMessage(sender, from pic in rawContent.FriendPic select pic.Url, rawContent.Content ?? string.Empty),
-                    null => throw new System.ArgumentException("cannot determine content type.")
+                    null => throw new ArgumentException("cannot determine content type.")
                 };
                 return picMessage;
             }
@@ -207,7 +209,7 @@ namespace YukinoshitaBot.Data.Event
             }
             else
             {
-                throw new System.NotImplementedException("not surpported content type " + rawMessage.MsgType);
+                throw new NotImplementedException("not surpported content type " + rawMessage.MsgType);
             }
         }
 
@@ -222,10 +224,38 @@ namespace YukinoshitaBot.Data.Event
                 SenderType.Friend => resp.SendToFriend(this.SenderInfo.FromQQ ?? default),
                 SenderType.Group => resp.SendToGroup(this.SenderInfo.FromGroupId ?? default),
                 SenderType.TempSession => resp.SendToGroupMember(this.SenderInfo.FromQQ ?? default, this.SenderInfo.FromGroupId ?? default),
-                _ => throw new System.NotImplementedException()
+                _ => throw new NotImplementedException()
             };
 
             this.OpqApi?.AddRequest(request);
         }
+
+        /// <summary>
+        /// 返回文本消息
+        /// </summary>
+        /// <param name="msg">需要发送的文本</param>
+        public void ReplyText(string msg) 
+            => Reply(new TextMessageRequest(msg));
+
+        /// <summary>
+        /// 返回图片消息
+        /// </summary>
+        /// <param name="base64EncodedImage">base64图片</param>
+        public void ReplyPicture(string base64EncodedImage) 
+            => Reply(new PictureMessageRequest(base64EncodedImage));
+
+        /// <summary>
+        /// 返回图片消息
+        /// </summary>
+        /// <param name="picUri">图片UR</param>
+        public void ReplyPicture(Uri picUri) 
+            => Reply(new PictureMessageRequest(picUri));
+
+        /// <summary>
+        /// 返回图片消息
+        /// </summary>
+        /// <param name="localPicture">本地图片文件</param>
+        public void ReplyPicture(FileInfo localPicture)
+            => Reply(new PictureMessageRequest(localPicture));
     }
 }

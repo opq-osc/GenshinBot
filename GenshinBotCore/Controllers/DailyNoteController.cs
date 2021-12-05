@@ -31,7 +31,7 @@ namespace GenshinBotCore.Controllers
             var user = userManager.GetUserByQQ(this.Message.SenderInfo.FromQQ ?? default);
             if (user == null)
             {
-                this.Message.ReplyTextMsg("你还没有登陆过呢");
+                ReplyTextMsg("你还没有登陆过呢");
                 return;
             }
             try
@@ -39,7 +39,7 @@ namespace GenshinBotCore.Controllers
                 var dailyNoteResponse = await takumiApi.GetDailyNoteAsync(user.GenshinUid, user.ServerId);
                 if (!dailyNoteResponse.IsSuccess || dailyNoteResponse.Payload is null)
                 {
-                    this.Message.ReplyTextMsg("获取信息失败，请打开米游社中每日便签功能！");
+                    ReplyTextMsg("获取信息失败，请打开米游社中每日便签功能！");
                     return;
                 }
                 var dailyNoteInfo = dailyNoteResponse.Payload;
@@ -60,11 +60,11 @@ namespace GenshinBotCore.Controllers
                     sb.AppendLine(role.Status == "Finished" ? "已完成" : $"剩余时间：{TimeSpan.FromSeconds(int.Parse(role.RemainedTime))}");
                 }
 
-                this.Message.ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
+                ReplyTextMsg(sb.ToString().TrimEnd('\n', '\r'));
             }
             catch (Exception ex)
             {
-                this.Message.ReplyTextMsg($"获取信息失败：{ex.Message}");
+                ReplyTextMsg($"获取信息失败：{ex.Message}");
             }
         }
     }

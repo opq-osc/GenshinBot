@@ -8,15 +8,14 @@ namespace YukinoshitaBot.Data.Attributes
     using System.Collections.Generic;
     using System.Text;
     using System.Text.RegularExpressions;
+    using YukinoshitaBot.Extensions;
 
     /// <summary>
-    /// [CmdRoute("测试_{must}_[option]")] <br/>
-    /// _      ->  \s* <br/>
-    /// {key}  ->  (?&lt;key&gt;.+?) <br/>
-    /// [key]  ->  (?&lt;key&gt;.*?)
+    /// [CmdRoute("测试{requsite}{option?}{key:append}")] <br/>
+    /// {key}  ->  (?&lt;key&gt;.+?)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class CmdRouteAttribute : RegexRouteAttribute
+    public class CmdRouteAttribute : YukinoRouteAttribute
     {
         public CmdRouteAttribute() { }
 
@@ -25,94 +24,137 @@ namespace YukinoshitaBot.Data.Attributes
             this.Command = cmd;
         }
 
-        public bool AllowRedundancy { get; set; } = true;
-
         public override bool TryMatch(string msg, out Dictionary<string, string> matchPairs)
         {
             var regex = this.CompileCommand();
-            return TryRegexMatch(msg, out matchPairs, regex);
+            return regex.TryGetMatchPairs(msg, out matchPairs);
         }
 
+        // TODO 也许可以写个单独的命令解析类
         private Regex CompileCommand()
         {
-            var sb = new StringBuilder();
+            if (string.IsNullOrWhiteSpace(this.Command))
+            {
+                throw new ArgumentException("Command can't be Empty");
+            }
+            // TODO 写一个类用于控制 命令是否能进入队列 比如 可选参数就必须在最后
+            var queue = new Queue<CmdUnit>();
             var head = 0;
             var cur = -1;
             while (++cur < this.Command.Length)
             {
                 var c = this.Command[cur];
-                if ("}]".Contains(c))
+                if (c == '}')
                 {
                     throw new ArgumentException($"unpaired '{c}' found!");
                 }
-                else if (c == '{')
+                if (c == '{')
                 {
-                    sb.Append(Regex.Escape(this.Command[head..cur]));
-                    head = cur++;
-                    while (cur < this.Command.Length)
+                    queue.Enqueue(new CmdUnit
                     {
-                        c = this.Command[cur];
-                        // TODO 这部分单独写一个方法 判断是不是正确的标识符
-                        if ((c >= 'a') && (c <= 'z') || (c >= 'A') && (c <= 'Z') || (c >= '0') && (c <= '9'))
+                        Type = CmdType.Plain,
+                        Content = Regex.Escape(Command[head..cur])
+                    });
+                    // head -> '{' 的前一个字符
+                    head = ++cur;
+                    while (Command[cur] != '}')
+                    {
+                        cur++;
+                        if (cur >= Command.Length)
                         {
-                            cur++;
-                            continue;
-                        }
-                        else if (c == '}')
-                        {
-                            // head 指向 '[' cur 指向 ']'
-                            // [(head + 1)..cur] 选取 [] 之间的内容
-                            var key = this.Command[(head + 1)..cur];
-                            sb.Append(@$"(?<{key}>\S+)");
-                            head = cur + 1;
-                            break;
-                        }
-                        else
-                        {
-                            throw new ArgumentException($"character '{c}' found! only character which can be used in identifier are allowed");
+                            throw new ArgumentException("found '{' but can't find another '}'.");
                         }
                     }
-                }
-                else if (c == '[')
-                {
-                    sb.Append(Regex.Escape(this.Command[head..cur]));
-                    head = cur++;
-                    while (cur < this.Command.Length)
-                    {
-                        c = this.Command[cur];
-                        if ((c >= 'a') && (c <= 'z') || (c >= 'A') && (c <= 'Z') || (c >= '0') && (c <= '9'))
-                        {
-                            cur++;
-                            continue;
-                        }
-                        else if (c == ']')
-                        {
-                            // head 指向 '{' cur 指向 '}'
-                            // [(head + 1)..cur] 选取 {} 之间的内容
-                            var key = this.Command[(head + 1)..cur];
-                            sb.Append(@$"(?<{key}>\S*)");
-                            head = cur + 1;
-                            break;
-                        }
-                        else
-                        {
-                            throw new ArgumentException($"character '{c}' found! only character which can be used in identifier are allowed");
-                        }
-                    }
-                }
-                else if (c == '_')
-                {
-                    sb.Append(Regex.Escape(this.Command[head..cur]));
-                    sb.Append(@"\s*");
+                    queue.Enqueue(ParseCommandUnit(Command[head..cur]));
+                    // head -> '}' 的后一个字符
                     head = cur + 1;
                 }
             }
-            sb.Append(this.Command[head..cur]);
-            if (!this.AllowRedundancy)
+            queue.Enqueue(new CmdUnit
             {
-                sb.Append('$');
+                Type = CmdType.Plain,
+                Content = Regex.Escape(Command[head..cur])
+            });
+
+            
+            return BuildCmdRegex(queue);
+        }
+
+        /// <summary>
+        /// 构建用于命令匹配的正则表达式
+        /// </summary>
+        /// <param name="queue">命令单元列表</param>
+        /// <returns></returns>
+        private Regex BuildCmdRegex(Queue<CmdUnit> queue)
+        {
+            var sb = new StringBuilder();
+            sb.Append('^');
+            while (queue.TryDequeue(out var unit))
+            {
+                sb.Append(unit.Content);
             }
+            sb.Append('$');
             return new Regex(sb.ToString());
+        }
+
+        /// <summary>
+        /// 命令单元
+        /// </summary>
+        private class CmdUnit
+        {
+            internal CmdType Type { get; set; }
+            internal string Content { get; set; } = null!;
+        }
+
+        /// <summary>
+        /// 命令单元类型
+        /// </summary>
+        private enum CmdType
+        {
+            Plain,
+            Requisite,
+            Option,
+        }
+
+        private CmdUnit ParseCommandUnit(string input)
+        {
+            // TODO 标识符的正则表达式
+            // TODO 更丰富的类型 append
+            var match = Regex.Match(input, @"^(?<key>[a-zA-Z0-9@_]+)(?<append>:[a-z]+)?(?<option>\?)?$");
+            if (!match.Success)
+            {
+                throw new ArgumentException($"\"{input}\" is not valid command.");
+            }
+
+            var key = match.Groups["key"].Value;
+            if (!key.IsValidIdentifier())
+            {
+                throw new ArgumentException($"\"{key}\" is not valid identifier.");
+            }
+
+            var append = match.Groups["append"]?.Value;
+            if (append != null)
+            {
+                // TODO 还没写
+            }
+
+            var option = match.Groups["option"];
+            if (option != null)
+            {
+                return new CmdUnit
+                {
+                    Type = CmdType.Option,
+                    Content = @$"(?:\s+(?<{key}>\S+))?",
+                };
+            }
+            else
+            {
+                return new CmdUnit
+                {
+                    Type = CmdType.Requisite,
+                    Content = @$"\s+(?<{key}>\S+)",
+                };
+            }
         }
     }
 }

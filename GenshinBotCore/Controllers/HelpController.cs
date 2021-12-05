@@ -17,7 +17,7 @@ namespace GenshinBotCore.Controllers
         [FriendText, GroupText]
         public void TextMsgHandler()
         {
-            this.Message.ReplyTextMsg(Help());
+            ReplyTextMsg(Help());
         }
 
         private string Help()

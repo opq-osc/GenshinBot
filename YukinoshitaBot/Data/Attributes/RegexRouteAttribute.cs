@@ -7,6 +7,7 @@ namespace YukinoshitaBot.Data.Attributes
     using System;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
+    using YukinoshitaBot.Extensions;
 
     /// <summary>
     /// 使用正则进行匹配
@@ -22,27 +23,7 @@ namespace YukinoshitaBot.Data.Attributes
         public override bool TryMatch(string msg, out Dictionary<string, string> matchPairs)
         {
             var regex = this.CompileCommand();
-            return TryRegexMatch(msg, out matchPairs, regex);
-        }
-
-        protected bool TryRegexMatch(string msg, out Dictionary<string, string> matchPairs, Regex regex)
-        {
-            matchPairs = new();
-            var match = regex.Match(msg);
-            if (match.Success == false)
-            {
-                return false;
-            }
-            var groups = match.Groups.Values;
-            foreach (var group in groups)
-            {
-                if (string.IsNullOrEmpty(group.Name) || string.IsNullOrWhiteSpace(group.Value))
-                {
-                    continue;
-                }
-                matchPairs.Add(group.Name, group.Value);
-            }
-            return true;
+            return regex.TryGetMatchPairs(msg, out matchPairs);
         }
     }
 }
