@@ -72,6 +72,24 @@ namespace GenshinBotCore.Models.TakumiApi
         /// </summary>
         [JsonPropertyName("expeditions")]
         public IEnumerable<ExpeditionInfo> Expeditions { get; set; } = null!;
+
+        /// <summary>
+        /// 洞天宝钱
+        /// </summary>
+        [JsonPropertyName("current_home_coin")]
+        public int CurrentHomeCoin { get; set; }
+
+        /// <summary>
+        /// 最大洞天宝钱
+        /// </summary>
+        [JsonPropertyName("max_home_coin")]
+        public int MaxHomeCoin { get; set; }
+
+        /// <summary>
+        /// 洞天宝钱剩余时间
+        /// </summary>
+        [JsonPropertyName("home_coin_recovery_time")]
+        public string HomeCoinRecoveryTime { get; set; }
     }
 
     /// <summary>
