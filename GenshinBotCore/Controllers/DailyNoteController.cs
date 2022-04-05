@@ -52,6 +52,11 @@ namespace GenshinBotCore.Controllers
                 sb.AppendLine($"周本折扣次数：{dailyNoteInfo.RemainResinDiscountNum}/{dailyNoteInfo.ResinDiscountNumLimit}");
                 sb.AppendLine($"洞天宝钱：{dailyNoteInfo.CurrentHomeCoin}/{dailyNoteInfo.MaxHomeCoin}, {TimeSpan.FromSeconds(int.Parse(dailyNoteInfo.HomeCoinRecoveryTime))}后回满");
                 sb.AppendLine($"探索派遣：{dailyNoteInfo.CurrentExpeditionNum}/{dailyNoteInfo.MaxExpeditionNum}");
+                sb.Append($"参量质变仪：");
+                if (dailyNoteInfo.TransformerInfo.Obtained)
+                    sb.AppendLine(dailyNoteInfo.TransformerInfo.RecoveryTime!.Reached ? "已就绪" : dailyNoteInfo.TransformerInfo.ToString());
+                else
+                    sb.AppendLine("未获取");
                 sb.AppendLine($"-----探索派遣详细信息-----");
                 foreach (var role in dailyNoteInfo.Expeditions)
                 {

@@ -89,7 +89,13 @@ namespace GenshinBotCore.Models.TakumiApi
         /// 洞天宝钱剩余时间
         /// </summary>
         [JsonPropertyName("home_coin_recovery_time")]
-        public string HomeCoinRecoveryTime { get; set; }
+        public string HomeCoinRecoveryTime { get; set; } = null!;
+
+        /// <summary>
+        /// 参量质变仪
+        /// </summary>
+        [JsonPropertyName("transformer")]
+        public TransformerInfo TransformerInfo { get; set; } = null!;
     }
 
     /// <summary>
