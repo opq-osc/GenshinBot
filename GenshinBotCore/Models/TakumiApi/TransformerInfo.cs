@@ -31,7 +31,7 @@ namespace GenshinBotCore.Models.TakumiApi
 
         public override string ToString()
         {
-            return $"{Day * 24 + Hour}:{Minute}:{Second}";
+            return Reached ? "已就绪" : $"{Day * 24 + Hour}:{Minute}:{Second}";
         }
     }
 }
