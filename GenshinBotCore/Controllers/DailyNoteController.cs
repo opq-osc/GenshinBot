@@ -54,7 +54,7 @@ namespace GenshinBotCore.Controllers
                 sb.AppendLine($"探索派遣：{dailyNoteInfo.CurrentExpeditionNum}/{dailyNoteInfo.MaxExpeditionNum}");
                 sb.Append("参量质变仪：");
                 if (dailyNoteInfo.TransformerInfo.Obtained)
-                    sb.AppendLine(dailyNoteInfo.TransformerInfo.ToString());
+                    sb.AppendLine(dailyNoteInfo.TransformerInfo.RecoveryTime.ToString());
                 else
                     sb.AppendLine("未获取");
                 sb.AppendLine($"-----探索派遣详细信息-----");
