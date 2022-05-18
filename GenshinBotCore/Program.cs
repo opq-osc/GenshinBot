@@ -43,7 +43,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             var secretHeader = services.GetRequiredService<ISecretHeaderGenerator>();
             return new TakumiApi(userManager, secretHeader, configuration =>
             {
-                configuration.BaseUrl = "https://api-takumi.mihoyo.com";
+                configuration.BaseUrl = "https://api-takumi-record.mihoyo.com";
                 configuration.GameAccountsUrl = "/game_record/app/card/wapi/getGameRecordCard";
                 configuration.IndexUrl = "/game_record/app/genshin/api/index";
                 configuration.LoginTicketUrl = "/auth/api/getMultiTokenByLoginTicket";
