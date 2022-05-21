@@ -105,7 +105,7 @@ namespace GenshinBotCore.Services
                 { "uid", uid },
             };
 
-            var response = await (configuration.BaseUrl + configuration.LoginTicketUrl).HasQuery(requestParams).GetAsync()
+            var response = await ("https://api-takumi.mihoyo.com" + configuration.LoginTicketUrl).HasQuery(requestParams).GetAsync()
                 .ConfigureAwait(false);
             if (response.StatusCode != 200) throw new HttpRequestException();
 

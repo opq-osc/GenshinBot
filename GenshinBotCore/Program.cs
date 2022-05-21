@@ -46,7 +46,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                 configuration.BaseUrl = "https://api-takumi-record.mihoyo.com";
                 configuration.GameAccountsUrl = "/game_record/app/card/wapi/getGameRecordCard";
                 configuration.IndexUrl = "/game_record/app/genshin/api/index";
-                configuration.LoginTicketUrl = "/auth/api/getMultiTokenByLoginTicket";
+                configuration.LoginTicketUrl = "/account/auth/api/getMultiTokenByLoginTicket";
                 configuration.DailyNoteUrl = "/game_record/app/genshin/api/dailyNote";
             });
         });
